@@ -1,0 +1,3 @@
+ANSWER: {"optionId":"carnet","steer":"","followup":true,"buildPath":"code","buildPathFlipped":false}
+FOLLOWUP OPEN: the table stays open and the page is showing a loading hand. Deliver the next round now with --update --key <key> --payload <file>, then collect it with --wait; never leave the page waiting on a round you have not sent.
+BUILD PATH: code (the round’s recorded default). Code-led: no comp is owed; a comp that already rendered rides at the finish review as the critique reference, and the ambition lives in the direction contract.

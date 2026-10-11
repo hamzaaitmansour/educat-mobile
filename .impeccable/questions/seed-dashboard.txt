@@ -1,0 +1,121 @@
+SURFACE CONCEPT SEED (key: a01d3518; mode: operate; source: api; approved pool: c3b204a1eed6; 306/564 human-approved; rerun with --scope surface --mode operate --from a01d3518 --candidate-count 7 to reproduce this roll against this catalog revision)
+DEALT INDICES: 5, 7, 4 (index 5 leads)
+  After ordering the task's grounded structural candidates by resonance,
+  deal candidates 5, 7, 4 of your own grounded list to the
+  table; index 5 leads, and the deal never points at a challenger.
+  The deal is the roll, not a suggestion: the dice decide which structures
+  reach the user, so the ranking rut stays broken while the user still gets a
+  real choice, and the full ranked list stays yours. In an attended run,
+  present the three dealt structures as full cards of equal salience, the
+  lead carrying kicker THE ROLL, with steer and re-roll, and let the user
+  lock one in; the world is already settled, so this choice is composition.
+  Visualize every dealt card: with image generation available and a
+  comp-led default (.impeccable/config.json buildPath; the page toggle
+  handles the exception), declare a comp per card and generate after
+  serving, lead first; otherwise author each card's wireframe field (see
+  serve-question --schema) and the page draws the schematic. Carry the
+  recorded default in the payload as buildPath with toggle: true. Locking a card
+  approves its comp: a surface round that put three visualized structures on
+  the table replaces the three-option comp round in visualize.md. Re-roll
+  yourself only when every dealt structure fails audience identification or
+  product clarity on named factual grounds.
+  The assignment exists to refuse the model's ranking rut, never to outrank
+  the user or the brief. Never expose assignment metadata in user-facing labels.
+CHALLENGERS:
+  1. an interactive type specimen, where dragging an axis slider morphs a whole grid of glyphs in real time
+     SOURCE ID: variable-font-specimen
+     CREATIVE SPARK: A single giant letter fills the screen. You drag the weight slider and it thickens from hairline to black under your finger, live. Below, a grid of every glyph breathes in step, and a monospace readout counts the axis values.
+     SYSTEM GRAMMAR:
+       - Palette/material: Near-white paper and ink black with one foundry accent; flat surfaces, generous negative space, no ornament so the letterforms carry everything.
+       - Type/composition: The specimen face at enormous display size against tiny monospace UI labels; a strict measure and baseline grid; hierarchy by scale contrast alone.
+       - Topology/navigation: Move by axis slider, by glyph cell, and by size and specimen view.
+       - Controls/state: Drag, type, and pin; moving an axis remaps every glyph on the page continuously and updates the live coordinate readout.
+       - Responsive/motion: reduced-motion snaps between named instances instead of animating the interpolation.
+     WEB LEVERAGE: Bind range inputs to CSS font-variation-settings through a custom property, so one slider drives font-variation across the entire glyph grid with no per-glyph JavaScript.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/variable-font-specimen.webp · hero https://impeccable.style/worlds/cards/variable-font-specimen-hero.webp
+  2. a pocket airline timetable read as a raked rack of tinted glass slides lying on a lit goldenrod bed, where every column, code strip, heading and paragraph is set at one single type size so rank has to be carried by weight, case, reversal and rule instead
+     SOURCE ID: rw-timetable-slide-rack
+     CREATIVE SPARK: A 1971 pocket timetable lying open flat on a light table, a scratched acetate ruler laid across the departure columns at a slight lean, the rules printed on the reverse of the sheet glowing up through the goldenrod stock.
+     SYSTEM GRAMMAR:
+       - Palette/material: Lit goldenrod bed under slate tinted glass, in carbon, bible ivory, vermilion and bottle green, accent set per block id, prose panes opaque ivory
+       - Type/composition: One size only: Bell Gothic prose at 58 to 66, Trade Gothic Condensed No. 18 labels; rank is weight and case, containers rake 11 degrees, baselines flat
+       - Topology/navigation: One continuous rack of slides along the rake, each restating its own heading; travel is lateral, a tick rail shows position and extent at every width
+       - Controls/state: State is a mark in a fixed cell, filled holds, hollow does not, vermilion strikes, green confirms; one element per screen goes to an opaque reversed plate
+       - Responsive/motion: One light travels the bed along the rake, never crossing a prose pane; slides move on that axis only, reduced motion parks it, width never scales type
+     WEB LEVERAGE: CSS parallelogram containers driven by one --rake property with counter sheared inner blocks, the single type size as a token no component may override, code strips computed at build time, and the light as one composited gradient layer.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/rw-timetable-slide-rack.webp · hero https://impeccable.style/worlds/cards/rw-timetable-slide-rack-hero.webp
+  3. a metro screen of flat tiles and giant lowercase, headlines cropped off the canvas edge, color fields as content, chrome deleted so the type itself is the interface
+     SOURCE ID: digital-design-canon-metro-typographic-tiles
+     CREATIVE SPARK: you drag the panorama and the giant word music slides its cropped tail into view, a tile flips over in your peripheral vision with a new photo, everything black and cyan and nothing on screen that is not a word or a color
+     SYSTEM GRAMMAR:
+       - Palette/material: flat cyan, magenta, or lime tiles on a pure black ground, zero gradients or bevels, white segoe as ink, one chosen accent color owns every live state
+       - Type/composition: giant light-weight lowercase headlines cropped off the right edge, type ramped from caption to poster size, left-aligned on a strict grid of square tiles
+       - Topology/navigation: one wide panorama slides behind the viewport, pivot headers peek in from the next pane to promise more, tiles are the only doors
+       - Controls/state: tiles tilt toward the finger on press, live tiles flip to show fresh data, selection floods a tile with the accent color, no borders or button chrome
+       - Responsive/motion: the panorama collapses to a single tile column on narrow screens, entrances glide in from the edge with type leading
+     WEB LEVERAGE: scroll-snap drives the panoramic panes; css 3d transforms tilt tiles on press and flip the live ones
+     QUALITY BAR: board https://impeccable.style/worlds/cards/digital-design-canon-metro-typographic-tiles.webp · hero https://impeccable.style/worlds/cards/digital-design-canon-metro-typographic-tiles-hero.webp
+  4. a streaming catalog wall of horizontally scrolling rows, each poster tile expanding on focus to reveal a title, a rating chip and a short line, with the active row lifting slightly and the rest of the wall dimming behind it
+     SOURCE ID: pop-culture-shelf-streaming-title-card-wall
+     CREATIVE SPARK: Rows and rows of artwork, and the one you land on grows and tells you what it is while everything else quietly gets out of the way.
+     SYSTEM GRAMMAR:
+       - Palette/material: a deep neutral ground with full-bleed poster artwork as the only color, and a single accent on the focused tile border
+       - Type/composition: rows of fixed-ratio poster tiles with a row heading above, and metadata revealed only inside the focused tile
+       - Topology/navigation: rows scroll horizontally and the wall scrolls vertically, so navigation is a grid traversed one axis at a time
+       - Controls/state: controls are tiles, the focused one expands and reveals metadata, and the active row lifts while others dim
+       - Responsive/motion: rows keep their tile ratio and show fewer per screen, and motion is a scale on focus with neighbors sliding aside
+     WEB LEVERAGE: keyboard and pointer focus state driving tile expansion, horizontal rail scrolling with snap, and row-level dimming
+     QUALITY BAR: board https://impeccable.style/worlds/cards/pop-culture-shelf-streaming-title-card-wall.webp · hero https://impeccable.style/worlds/cards/pop-culture-shelf-streaming-title-card-wall-hero.webp
+  5. a metropolitan rail map fired as a midnight-blue enamel mural, where scarlet, cobalt, amber, and green lines bend at disciplined angles, interchange circles bloom at crossings, and the entire city becomes a legible promise of movement
+     SOURCE ID: wayfinding-cartography-signage-midnight-transit-diagram
+     CREATIVE SPARK: Under the station's white light, four colored lines meet in one porcelain interchange; a fingertip follows the scarlet route outward until the dense center opens toward the river.
+     SYSTEM GRAMMAR:
+       - Palette/material: midnight-blue enamel ground with porcelain white station ticks, scarlet, cobalt, amber, and green line inks, the chosen line burning brightest
+       - Type/composition: humanist transit sans in fixed-size station labels, lines bending only at 45 and 90 degrees, the diagram's discipline is the composition
+       - Topology/navigation: Organize movement by line, station order, branch, interchange, fare boundary, and destination rather than literal geographic distance.
+       - Controls/state: Trace, transfer, reverse, reroute, and compare journeys with open, arriving, delayed, suspended, crowded, and accessible states.
+       - Responsive/motion: Focus the chosen corridor while preserving transfer context; never shrink the whole network into an unreadable miniature.
+     WEB LEVERAGE: Live service state can recompute only affected routes and transfer promises, while deep-linked itineraries, native search, and offline caching preserve a usable journey beyond the mural.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/wayfinding-cartography-signage-midnight-transit-diagram.webp · hero https://impeccable.style/worlds/cards/wayfinding-cartography-signage-midnight-transit-diagram-hero.webp
+  6. a reference-setting page drawn by a ruling engine, two short-measure text columns twinned around a fixed centre rail of keys, the whole block held small inside a wide annotation margin where the apparatus hangs and overlaps the block's edge
+     SOURCE ID: rw-centre-rail-reference-setting
+     CREATIVE SPARK: A wide-margin edition open under a lamp: two dense columns of small roman, a hairline channel of vermilion letter-keys running down between them, and four inches of bare paper all around where a previous reader has ruled one note and bracketed it back into the line it belongs to.
+     SYSTEM GRAMMAR:
+       - Palette/material: iron-black ink and one rubric vermilion on unbleached bone, three values only. A ruling engine draws every rule, bracket and detent at one device pixel.
+       - Type/composition: Brevier body is Miller Text 17 to 19px on 1.5 leading, two columns of 34 to 40 characters round a 6 to 9 character rail. Pearl 11px small caps sets apparatus.
+       - Topology/navigation: the centre rail is the one moving part, carrying keys and square detents cut wherever the flow changes footing. Global nav is a keyed list in the margin.
+       - Controls/state: states are printed marks. A detent is hairline at rest, filled pressed, run through when disabled, bracketed on focus; spent is a struck bar. No radius anywhere.
+       - Responsive/motion: the block holds its measure and the annotation margin absorbs width; under two columns the rail goes outboard. Motion is a damped single axis, no overshoot.
+     WEB LEVERAGE: The ruling engine is real: a canvas or SVG layer reads live layout boxes and draws every hairline, detent and bracket at one device pixel, re-solving on resize and zoom. The lift relocates in-flow when the margin cannot hold it.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/rw-centre-rail-reference-setting.webp · hero https://impeccable.style/worlds/cards/rw-centre-rail-reference-setting-hero.webp
+A challenger wins only when its fused result beats the grounded list on
+  audience identification and product clarity. It may change task topology or
+  interaction, but never the committed visual identity.
+When you can view images, open the QUALITY BAR board and hero for any
+challenger you weigh seriously and for the world you build. They exist as a
+craft bar, the finish level and commitment the build is expected to reach,
+never as a mockup to copy; your surface serves this product, not that render.
+PRODUCT.md and DESIGN.md constrain every surface candidate's identity
+vocabulary; they do not cancel task-level composition. The seed never
+authorizes a new palette, type system, material world, or unfamiliar control
+behavior.
+The CREATIVE SPARK is a complete visual system, not a theme or decorative
+reference. Translate every supplied system rule into the product: palette and
+material, type and composition, topology, controls and states, and adaptation.
+Keep the source's visible character, scale, rhythm, and interaction instead of
+reducing vivid grammar to generic nouns. When the source is already a credible
+interface language, commit to it across navigation, content, controls, and
+states. Otherwise keep a literal carrier only when it becomes functional.
+Ambitious motion, spatial media, or interaction is welcome when it strengthens
+the product without weakening semantics, performance, or fallback behavior.
+TELEMETRY: after the user's choice resolves, rerun this script once with
+  --kind <assigned|pick|challenger|canon> --from a01d3518 --scope surface --mode operate,
+  adding --chosen <challenger-id> when a dealt challenger won and keeping
+  --register <safer|bolder> when the resolved round came from a steered hand.
+  One ping per resolved attended round. The ping is anonymous, the card kind
+  plus the catalog id when one won; your grounded candidates' names never
+  leave the machine, and the ping is skipped automatically when DO_NOT_TRACK
+  or IMPECCABLE_NO_TELEMETRY is set.
+A user- or brief-pinned decision beats the roll, always.
+DEALT INDICES (restated for truncated readers): 5, 7, 4; index
+5 leads. Present all three dealt structures; seed key a01d3518.

@@ -1,0 +1,79 @@
+{
+  "title": "Landing page for families",
+  "question": "Three ways to build the EducazenKids landing page (the manager dashboard comes next). Pick one, steer it, or re-roll.",
+  "options": [
+    {
+      "id": "bulletin",
+      "label": "The tailored report card",
+      "kicker": "THE ROLL",
+      "lineage": "the bulletin scolaire every family reads each term",
+      "thesis": "The page reads like a report card rewritten for one child: each subject row shows how EducazenKids teaches it.",
+      "palette": ["#F3EFF8", "#241C33", "#9333EA", "#D9368F", "#088D84", "#F2AB19"],
+      "materials": ["report-card grid", "appreciation lines", "app screens in the margin"],
+      "viewport": "A large « Bulletin sur mesure » header for an example student, subject rows with app proof, « Prendre rendez-vous » top right.",
+      "risk": "A report card can feel like judgement; the copy has to stay warm.",
+      "wireframe": {
+        "cols": 12, "rows": 10,
+        "regions": [
+          { "label": "logo + nav + manager icon", "x": 0, "y": 0, "w": 12, "h": 1 },
+          { "label": "Bulletin sur mesure · élève exemple", "x": 0, "y": 1, "w": 8, "h": 2 },
+          { "label": "Prendre rendez-vous", "x": 8, "y": 1, "w": 4, "h": 2, "accent": true },
+          { "label": "Maths: vidéo, quiz à 50 %", "x": 0, "y": 3, "w": 8, "h": 1 },
+          { "label": "Français: résumés", "x": 0, "y": 4, "w": 8, "h": 1 },
+          { "label": "Méthodes: Montessori…", "x": 0, "y": 5, "w": 8, "h": 1 },
+          { "label": "Suivi: PAP, équipe", "x": 0, "y": 6, "w": 8, "h": 1 },
+          { "label": "phone: the app", "x": 8, "y": 3, "w": 4, "h": 4 },
+          { "label": "Appréciations des parents", "x": 0, "y": 7, "w": 12, "h": 2 },
+          { "label": "Inscriptions 2026-2027", "x": 0, "y": 9, "w": 12, "h": 1, "accent": true }
+        ]
+      }
+    },
+    {
+      "id": "carnet",
+      "label": "The liaison notebook",
+      "lineage": "the carnet de liaison between school and family",
+      "thesis": "The page is the school-to-family notebook: dated entries from the centre to parents, each one a feature.",
+      "palette": ["#F3EFF8", "#241C33", "#9333EA", "#D9368F", "#088D84", "#F2AB19"],
+      "materials": ["ruled pages", "dated entries", "signature stamps"],
+      "viewport": "An open spread: « Mot aux parents » with the promise and action on the left, the app on a phone clipped to the right page.",
+      "risk": "A paper metaphor can drift into nostalgia if the app stops being central.",
+      "wireframe": {
+        "cols": 12, "rows": 10,
+        "regions": [
+          { "label": "logo + nav + manager icon", "x": 0, "y": 0, "w": 12, "h": 1 },
+          { "label": "Mot aux parents + action", "x": 0, "y": 1, "w": 6, "h": 5, "accent": true },
+          { "label": "phone clipped to the page", "x": 6, "y": 1, "w": 6, "h": 5 },
+          { "label": "Entrée: vidéo + quiz", "x": 0, "y": 6, "w": 4, "h": 2 },
+          { "label": "Entrée: emploi du temps", "x": 4, "y": 6, "w": 4, "h": 2 },
+          { "label": "Entrée: suivi sur mesure", "x": 8, "y": 6, "w": 4, "h": 2 },
+          { "label": "signature du centre + rendez-vous", "x": 0, "y": 8, "w": 12, "h": 2, "accent": true }
+        ]
+      }
+    },
+    {
+      "id": "deux-ecrans",
+      "label": "Two screens, one family",
+      "lineage": "the parent's view and the student's phone, side by side",
+      "thesis": "A split page: what the parent wants to know on one side, the student's phone on the other, moving in step.",
+      "palette": ["#F3EFF8", "#241C33", "#9333EA", "#D9368F", "#088D84", "#F2AB19"],
+      "materials": ["split screen", "synchronised scroll", "live app prototype"],
+      "viewport": "Left: « Vous suivez, il avance » with the action; right: a live phone that changes screen as you scroll.",
+      "risk": "On phones the split must become stacked moments, or the idea is lost.",
+      "wireframe": {
+        "cols": 12, "rows": 10,
+        "regions": [
+          { "label": "logo + nav + manager icon", "x": 0, "y": 0, "w": 12, "h": 1 },
+          { "label": "Vous suivez, il avance + action", "x": 0, "y": 1, "w": 6, "h": 3, "accent": true },
+          { "label": "Vidéo: quiz débloqué à 50 %", "x": 0, "y": 4, "w": 6, "h": 2 },
+          { "label": "Emploi du temps + notifications", "x": 0, "y": 6, "w": 6, "h": 2 },
+          { "label": "sticky phone, live app", "x": 6, "y": 1, "w": 6, "h": 7 },
+          { "label": "Le centre · inscriptions 2026-2027", "x": 0, "y": 8, "w": 12, "h": 2, "accent": true }
+        ]
+      }
+    }
+  ],
+  "reroll": true,
+  "steer": true,
+  "buildPath": { "value": "code", "toggle": false },
+  "followup": true
+}

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <title>Educazen Kids owl mascot</title>
+  <ellipse cx="100" cy="190" rx="58" ry="7" fill="#E9D5FF"/>
+  <ellipse cx="42" cy="122" rx="16" ry="32" fill="#7E22CE"/>
+  <ellipse cx="158" cy="122" rx="16" ry="32" fill="#7E22CE"/>
+  <ellipse cx="100" cy="112" rx="62" ry="70" fill="#9333EA"/>
+  <ellipse cx="100" cy="136" rx="40" ry="42" fill="#F3E8FF"/>
+  <path d="M84 132q4 4 8 0M108 132q4 4 8 0M96 146q4 4 8 0" stroke="#D8B4FE" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <circle cx="76" cy="92" r="23" fill="#FFFFFF"/>
+  <circle cx="124" cy="92" r="23" fill="#FFFFFF"/>
+  <circle cx="80" cy="94" r="11" fill="#3B0764"/>
+  <circle cx="120" cy="94" r="11" fill="#3B0764"/>
+  <circle cx="84" cy="90" r="4" fill="#FFFFFF"/>
+  <circle cx="124" cy="90" r="4" fill="#FFFFFF"/>
+  <ellipse cx="58" cy="116" rx="8" ry="5" fill="#F9A8E0"/>
+  <ellipse cx="142" cy="116" rx="8" ry="5" fill="#F9A8E0"/>
+  <path d="M92 112h16l-8 10z" fill="#F2AB19" stroke="#F2AB19" stroke-width="3" stroke-linejoin="round"/>
+  <ellipse cx="84" cy="183" rx="12" ry="6" fill="#F2AB19"/>
+  <ellipse cx="116" cy="183" rx="12" ry="6" fill="#F2AB19"/>
+  <rect x="70" y="40" width="60" height="16" rx="4" fill="#3B0764"/>
+  <path d="M48 36 100 15l52 21-52 21z" fill="#581C87"/>
+  <path d="M100 36l38 7v20" stroke="#F2AB19" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="138" cy="66" r="6" fill="#F2AB19"/>
+</svg>

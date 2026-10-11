@@ -1,0 +1,53 @@
+<title>EducazenKids Collège</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Quicksand:wght@500;600;700&family=Lexend:wght@400;500;600&display=swap">
+<style>
+/*CSS*/
+</style>
+<main class="stage" id="stage">
+  <aside class="guide" aria-label="Guide du prototype">
+    <div class="guide-brand"><img id="guide-mark" alt=""><span class="wordmark"><span class="e">Educazen</span><span class="k">Kids</span></span></div>
+    <h1>Application élève · Collège</h1>
+    <p>Prototype cliquable pour les 14 à 16 ans : cours en vidéo, résumés, quiz, contrôle continu, notifications et emploi du temps. Les données sont des exemples. Ta progression reste enregistrée dans ce navigateur.</p>
+    <span class="label">À essayer</span>
+    <ol>
+      <li>Ouvre <b>Fonctions affines</b> et lance la vidéo en vitesse <b>Démo ×10</b>.</li>
+      <li>À <b>50 % vus</b>, le bouton de progression débloque le <b>quiz</b>. Les passages sautés ne comptent pas.</li>
+      <li>Termine le quiz : la <b>progression est enregistrée</b>.</li>
+      <li><b>Emploi du temps</b> : touche un cours, passe en vue Semaine, ajoute une révision avec <b>+</b>.</li>
+      <li><b>Outils</b> → Contrôle continu → lance un <b>contrôle blanc</b> chronométré.</li>
+    </ol>
+    <span class="label">Aller à un écran</span>
+    <div class="jump">
+      <button data-act="jump" data-to="splash">Connexion</button>
+      <button data-act="jump" data-to="home">Accueil</button>
+      <button data-act="jump" data-to="video">Leçon vidéo</button>
+      <button data-act="jump" data-to="resume">Résumé</button>
+      <button data-act="jump" data-to="schedule">Emploi du temps</button>
+      <button data-act="jump" data-to="controle">Contrôle continu</button>
+      <button data-act="jump" data-to="notifs">Notifications</button>
+      <button data-act="jump" data-to="tools">Outils</button>
+      <button data-act="jump" data-to="progress">Progression</button>
+      <button data-act="jump" data-to="settings">Paramètres</button>
+    </div>
+    <div class="guide-actions">
+      <button class="btn btn-dark btn-sm" data-act="gallery" data-on="1">Voir tous les écrans</button>
+      <button class="btn btn-ghost btn-sm" data-act="resetDemo">Réinitialiser la démo</button>
+    </div>
+  </aside>
+  <div class="phone" id="app"></div>
+</main>
+<section id="gallery-wrap" hidden>
+  <div class="gallery-head"><h1>Tous les écrans</h1><button class="btn btn-dark btn-sm" data-act="gallery" data-on="0">Retour au prototype</button></div>
+  <div class="gallery" id="gallery"></div>
+</section>
+<script>
+/*LOGOS*/
+</script>
+<script>
+/*DATA*/
+</script>
+<script>
+/*APP*/
+</script>

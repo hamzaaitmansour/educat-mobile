@@ -1,0 +1,501 @@
+{
+  "$description": "Educazen Kids app design tokens (brand palette, target v2). W3C design-tokens format. The Figma demo still uses the v1 purple (#7C3AED family) until the v2 update is applied.",
+  "brand": {
+    "logo": {
+      "purple": {
+        "$type": "color",
+        "$value": "#A033F2",
+        "$description": "« Educazen » letters"
+      },
+      "pink": {
+        "$type": "color",
+        "$value": "#F24CC3",
+        "$description": "« Kids » letters"
+      },
+      "plum": {
+        "$type": "color",
+        "$value": "#BC4384",
+        "$description": "child head silhouette"
+      },
+      "puzzle-yellow": {
+        "$type": "color",
+        "$value": "#F0C552"
+      },
+      "puzzle-green": {
+        "$type": "color",
+        "$value": "#61CB96"
+      },
+      "puzzle-pink": {
+        "$type": "color",
+        "$value": "#F15A85"
+      },
+      "puzzle-purple": {
+        "$type": "color",
+        "$value": "#B634D6"
+      }
+    },
+    "website": {
+      "purple": {
+        "$type": "color",
+        "$value": "#7B15A6"
+      },
+      "purple-bg": {
+        "$type": "color",
+        "$value": "#F9F1FF"
+      },
+      "magenta": {
+        "$type": "color",
+        "$value": "#BC066B",
+        "$description": "website primary"
+      },
+      "magenta-light": {
+        "$type": "color",
+        "$value": "#EB1E86"
+      },
+      "magenta-bg": {
+        "$type": "color",
+        "$value": "#FFEFF7"
+      },
+      "teal": {
+        "$type": "color",
+        "$value": "#088D84"
+      },
+      "teal-bg": {
+        "$type": "color",
+        "$value": "#DEF9F1"
+      },
+      "gold": {
+        "$type": "color",
+        "$value": "#F2AB19"
+      },
+      "gold-bg": {
+        "$type": "color",
+        "$value": "#FFF5D7"
+      },
+      "cream": {
+        "$type": "color",
+        "$value": "#FFF8EA"
+      },
+      "ink": {
+        "$type": "color",
+        "$value": "#1F1D2A"
+      },
+      "ink-light": {
+        "$type": "color",
+        "$value": "#545460"
+      },
+      "rose": {
+        "$type": "color",
+        "$value": "#FFF0F1"
+      },
+      "lavender": {
+        "$type": "color",
+        "$value": "#F8F2FF"
+      },
+      "mint": {
+        "$type": "color",
+        "$value": "#E5FBF4"
+      }
+    }
+  },
+  "primitive": {
+    "purple": {
+      "50": {
+        "$type": "color",
+        "$value": "#FAF5FF"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#F3E8FF"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#E9D5FF"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#D8B4FE"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#C084FC"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#A855F7"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#9333EA"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#7E22CE"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#6B21A8"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#3B0764"
+      }
+    },
+    "mauve": {
+      "500": {
+        "$type": "color",
+        "$value": "#6B5B7B"
+      }
+    },
+    "white": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "teal": {
+      "50": {
+        "$type": "color",
+        "$value": "#DEF9F1"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#088D84"
+      }
+    },
+    "gold": {
+      "50": {
+        "$type": "color",
+        "$value": "#FFF5D7"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#F2AB19"
+      }
+    },
+    "pink": {
+      "50": {
+        "$type": "color",
+        "$value": "#FFEFF7"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#F24CC3"
+      }
+    },
+    "magenta": {
+      "600": {
+        "$type": "color",
+        "$value": "#BC066B"
+      }
+    },
+    "plum": {
+      "500": {
+        "$type": "color",
+        "$value": "#BC4384"
+      }
+    }
+  },
+  "color": {
+    "bg": {
+      "page": {
+        "$type": "color",
+        "$value": "{primitive.white}"
+      },
+      "soft": {
+        "$type": "color",
+        "$value": "{primitive.purple.50}"
+      },
+      "tint": {
+        "$type": "color",
+        "$value": "{primitive.purple.100}"
+      },
+      "brand-light": {
+        "$type": "color",
+        "$value": "{primitive.purple.200}"
+      },
+      "brand": {
+        "$type": "color",
+        "$value": "{primitive.purple.600}"
+      },
+      "brand-deep": {
+        "$type": "color",
+        "$value": "{primitive.purple.800}"
+      },
+      "success": {
+        "$type": "color",
+        "$value": "{primitive.teal.50}"
+      },
+      "kids-soft": {
+        "$type": "color",
+        "$value": "{primitive.pink.50}"
+      },
+      "gold-soft": {
+        "$type": "color",
+        "$value": "{primitive.gold.50}"
+      }
+    },
+    "text": {
+      "primary": {
+        "$type": "color",
+        "$value": "{primitive.purple.900}"
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "{primitive.mauve.500}"
+      },
+      "brand": {
+        "$type": "color",
+        "$value": "{primitive.purple.600}"
+      },
+      "on-brand": {
+        "$type": "color",
+        "$value": "{primitive.white}"
+      },
+      "on-brand-soft": {
+        "$type": "color",
+        "$value": "{primitive.purple.200}"
+      },
+      "kids": {
+        "$type": "color",
+        "$value": "{primitive.magenta.600}"
+      }
+    },
+    "border": {
+      "soft": {
+        "$type": "color",
+        "$value": "{primitive.purple.100}"
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "{primitive.purple.300}"
+      },
+      "brand": {
+        "$type": "color",
+        "$value": "{primitive.purple.600}"
+      },
+      "success": {
+        "$type": "color",
+        "$value": "{primitive.teal.500}"
+      }
+    },
+    "icon": {
+      "primary": {
+        "$type": "color",
+        "$value": "{primitive.purple.900}"
+      },
+      "brand": {
+        "$type": "color",
+        "$value": "{primitive.purple.600}"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{primitive.mauve.500}"
+      },
+      "on-brand": {
+        "$type": "color",
+        "$value": "{primitive.white}"
+      }
+    },
+    "accent": {
+      "star": {
+        "$type": "color",
+        "$value": "{primitive.gold.400}"
+      },
+      "success": {
+        "$type": "color",
+        "$value": "{primitive.teal.500}"
+      },
+      "kids": {
+        "$type": "color",
+        "$value": "{primitive.pink.500}"
+      },
+      "plum": {
+        "$type": "color",
+        "$value": "{primitive.plum.500}"
+      }
+    }
+  },
+  "space": {
+    "4": {
+      "$type": "dimension",
+      "$value": "4px"
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": "8px"
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": "12px"
+    },
+    "16": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "20": {
+      "$type": "dimension",
+      "$value": "20px"
+    },
+    "24": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "32": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "40": {
+      "$type": "dimension",
+      "$value": "40px"
+    }
+  },
+  "radius": {
+    "sm": {
+      "$type": "dimension",
+      "$value": "12px"
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "full": {
+      "$type": "dimension",
+      "$value": "999px"
+    }
+  },
+  "font": {
+    "family": {
+      "display": {
+        "$type": "fontFamily",
+        "$value": "Fredoka"
+      },
+      "body": {
+        "$type": "fontFamily",
+        "$value": "Nunito",
+        "$description": "The website uses Quicksand for body text; switching is an open decision."
+      }
+    }
+  },
+  "typography": {
+    "display": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Fredoka",
+        "fontWeight": 600,
+        "fontSize": "36px",
+        "lineHeight": "42px"
+      }
+    },
+    "title": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Fredoka",
+        "fontWeight": 600,
+        "fontSize": "26px",
+        "lineHeight": "32px"
+      }
+    },
+    "heading": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Fredoka",
+        "fontWeight": 600,
+        "fontSize": "20px",
+        "lineHeight": "26px"
+      }
+    },
+    "subheading": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Fredoka",
+        "fontWeight": 500,
+        "fontSize": "17px",
+        "lineHeight": "22px"
+      }
+    },
+    "button": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Fredoka",
+        "fontWeight": 600,
+        "fontSize": "18px",
+        "lineHeight": "22px"
+      }
+    },
+    "number": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Fredoka",
+        "fontWeight": 600,
+        "fontSize": "40px",
+        "lineHeight": "46px"
+      }
+    },
+    "body": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Nunito",
+        "fontWeight": 500,
+        "fontSize": "16px",
+        "lineHeight": "22px"
+      }
+    },
+    "body-strong": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Nunito",
+        "fontWeight": 800,
+        "fontSize": "16px",
+        "lineHeight": "22px"
+      }
+    },
+    "caption": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Nunito",
+        "fontWeight": 700,
+        "fontSize": "13px",
+        "lineHeight": "18px"
+      }
+    }
+  },
+  "shadow": {
+    "card": {
+      "$type": "shadow",
+      "$value": {
+        "color": "#9333EA1F",
+        "offsetX": "0px",
+        "offsetY": "8px",
+        "blur": "24px",
+        "spread": "0px"
+      }
+    },
+    "button-3d": {
+      "$type": "shadow",
+      "$value": {
+        "color": "#6B21A8",
+        "offsetX": "0px",
+        "offsetY": "5px",
+        "blur": "0px",
+        "spread": "0px"
+      }
+    },
+    "tile-3d": {
+      "$type": "shadow",
+      "$value": {
+        "color": "#E9D5FF",
+        "offsetX": "0px",
+        "offsetY": "4px",
+        "blur": "0px",
+        "spread": "0px"
+      }
+    }
+  }
+}

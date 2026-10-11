@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EducazenKids · Prototypes</title>
+<meta name="description" content="Les trois prototypes EducazenKids : le site des familles, l'application élève et l'espace équipe.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="web/assets/img/logo-mark.png">
+<link rel="stylesheet" href="web/assets/base.css">
+<style>
+  body { min-height: 100svh; display: grid; place-items: center; padding: 32px 16px 40px; }
+  .hub { width: 100%; max-width: 980px; }
+  .head { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; margin-bottom: 36px; }
+  .head img { width: 176px; height: auto; }
+  h1 { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(28px, 4vw, 40px); line-height: 1.1; letter-spacing: -0.01em; color: var(--brand-ink); }
+  .lead { margin: 0; max-width: 58ch; font-size: 17px; line-height: 1.5; color: var(--ink-2); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px; }
+  .card { display: flex; flex-direction: column; gap: 12px; padding: 24px; background: var(--paper); border-radius: 20px; border-top: 6px solid var(--accent); box-shadow: 0 0 0 1.5px var(--line), 0 12px 24px -18px rgba(40, 20, 70, 0.4); }
+  .card.site { --accent: var(--plum); }
+  .card.app { --accent: var(--brand); }
+  .card.staff { --accent: var(--pill); }
+  .kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); }
+  .card h2 { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 24px; line-height: 1.15; color: var(--ink); }
+  .card p { margin: 0; flex: 1; line-height: 1.5; color: var(--ink-2); }
+  .card small { font-size: 13px; color: var(--ink-3); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--pill); color: #fff; font-weight: 700; text-decoration: none; box-shadow: 0 6px 18px -8px rgba(36, 28, 51, 0.7); transition: background 0.2s var(--ease-out), transform 0.2s var(--ease-out); }
+  .btn:hover { background: var(--pill-hover); color: #fff; transform: translateY(-1px); }
+  .btn .icon { width: 18px; height: 18px; }
+  .note { margin: 28px 0 0; text-align: center; font-size: 14px; line-height: 1.5; color: var(--ink-3); }
+</style>
+</head>
+<body>
+<main class="hub">
+  <header class="head">
+    <img src="web/assets/img/logo-educazenkids.png" alt="EducazenKids" width="176">
+    <h1>Les prototypes EducazenKids</h1>
+    <p class="lead">Trois maquettes cliquables, avec des données d'exemple. Aucun compte et aucun serveur&nbsp;: ce que vous modifiez reste dans votre navigateur.</p>
+  </header>
+
+  <div class="cards">
+    <article class="card site">
+      <span class="kicker">Pour les familles</span>
+      <h2>Le site des familles</h2>
+      <p>Le carnet de liaison du centre&nbsp;: l'école autrement, l'application expliquée aux parents, la règle des 50&nbsp;% en démonstration et la prise de rendez-vous.</p>
+      <a class="btn" href="web/landing-page.html">Ouvrir le site <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article>
+
+    <article class="card app">
+      <span class="kicker">Pour les élèves</span>
+      <h2>L'application élève</h2>
+      <p>L'app collège dans un cadre de téléphone&nbsp;: cours en vidéo, quiz débloqué à la moitié de la vidéo, résumés, contrôle continu, emploi du temps et outils.</p>
+      <small>La progression est enregistrée dans ce navigateur. Paramètres, puis Réinitialiser la démo, l'efface.</small>
+      <a class="btn" href="educazenkids-college.html">Ouvrir l'application <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article>
+
+    <article class="card staff">
+      <span class="kicker">Pour l'équipe</span>
+      <h2>L'espace équipe</h2>
+      <p>Le tableau de bord de suivi&nbsp;: alertes du jour, éditeur de leçons, élèves, emploi du temps et notifications. Sans connexion, avec un choix de rôle Direction ou enseignante.</p>
+      <a class="btn" href="web/dashboard.html">Ouvrir l'espace équipe <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </article>
+  </div>
+
+  <p class="note">Prototypes avec des données fictives, à l'image du futur service. EducazenKids, Agadir.</p>
+</main>
+</body>
+</html>

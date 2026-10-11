@@ -1,0 +1,1116 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-11T18:31:24.982Z",
+  "title": "Design System: EducazenKids web",
+  "sources": {
+    "tokens": "prototype/web/assets/base.css (:root)",
+    "fonts": "prototype/web/assets/fonts.local.css",
+    "surfaces": [
+      {
+        "register": "Persuade",
+        "page": "prototype/web/landing-page.html",
+        "css": "prototype/web/assets/landing.css",
+        "brief": ".impeccable/surfaces/prototype-web-landing-page-html.md"
+      },
+      {
+        "register": "Operate",
+        "page": "prototype/web/dashboard.html",
+        "css": "prototype/web/assets/dashboard.css",
+        "brief": ".impeccable/surfaces/prototype-web-dashboard-html.md"
+      }
+    ],
+    "subjectColours": "prototype/web/assets/dashboard.js (SUBJ)"
+  },
+  "extensions": {
+    "colorMeta": {
+      "brand": {
+        "role": "primary",
+        "displayName": "Brand Violet",
+        "canonical": "#9333EA",
+        "oklch": "oklch(55.8% 0.252 302.3)",
+        "cssVar": "--brand",
+        "tonalRamp": [
+          "oklch(15.0% 0.087 302.3)",
+          "oklch(26.4% 0.142 302.3)",
+          "oklch(37.9% 0.201 302.3)",
+          "oklch(49.3% 0.252 302.3)",
+          "oklch(60.7% 0.252 302.3)",
+          "oklch(72.1% 0.176 302.3)",
+          "oklch(83.6% 0.099 302.3)",
+          "oklch(95.0% 0.029 302.3)"
+        ],
+        "projectScale": [
+          "#5A1B91",
+          "#6B21A8",
+          "#7B15A6",
+          "#9333EA",
+          "#F1E7FD"
+        ]
+      },
+      "brand-deep": {
+        "role": "primary",
+        "displayName": "Notebook Ink Violet",
+        "canonical": "#6B21A8",
+        "oklch": "oklch(43.8% 0.198 303.7)",
+        "cssVar": "--brand-deep",
+        "tonalRamp": [
+          "oklch(15.0% 0.086 303.7)",
+          "oklch(26.4% 0.141 303.7)",
+          "oklch(37.9% 0.198 303.7)",
+          "oklch(49.3% 0.198 303.7)",
+          "oklch(60.7% 0.198 303.7)",
+          "oklch(72.1% 0.179 303.7)",
+          "oklch(83.6% 0.101 303.7)",
+          "oklch(95.0% 0.029 303.7)"
+        ]
+      },
+      "brand-ink": {
+        "role": "primary",
+        "displayName": "Deep Violet Ink",
+        "canonical": "#5A1B91",
+        "oklch": "oklch(39.1% 0.178 302.8)",
+        "cssVar": "--brand-ink",
+        "tonalRamp": [
+          "oklch(15.0% 0.087 302.8)",
+          "oklch(26.4% 0.142 302.8)",
+          "oklch(37.9% 0.178 302.8)",
+          "oklch(49.3% 0.178 302.8)",
+          "oklch(60.7% 0.178 302.8)",
+          "oklch(72.1% 0.177 302.8)",
+          "oklch(83.6% 0.099 302.8)",
+          "oklch(95.0% 0.029 302.8)"
+        ]
+      },
+      "brand-soft": {
+        "role": "primary",
+        "displayName": "Violet Wash",
+        "canonical": "#F1E7FD",
+        "oklch": "oklch(94.2% 0.031 306.2)",
+        "cssVar": "--brand-soft",
+        "tonalRamp": [
+          "oklch(15.0% 0.031 306.2)",
+          "oklch(26.4% 0.031 306.2)",
+          "oklch(37.9% 0.031 306.2)",
+          "oklch(49.3% 0.031 306.2)",
+          "oklch(60.7% 0.031 306.2)",
+          "oklch(72.1% 0.031 306.2)",
+          "oklch(83.6% 0.031 306.2)",
+          "oklch(95.0% 0.030 306.2)"
+        ]
+      },
+      "desk": {
+        "role": "primary",
+        "displayName": "Desk Purple",
+        "canonical": "#7B15A6",
+        "oklch": "oklch(45.0% 0.210 312.2)",
+        "cssVar": "--desk",
+        "tonalRamp": [
+          "oklch(15.0% 0.083 312.2)",
+          "oklch(26.4% 0.135 312.2)",
+          "oklch(37.9% 0.191 312.2)",
+          "oklch(49.3% 0.210 312.2)",
+          "oklch(60.7% 0.210 312.2)",
+          "oklch(72.1% 0.204 312.2)",
+          "oklch(83.6% 0.114 312.2)",
+          "oklch(95.0% 0.033 312.2)"
+        ]
+      },
+      "logo-purple": {
+        "role": "primary",
+        "displayName": "Logo Purple",
+        "canonical": "#A033F2",
+        "oklch": "oklch(57.9% 0.262 305.0)",
+        "cssVar": "--logo-purple",
+        "tonalRamp": [
+          "oklch(15.0% 0.086 305.0)",
+          "oklch(26.4% 0.140 305.0)",
+          "oklch(37.9% 0.198 305.0)",
+          "oklch(49.3% 0.257 305.0)",
+          "oklch(60.7% 0.262 305.0)",
+          "oklch(72.1% 0.182 305.0)",
+          "oklch(83.6% 0.102 305.0)",
+          "oklch(95.0% 0.030 305.0)"
+        ]
+      },
+      "logo-pink": {
+        "role": "primary",
+        "displayName": "Logo Pink",
+        "canonical": "#E540B5",
+        "oklch": "oklch(64.9% 0.230 342.1)",
+        "cssVar": "--logo-pink",
+        "tonalRamp": [
+          "oklch(15.0% 0.073 342.1)",
+          "oklch(26.4% 0.117 342.1)",
+          "oklch(37.9% 0.164 342.1)",
+          "oklch(49.3% 0.213 342.1)",
+          "oklch(60.7% 0.230 342.1)",
+          "oklch(72.1% 0.230 342.1)",
+          "oklch(83.6% 0.120 342.1)",
+          "oklch(95.0% 0.033 342.1)"
+        ]
+      },
+      "pink": {
+        "role": "secondary",
+        "displayName": "Kids Pink",
+        "canonical": "#D9368F",
+        "oklch": "oklch(60.7% 0.213 352.1)",
+        "cssVar": "--pink",
+        "tonalRamp": [
+          "oklch(15.0% 0.071 352.1)",
+          "oklch(26.4% 0.112 352.1)",
+          "oklch(37.9% 0.158 352.1)",
+          "oklch(49.3% 0.205 352.1)",
+          "oklch(60.7% 0.213 352.1)",
+          "oklch(72.1% 0.204 352.1)",
+          "oklch(83.6% 0.106 352.1)",
+          "oklch(95.0% 0.029 352.1)"
+        ]
+      },
+      "pink-ink": {
+        "role": "secondary",
+        "displayName": "Pink Ink",
+        "canonical": "#A0175F",
+        "oklch": "oklch(47.0% 0.178 355.5)",
+        "cssVar": "--pink-ink",
+        "tonalRamp": [
+          "oklch(15.0% 0.070 355.5)",
+          "oklch(26.4% 0.111 355.5)",
+          "oklch(37.9% 0.157 355.5)",
+          "oklch(49.3% 0.178 355.5)",
+          "oklch(60.7% 0.178 355.5)",
+          "oklch(72.1% 0.178 355.5)",
+          "oklch(83.6% 0.102 355.5)",
+          "oklch(95.0% 0.028 355.5)"
+        ]
+      },
+      "pink-soft": {
+        "role": "secondary",
+        "displayName": "Pink Wash",
+        "canonical": "#FCE7F2",
+        "oklch": "oklch(94.8% 0.027 344.6)",
+        "cssVar": "--pink-soft",
+        "tonalRamp": [
+          "oklch(15.0% 0.027 344.6)",
+          "oklch(26.4% 0.027 344.6)",
+          "oklch(37.9% 0.027 344.6)",
+          "oklch(49.3% 0.027 344.6)",
+          "oklch(60.7% 0.027 344.6)",
+          "oklch(72.1% 0.027 344.6)",
+          "oklch(83.6% 0.027 344.6)",
+          "oklch(95.0% 0.027 344.6)"
+        ]
+      },
+      "teal": {
+        "role": "secondary",
+        "displayName": "Done Teal",
+        "canonical": "#088D84",
+        "oklch": "oklch(58.0% 0.100 186.9)",
+        "cssVar": "--teal",
+        "tonalRamp": [
+          "oklch(15.0% 0.030 186.9)",
+          "oklch(26.4% 0.048 186.9)",
+          "oklch(37.9% 0.067 186.9)",
+          "oklch(49.3% 0.086 186.9)",
+          "oklch(60.7% 0.100 186.9)",
+          "oklch(72.1% 0.100 186.9)",
+          "oklch(83.6% 0.100 186.9)",
+          "oklch(95.0% 0.073 186.9)"
+        ]
+      },
+      "teal-ink": {
+        "role": "secondary",
+        "displayName": "Teal Ink",
+        "canonical": "#05625C",
+        "oklch": "oklch(44.8% 0.077 187.4)",
+        "cssVar": "--teal-ink",
+        "tonalRamp": [
+          "oklch(15.0% 0.030 187.4)",
+          "oklch(26.4% 0.047 187.4)",
+          "oklch(37.9% 0.067 187.4)",
+          "oklch(49.3% 0.077 187.4)",
+          "oklch(60.7% 0.077 187.4)",
+          "oklch(72.1% 0.077 187.4)",
+          "oklch(83.6% 0.077 187.4)",
+          "oklch(95.0% 0.073 187.4)"
+        ]
+      },
+      "teal-soft": {
+        "role": "secondary",
+        "displayName": "Teal Wash",
+        "canonical": "#DCF3EF",
+        "oklch": "oklch(94.6% 0.025 184.3)",
+        "cssVar": "--teal-soft",
+        "tonalRamp": [
+          "oklch(15.0% 0.025 184.3)",
+          "oklch(26.4% 0.025 184.3)",
+          "oklch(37.9% 0.025 184.3)",
+          "oklch(49.3% 0.025 184.3)",
+          "oklch(60.7% 0.025 184.3)",
+          "oklch(72.1% 0.025 184.3)",
+          "oklch(83.6% 0.025 184.3)",
+          "oklch(95.0% 0.025 184.3)"
+        ]
+      },
+      "gold": {
+        "role": "secondary",
+        "displayName": "Marker Gold",
+        "canonical": "#F2AB19",
+        "oklch": "oklch(78.9% 0.160 77.7)",
+        "cssVar": "--gold",
+        "tonalRamp": [
+          "oklch(15.0% 0.039 77.7)",
+          "oklch(26.4% 0.057 77.7)",
+          "oklch(37.9% 0.080 77.7)",
+          "oklch(49.3% 0.103 77.7)",
+          "oklch(60.7% 0.127 77.7)",
+          "oklch(72.1% 0.151 77.7)",
+          "oklch(83.6% 0.152 77.7)",
+          "oklch(95.0% 0.043 77.7)"
+        ]
+      },
+      "gold-ink": {
+        "role": "secondary",
+        "displayName": "Gold Ink",
+        "canonical": "#8A5B00",
+        "oklch": "oklch(51.0% 0.108 74.2)",
+        "cssVar": "--gold-ink",
+        "tonalRamp": [
+          "oklch(15.0% 0.039 74.2)",
+          "oklch(26.4% 0.058 74.2)",
+          "oklch(37.9% 0.081 74.2)",
+          "oklch(49.3% 0.105 74.2)",
+          "oklch(60.7% 0.108 74.2)",
+          "oklch(72.1% 0.108 74.2)",
+          "oklch(83.6% 0.108 74.2)",
+          "oklch(95.0% 0.040 74.2)"
+        ]
+      },
+      "gold-soft": {
+        "role": "secondary",
+        "displayName": "Gold Wash",
+        "canonical": "#FFF2D4",
+        "oklch": "oklch(96.4% 0.042 87.4)",
+        "cssVar": "--gold-soft",
+        "tonalRamp": [
+          "oklch(15.0% 0.038 87.4)",
+          "oklch(26.4% 0.042 87.4)",
+          "oklch(37.9% 0.042 87.4)",
+          "oklch(49.3% 0.042 87.4)",
+          "oklch(60.7% 0.042 87.4)",
+          "oklch(72.1% 0.042 87.4)",
+          "oklch(83.6% 0.042 87.4)",
+          "oklch(95.0% 0.042 87.4)"
+        ]
+      },
+      "coral": {
+        "role": "secondary",
+        "displayName": "Coral",
+        "canonical": "#E8506F",
+        "oklch": "oklch(64.6% 0.188 12.0)",
+        "cssVar": "--coral",
+        "tonalRamp": [
+          "oklch(15.0% 0.068 12.0)",
+          "oklch(26.4% 0.108 12.0)",
+          "oklch(37.9% 0.153 12.0)",
+          "oklch(49.3% 0.188 12.0)",
+          "oklch(60.7% 0.188 12.0)",
+          "oklch(72.1% 0.177 12.0)",
+          "oklch(83.6% 0.093 12.0)",
+          "oklch(95.0% 0.025 12.0)"
+        ]
+      },
+      "coral-soft": {
+        "role": "secondary",
+        "displayName": "Coral Wash",
+        "canonical": "#FDE6EB",
+        "oklch": "oklch(94.5% 0.026 2.8)",
+        "cssVar": null,
+        "tonalRamp": [
+          "oklch(15.0% 0.026 2.8)",
+          "oklch(26.4% 0.026 2.8)",
+          "oklch(37.9% 0.026 2.8)",
+          "oklch(49.3% 0.026 2.8)",
+          "oklch(60.7% 0.026 2.8)",
+          "oklch(72.1% 0.026 2.8)",
+          "oklch(83.6% 0.026 2.8)",
+          "oklch(95.0% 0.026 2.8)"
+        ]
+      },
+      "danger-ink": {
+        "role": "secondary",
+        "displayName": "Error Red",
+        "canonical": "#B3123C",
+        "oklch": "oklch(49.3% 0.189 15.5)",
+        "cssVar": null,
+        "tonalRamp": [
+          "oklch(15.0% 0.068 15.5)",
+          "oklch(26.4% 0.108 15.5)",
+          "oklch(37.9% 0.153 15.5)",
+          "oklch(49.3% 0.189 15.5)",
+          "oklch(60.7% 0.189 15.5)",
+          "oklch(72.1% 0.175 15.5)",
+          "oklch(83.6% 0.092 15.5)",
+          "oklch(95.0% 0.025 15.5)"
+        ]
+      },
+      "plum": {
+        "role": "tertiary",
+        "displayName": "Atelier Plum",
+        "canonical": "#BC4384",
+        "oklch": "oklch(56.9% 0.169 350.6)",
+        "cssVar": "--plum",
+        "tonalRamp": [
+          "oklch(15.0% 0.071 350.6)",
+          "oklch(26.4% 0.113 350.6)",
+          "oklch(37.9% 0.159 350.6)",
+          "oklch(49.3% 0.169 350.6)",
+          "oklch(60.7% 0.169 350.6)",
+          "oklch(72.1% 0.169 350.6)",
+          "oklch(83.6% 0.107 350.6)",
+          "oklch(95.0% 0.029 350.6)"
+        ]
+      },
+      "plum-soft": {
+        "role": "tertiary",
+        "displayName": "Plum Wash",
+        "canonical": "#F7E3EE",
+        "oklch": "oklch(93.5% 0.026 343.3)",
+        "cssVar": null,
+        "tonalRamp": [
+          "oklch(15.0% 0.026 343.3)",
+          "oklch(26.4% 0.026 343.3)",
+          "oklch(37.9% 0.026 343.3)",
+          "oklch(49.3% 0.026 343.3)",
+          "oklch(60.7% 0.026 343.3)",
+          "oklch(72.1% 0.026 343.3)",
+          "oklch(83.6% 0.026 343.3)",
+          "oklch(95.0% 0.026 343.3)"
+        ]
+      },
+      "svt": {
+        "role": "tertiary",
+        "displayName": "SVT Green",
+        "canonical": "#2E9D68",
+        "oklch": "oklch(62.1% 0.128 158.0)",
+        "cssVar": null,
+        "tonalRamp": [
+          "oklch(15.0% 0.041 158.0)",
+          "oklch(26.4% 0.064 158.0)",
+          "oklch(37.9% 0.089 158.0)",
+          "oklch(49.3% 0.116 158.0)",
+          "oklch(60.7% 0.128 158.0)",
+          "oklch(72.1% 0.128 158.0)",
+          "oklch(83.6% 0.128 158.0)",
+          "oklch(95.0% 0.078 158.0)"
+        ]
+      },
+      "svt-soft": {
+        "role": "tertiary",
+        "displayName": "SVT Wash",
+        "canonical": "#E0F4E9",
+        "oklch": "oklch(94.9% 0.026 161.9)",
+        "cssVar": null,
+        "tonalRamp": [
+          "oklch(15.0% 0.026 161.9)",
+          "oklch(26.4% 0.026 161.9)",
+          "oklch(37.9% 0.026 161.9)",
+          "oklch(49.3% 0.026 161.9)",
+          "oklch(60.7% 0.026 161.9)",
+          "oklch(72.1% 0.026 161.9)",
+          "oklch(83.6% 0.026 161.9)",
+          "oklch(95.0% 0.026 161.9)"
+        ]
+      },
+      "amber": {
+        "role": "tertiary",
+        "displayName": "Anglais Amber",
+        "canonical": "#E39A0B",
+        "oklch": "oklch(74.0% 0.155 74.7)",
+        "cssVar": null,
+        "tonalRamp": [
+          "oklch(15.0% 0.039 74.7)",
+          "oklch(26.4% 0.058 74.7)",
+          "oklch(37.9% 0.081 74.7)",
+          "oklch(49.3% 0.105 74.7)",
+          "oklch(60.7% 0.129 74.7)",
+          "oklch(72.1% 0.153 74.7)",
+          "oklch(83.6% 0.142 74.7)",
+          "oklch(95.0% 0.040 74.7)"
+        ]
+      },
+      "lavender": {
+        "role": "neutral",
+        "displayName": "Pearl Lavender",
+        "canonical": "#F3EFF8",
+        "oklch": "oklch(95.8% 0.013 306.0)",
+        "cssVar": "--lavender",
+        "tonalRamp": [
+          "oklch(15.0% 0.013 306.0)",
+          "oklch(26.4% 0.013 306.0)",
+          "oklch(37.9% 0.013 306.0)",
+          "oklch(49.3% 0.013 306.0)",
+          "oklch(60.7% 0.013 306.0)",
+          "oklch(72.1% 0.013 306.0)",
+          "oklch(83.6% 0.013 306.0)",
+          "oklch(95.0% 0.013 306.0)"
+        ],
+        "projectScale": [
+          "#DDD4EA",
+          "#EAE4F2",
+          "#ECE7F3",
+          "#F1ECF6",
+          "#F3EFF8",
+          "#FAF8FC",
+          "#FFFFFF"
+        ]
+      },
+      "lavender-2": {
+        "role": "neutral",
+        "displayName": "Lavender Mist",
+        "canonical": "#EAE4F2",
+        "oklch": "oklch(92.8% 0.020 305.3)",
+        "cssVar": "--lavender-2",
+        "tonalRamp": [
+          "oklch(15.0% 0.020 305.3)",
+          "oklch(26.4% 0.020 305.3)",
+          "oklch(37.9% 0.020 305.3)",
+          "oklch(49.3% 0.020 305.3)",
+          "oklch(60.7% 0.020 305.3)",
+          "oklch(72.1% 0.020 305.3)",
+          "oklch(83.6% 0.020 305.3)",
+          "oklch(95.0% 0.020 305.3)"
+        ]
+      },
+      "lavender-3": {
+        "role": "neutral",
+        "displayName": "Lavender Shadow",
+        "canonical": "#DDD4EA",
+        "oklch": "oklch(88.4% 0.031 304.2)",
+        "cssVar": "--lavender-3",
+        "tonalRamp": [
+          "oklch(15.0% 0.031 304.2)",
+          "oklch(26.4% 0.031 304.2)",
+          "oklch(37.9% 0.031 304.2)",
+          "oklch(49.3% 0.031 304.2)",
+          "oklch(60.7% 0.031 304.2)",
+          "oklch(72.1% 0.031 304.2)",
+          "oklch(83.6% 0.031 304.2)",
+          "oklch(95.0% 0.029 304.2)"
+        ]
+      },
+      "sidebar": {
+        "role": "neutral",
+        "displayName": "Sidebar Lavender",
+        "canonical": "#ECE7F3",
+        "oklch": "oklch(93.5% 0.017 304.8)",
+        "cssVar": null,
+        "tonalRamp": [
+          "oklch(15.0% 0.017 304.8)",
+          "oklch(26.4% 0.017 304.8)",
+          "oklch(37.9% 0.017 304.8)",
+          "oklch(49.3% 0.017 304.8)",
+          "oklch(60.7% 0.017 304.8)",
+          "oklch(72.1% 0.017 304.8)",
+          "oklch(83.6% 0.017 304.8)",
+          "oklch(95.0% 0.017 304.8)"
+        ]
+      },
+      "surface-hover": {
+        "role": "neutral",
+        "displayName": "Hover Lavender",
+        "canonical": "#FAF8FC",
+        "oklch": "oklch(98.2% 0.006 308.4)",
+        "cssVar": null,
+        "tonalRamp": [
+          "oklch(15.0% 0.006 308.4)",
+          "oklch(26.4% 0.006 308.4)",
+          "oklch(37.9% 0.006 308.4)",
+          "oklch(49.3% 0.006 308.4)",
+          "oklch(60.7% 0.006 308.4)",
+          "oklch(72.1% 0.006 308.4)",
+          "oklch(83.6% 0.006 308.4)",
+          "oklch(95.0% 0.006 308.4)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "cssVar": "--paper",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 89.9)",
+          "oklch(26.4% 0.000 89.9)",
+          "oklch(37.9% 0.000 89.9)",
+          "oklch(49.3% 0.000 89.9)",
+          "oklch(60.7% 0.000 89.9)",
+          "oklch(72.1% 0.000 89.9)",
+          "oklch(83.6% 0.000 89.9)",
+          "oklch(95.0% 0.000 89.9)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Plum Ink",
+        "canonical": "#1F1A2B",
+        "oklch": "oklch(23.2% 0.033 297.3)",
+        "cssVar": "--ink",
+        "tonalRamp": [
+          "oklch(15.0% 0.033 297.3)",
+          "oklch(26.4% 0.033 297.3)",
+          "oklch(37.9% 0.033 297.3)",
+          "oklch(49.3% 0.033 297.3)",
+          "oklch(60.7% 0.033 297.3)",
+          "oklch(72.1% 0.033 297.3)",
+          "oklch(83.6% 0.033 297.3)",
+          "oklch(95.0% 0.027 297.3)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Plum Grey",
+        "canonical": "#554D66",
+        "oklch": "oklch(43.8% 0.042 299.3)",
+        "cssVar": "--ink-2",
+        "tonalRamp": [
+          "oklch(15.0% 0.042 299.3)",
+          "oklch(26.4% 0.042 299.3)",
+          "oklch(37.9% 0.042 299.3)",
+          "oklch(49.3% 0.042 299.3)",
+          "oklch(60.7% 0.042 299.3)",
+          "oklch(72.1% 0.042 299.3)",
+          "oklch(83.6% 0.042 299.3)",
+          "oklch(95.0% 0.028 299.3)"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Plum Mute",
+        "canonical": "#6C657D",
+        "oklch": "oklch(52.2% 0.038 298.4)",
+        "cssVar": "--ink-3",
+        "tonalRamp": [
+          "oklch(15.0% 0.038 298.4)",
+          "oklch(26.4% 0.038 298.4)",
+          "oklch(37.9% 0.038 298.4)",
+          "oklch(49.3% 0.038 298.4)",
+          "oklch(60.7% 0.038 298.4)",
+          "oklch(72.1% 0.038 298.4)",
+          "oklch(83.6% 0.038 298.4)",
+          "oklch(95.0% 0.027 298.4)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#E2DAEC",
+        "oklch": "oklch(90.0% 0.026 305.8)",
+        "cssVar": "--line",
+        "tonalRamp": [
+          "oklch(15.0% 0.026 305.8)",
+          "oklch(26.4% 0.026 305.8)",
+          "oklch(37.9% 0.026 305.8)",
+          "oklch(49.3% 0.026 305.8)",
+          "oklch(60.7% 0.026 305.8)",
+          "oklch(72.1% 0.026 305.8)",
+          "oklch(83.6% 0.026 305.8)",
+          "oklch(95.0% 0.026 305.8)"
+        ]
+      },
+      "line-soft": {
+        "role": "neutral",
+        "displayName": "Faint Hairline",
+        "canonical": "#F1ECF6",
+        "oklch": "oklch(95.0% 0.014 308.3)",
+        "cssVar": null,
+        "tonalRamp": [
+          "oklch(15.0% 0.014 308.3)",
+          "oklch(26.4% 0.014 308.3)",
+          "oklch(37.9% 0.014 308.3)",
+          "oklch(49.3% 0.014 308.3)",
+          "oklch(60.7% 0.014 308.3)",
+          "oklch(72.1% 0.014 308.3)",
+          "oklch(83.6% 0.014 308.3)",
+          "oklch(95.0% 0.014 308.3)"
+        ]
+      },
+      "line-hover": {
+        "role": "neutral",
+        "displayName": "Hover Hairline",
+        "canonical": "#C9BCE0",
+        "oklch": "oklch(81.7% 0.052 301.7)",
+        "cssVar": null,
+        "tonalRamp": [
+          "oklch(15.0% 0.052 301.7)",
+          "oklch(26.4% 0.052 301.7)",
+          "oklch(37.9% 0.052 301.7)",
+          "oklch(49.3% 0.052 301.7)",
+          "oklch(60.7% 0.052 301.7)",
+          "oklch(72.1% 0.052 301.7)",
+          "oklch(83.6% 0.052 301.7)",
+          "oklch(95.0% 0.029 301.7)"
+        ]
+      },
+      "pill": {
+        "role": "neutral",
+        "displayName": "Plum-Ink Pill",
+        "canonical": "#241C33",
+        "oklch": "oklch(24.8% 0.044 299.2)",
+        "cssVar": "--pill",
+        "tonalRamp": [
+          "oklch(15.0% 0.044 299.2)",
+          "oklch(26.4% 0.044 299.2)",
+          "oklch(37.9% 0.044 299.2)",
+          "oklch(49.3% 0.044 299.2)",
+          "oklch(60.7% 0.044 299.2)",
+          "oklch(72.1% 0.044 299.2)",
+          "oklch(83.6% 0.044 299.2)",
+          "oklch(95.0% 0.028 299.2)"
+        ]
+      },
+      "pill-hover": {
+        "role": "neutral",
+        "displayName": "Pill Hover",
+        "canonical": "#3A2E52",
+        "oklch": "oklch(33.2% 0.063 298.2)",
+        "cssVar": "--pill-hover",
+        "tonalRamp": [
+          "oklch(15.0% 0.063 298.2)",
+          "oklch(26.4% 0.063 298.2)",
+          "oklch(37.9% 0.063 298.2)",
+          "oklch(49.3% 0.063 298.2)",
+          "oklch(60.7% 0.063 298.2)",
+          "oklch(72.1% 0.063 298.2)",
+          "oklch(83.6% 0.063 298.2)",
+          "oklch(95.0% 0.027 298.2)"
+        ]
+      },
+      "device": {
+        "role": "neutral",
+        "displayName": "Device Black",
+        "canonical": "#1C1526",
+        "oklch": "oklch(21.3% 0.034 302.5)",
+        "cssVar": null,
+        "tonalRamp": [
+          "oklch(15.0% 0.034 302.5)",
+          "oklch(26.4% 0.034 302.5)",
+          "oklch(37.9% 0.034 302.5)",
+          "oklch(49.3% 0.034 302.5)",
+          "oklch(60.7% 0.034 302.5)",
+          "oklch(72.1% 0.034 302.5)",
+          "oklch(83.6% 0.034 302.5)",
+          "oklch(95.0% 0.029 302.5)"
+        ]
+      },
+      "seyes-fine": {
+        "role": "neutral",
+        "displayName": "Seyès Fine",
+        "canonical": "#EEE8F8",
+        "oklch": "oklch(94.0% 0.022 302.9)",
+        "cssVar": "--seyes-fine",
+        "tonalRamp": [
+          "oklch(15.0% 0.022 302.9)",
+          "oklch(26.4% 0.022 302.9)",
+          "oklch(37.9% 0.022 302.9)",
+          "oklch(49.3% 0.022 302.9)",
+          "oklch(60.7% 0.022 302.9)",
+          "oklch(72.1% 0.022 302.9)",
+          "oklch(83.6% 0.022 302.9)",
+          "oklch(95.0% 0.022 302.9)"
+        ]
+      },
+      "seyes-strong": {
+        "role": "neutral",
+        "displayName": "Seyès Strong",
+        "canonical": "#D9CDF1",
+        "oklch": "oklch(86.9% 0.051 300.6)",
+        "cssVar": "--seyes-strong",
+        "tonalRamp": [
+          "oklch(15.0% 0.051 300.6)",
+          "oklch(26.4% 0.051 300.6)",
+          "oklch(37.9% 0.051 300.6)",
+          "oklch(49.3% 0.051 300.6)",
+          "oklch(60.7% 0.051 300.6)",
+          "oklch(72.1% 0.051 300.6)",
+          "oklch(83.6% 0.051 300.6)",
+          "oklch(95.0% 0.028 300.6)"
+        ]
+      },
+      "seyes-margin": {
+        "role": "neutral",
+        "displayName": "Margin Pink",
+        "canonical": "#E9A3CF",
+        "oklch": "oklch(79.6% 0.100 341.5)",
+        "cssVar": "--seyes-margin",
+        "tonalRamp": [
+          "oklch(15.0% 0.073 341.5)",
+          "oklch(26.4% 0.100 341.5)",
+          "oklch(37.9% 0.100 341.5)",
+          "oklch(49.3% 0.100 341.5)",
+          "oklch(60.7% 0.100 341.5)",
+          "oklch(72.1% 0.100 341.5)",
+          "oklch(83.6% 0.100 341.5)",
+          "oklch(95.0% 0.033 341.5)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The landing's opening headline only (Persuade)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Notebook entry titles and the signature sheet title (Persuade)."
+      },
+      "page-title": {
+        "displayName": "Page Title",
+        "purpose": "Dashboard view titles (Operate); Fredoka appears there only here and in the wordmark."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "« Educazen » in logo purple, « Kids » in logo pink; 1.1875rem in the dashboard sidebar."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Dashboard detail pane, student file and empty-state titles."
+      },
+      "body-notebook": {
+        "displayName": "Body Notebook",
+        "purpose": "Paragraphs on Seyès paper; the 32px line sits on the strong rule."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "The dashboard base size; row titles 0.9375rem 700, context 0.8125rem 600."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Field labels and table heads; chips and axis ticks drop to 0.6875rem."
+      },
+      "hand": {
+        "displayName": "Hand",
+        "purpose": "The centre's handwriting (notes, salutation, margin dates, quotes) and the parents' signature; Persuade only."
+      },
+      "stamp": {
+        "displayName": "Stamp",
+        "purpose": "Uppercase, tracked text inside rotated rubber stamps only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "spread-on-desk",
+        "value": "0 2px 0 #E6DEF2, 0 4px 0 #D6CBE8, 0 30px 60px -18px rgba(20, 6, 40, 0.55), 0 12px 24px -12px rgba(20, 6, 40, 0.4)",
+        "purpose": "The opening spread on the purple desk: stacked page edge plus a long drop. Persuade only; the signature sheet uses the first three layers."
+      },
+      {
+        "name": "journal-sheet",
+        "value": "0 1px 0 #E6DEF2, 0 3px 0 #D6CBE8, 0 24px 48px -24px rgba(40, 20, 70, 0.35)",
+        "purpose": "The long ruled sheet on the lavender ground. Notebook sheets only, never cards or buttons."
+      },
+      {
+        "name": "ink-lift",
+        "value": "0 6px 18px -8px rgba(36, 28, 51, 0.7)",
+        "purpose": "Under the landing's ink pill buttons."
+      },
+      {
+        "name": "phone",
+        "value": "0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 28px 40px -16px rgba(30, 10, 50, 0.45), 0 8px 16px -8px rgba(30, 10, 50, 0.35)",
+        "purpose": "The clipped phones holding app screens on the landing."
+      },
+      {
+        "name": "preview-phone",
+        "value": "0 24px 40px -24px rgba(36, 28, 51, 0.6)",
+        "purpose": "The dashboard editor's student-app preview."
+      },
+      {
+        "name": "sticky-note",
+        "value": "0 14px 22px -16px rgba(60, 40, 0, 0.45)",
+        "purpose": "The tilted yellow note on the journal."
+      },
+      {
+        "name": "card-on-paper",
+        "value": "0 0 0 1.5px var(--line), 0 12px 24px -18px rgba(40, 20, 70, 0.4)",
+        "purpose": "A notification card written into a notebook entry."
+      },
+      {
+        "name": "hairline-ring",
+        "value": "0 0 0 1px var(--line)",
+        "purpose": "Every dashboard panel; inset for inputs, ghost buttons, chips and search. Hover moves it to #C9BCE0 or brand violet."
+      },
+      {
+        "name": "focus-glow",
+        "value": "inset 0 0 0 1.5px var(--brand), 0 0 0 3px rgba(147, 51, 234, 0.16)",
+        "purpose": "Dashboard field focus."
+      },
+      {
+        "name": "toast",
+        "value": "0 16px 32px -12px rgba(36, 28, 51, 0.6)",
+        "purpose": "The undo toast, the one lifted layer in the inbox."
+      },
+      {
+        "name": "drawer",
+        "value": "0 0 40px rgba(36, 28, 51, 0.25)",
+        "purpose": "The dashboard sidebar when open as a drawer below 860px."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The one easing token (--ease-out) for state changes on both surfaces."
+      },
+      {
+        "name": "state-persuade",
+        "value": "0.2s",
+        "purpose": "Landing hover and press transitions (colour, 1px lift, arrow nudge)."
+      },
+      {
+        "name": "state-operate",
+        "value": "0.15s",
+        "purpose": "Dashboard hover, ring and colour changes; table rows 0.12s."
+      },
+      {
+        "name": "sign-in",
+        "value": "1.1s clip-path inset(0 100% 0 0) to inset(0 0 0 0)",
+        "purpose": "The signature writes itself left to right on submit."
+      },
+      {
+        "name": "stamp-land",
+        "value": "transform 0.45s, opacity 0.3s, delay 0.9s; scale 1.4 to 1 at -9deg",
+        "purpose": "The « Demande reçue » stamp lands after the signature."
+      },
+      {
+        "name": "settle",
+        "value": "0.6s to 0.9s, teal-soft to transparent",
+        "purpose": "A resolved alert row, a new timetable block or a sent notification flashes teal and settles."
+      },
+      {
+        "name": "tick",
+        "value": "0.5s, scale 0.4 to 1 with fade",
+        "purpose": "The check on a resolved alert."
+      },
+      {
+        "name": "bump",
+        "value": "0.5s, scale 1 to 1.35 to 1",
+        "purpose": "The sidebar count when an alert is resolved."
+      },
+      {
+        "name": "toast",
+        "value": "0.2s rise 16px and fade; hides after 5200ms",
+        "purpose": "The undo toast."
+      },
+      {
+        "name": "drawer",
+        "value": "0.22s translateX",
+        "purpose": "The sidebar drawer below 860px."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "all durations 0.01ms",
+        "purpose": "prefers-reduced-motion collapses every animation and transition (base.css)."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "landing-lock-lines",
+        "value": "min-width: 1000px",
+        "purpose": "Hero headline and lede break into fixed lines."
+      },
+      {
+        "name": "landing-lg",
+        "value": "max-width: 1080px",
+        "purpose": "Top-bar links hide; margin column 120px; proof drops under text."
+      },
+      {
+        "name": "landing-md",
+        "value": "max-width: 760px",
+        "purpose": "Spread stacks and straightens; margin 34px; vertical dates; single-column form."
+      },
+      {
+        "name": "landing-sm",
+        "value": "max-width: 480px",
+        "purpose": "Header call to action shortens."
+      },
+      {
+        "name": "dashboard-lg",
+        "value": "max-width: 1180px",
+        "purpose": "Every split collapses to one column; side panes stop sticking."
+      },
+      {
+        "name": "dashboard-md",
+        "value": "max-width: 860px",
+        "purpose": "Sidebar becomes a 264px drawer; strip and week grid scroll horizontally."
+      },
+      {
+        "name": "touch",
+        "value": "hover: none",
+        "purpose": "Swaps hover hints for touch hints on the timetable strip."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Ink Pill Button",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "The landing's primary action: a plum-ink pill with a soft lift; brand violet never fills a button.",
+      "html": "<a class=\"ds-btn-ink\" href=\"#\">Prendre rendez-vous</a>",
+      "css": ".ds-btn-ink { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: var(--pill, #241C33); color: #fff; font: 700 1rem var(--font-text, \"Quicksand\", system-ui, sans-serif); text-decoration: none; white-space: nowrap; box-shadow: 0 6px 18px -8px rgba(36, 28, 51, 0.7); transition: background-color 0.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)), transform 0.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } .ds-btn-ink:hover { background: var(--pill-hover, #3A2E52); color: #fff; transform: translateY(-1px); } .ds-btn-ink:active { transform: translateY(0); } .ds-btn-ink:focus-visible { outline: 3px solid var(--brand, #9333EA); outline-offset: 3px; }"
+    },
+    {
+      "name": "Dashboard Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The Operate primary: a compact 10px-radius plum-ink key with a leading line icon.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\"><svg viewBox=\"0 0 24 24\" width=\"17\" height=\"17\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m22 2-7 20-4-9-9-4z\"/><path d=\"M22 2 11 13\"/></svg>Relancer</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 14px; border: 0; border-radius: 10px; background: var(--pill, #241C33); color: #fff; font: 700 0.875rem var(--font-text, \"Quicksand\", system-ui, sans-serif); white-space: nowrap; cursor: pointer; transition: background-color 0.15s, box-shadow 0.15s, color 0.15s; } .ds-btn-primary:hover { background: var(--pill-hover, #3A2E52); } .ds-btn-primary:focus-visible { outline: 3px solid var(--brand, #9333EA); outline-offset: 3px; } .ds-btn-primary[disabled] { opacity: 0.6; cursor: progress; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "White key with a hairline ring; info-level actions, « Annuler » and secondary choices.",
+      "html": "<button class=\"ds-btn-ghost\" type=\"button\">Relire</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 14px; border: 0; border-radius: 10px; background: var(--paper, #FFFFFF); color: var(--ink, #1F1A2B); box-shadow: inset 0 0 0 1px var(--line, #E2DAEC); font: 700 0.875rem var(--font-text, \"Quicksand\", system-ui, sans-serif); cursor: pointer; transition: box-shadow 0.15s, color 0.15s; } .ds-btn-ghost:hover { box-shadow: inset 0 0 0 1px var(--brand, #9333EA); color: var(--brand-ink, #5A1B91); } .ds-btn-ghost:focus-visible { outline: 3px solid var(--brand, #9333EA); outline-offset: 3px; }"
+    },
+    {
+      "name": "Fill-in Line Field",
+      "kind": "input",
+      "refersTo": "input-fill-line",
+      "description": "The coupon-réponse field on notebook paper: no box, a Seyès underline, the answer in violet ink.",
+      "html": "<label class=\"ds-fill\"><span>Nom du parent</span><input placeholder=\"Ex. Samira Alaoui\"></label>",
+      "css": ".ds-fill { display: grid; gap: 6px; max-width: 280px; font-family: var(--font-text, \"Quicksand\", system-ui, sans-serif); } .ds-fill span { font-size: 0.875rem; font-weight: 700; color: var(--ink-2, #554D66); } .ds-fill input { min-height: 44px; border: 0; border-radius: 0; background: transparent; border-bottom: 2px solid var(--seyes-strong, #D9CDF1); padding: 6px 2px; color: var(--brand-ink, #5A1B91); font: 700 1.0625rem var(--font-text, \"Quicksand\", system-ui, sans-serif); transition: box-shadow 0.2s; } .ds-fill input::placeholder { color: var(--ink-3, #6C657D); font-weight: 600; } .ds-fill input:hover { border-bottom-color: var(--brand, #9333EA); } .ds-fill input:focus-visible { outline: none; border-bottom-color: var(--brand, #9333EA); box-shadow: 0 2px 0 var(--brand, #9333EA); }"
+    },
+    {
+      "name": "Ringed Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "The Operate field: white, 10px radius, inset hairline that turns violet with a soft glow on focus.",
+      "html": "<label class=\"ds-field\"><span>Titre</span><input placeholder=\"Ex. Contrôle de maths jeudi\"></label>",
+      "css": ".ds-field { display: grid; gap: 6px; max-width: 320px; font-family: var(--font-text, \"Quicksand\", system-ui, sans-serif); } .ds-field span { font-size: 0.75rem; font-weight: 700; color: var(--ink-2, #554D66); } .ds-field input { height: 38px; padding: 0 12px; border: 0; border-radius: 10px; background: var(--paper, #FFFFFF); color: var(--ink, #1F1A2B); box-shadow: inset 0 0 0 1px var(--line, #E2DAEC); font: 600 14px var(--font-text, \"Quicksand\", system-ui, sans-serif); transition: box-shadow 0.15s; } .ds-field input::placeholder { color: var(--ink-3, #6C657D); } .ds-field input:hover { box-shadow: inset 0 0 0 1px #C9BCE0; } .ds-field input:focus-visible { outline: none; box-shadow: inset 0 0 0 1.5px var(--brand, #9333EA), 0 0 0 3px rgba(147, 51, 234, 0.16); }"
+    },
+    {
+      "name": "Sidebar Navigation",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "The dashboard sidebar on cooler lavender; the current page is the plum-ink pill, with the open-alert count beside it.",
+      "html": "<nav class=\"ds-side\"><a href=\"#\" aria-current=\"page\"><svg viewBox=\"0 0 24 24\" width=\"17\" height=\"17\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M22 12h-6l-2 3h-4l-2-3H2\"/><path d=\"M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z\"/></svg>Suivi<span class=\"ds-count\">7</span></a><a href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"17\" height=\"17\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z\"/><path d=\"M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z\"/></svg>Leçons</a><a href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"17\" height=\"17\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/><path d=\"M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75\"/></svg>Élèves</a></nav>",
+      "css": ".ds-side { display: grid; gap: 2px; width: 220px; padding: 14px; background: #ECE7F3; border-radius: 12px; font-family: var(--font-text, \"Quicksand\", system-ui, sans-serif); } .ds-side a { display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 10px; border-radius: 10px; color: var(--ink-2, #554D66); font-weight: 700; font-size: 14px; text-decoration: none; transition: background-color 0.15s, color 0.15s; } .ds-side a svg { width: 19px; height: 19px; } .ds-side a:hover { background: rgba(255, 255, 255, 0.7); color: var(--ink, #1F1A2B); } .ds-side a[aria-current=\"page\"] { background: var(--pill, #241C33); color: #fff; } .ds-side a:focus-visible { outline: 3px solid var(--brand, #9333EA); outline-offset: 3px; } .ds-count { margin-left: auto; min-width: 22px; height: 20px; padding: 0 6px; border-radius: 999px; display: grid; place-items: center; font-size: 0.75rem; font-weight: 700; background: #fff; color: var(--pink-ink, #A0175F); }"
+    },
+    {
+      "name": "Level Chips",
+      "kind": "chip",
+      "refersTo": "chip-urgent",
+      "description": "Wash-and-ink pairs: urgent, à faire, info, traité. The saturated tones never carry text.",
+      "html": "<span class=\"ds-lvl ds-urgent\">Urgent</span> <span class=\"ds-lvl ds-todo\">À faire</span> <span class=\"ds-lvl ds-info\">Info</span> <span class=\"ds-lvl ds-done\">Traité</span>",
+      "css": ".ds-lvl { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; font: 700 0.6875rem var(--font-text, \"Quicksand\", system-ui, sans-serif); letter-spacing: 0.02em; white-space: nowrap; } .ds-urgent { background: var(--pink-soft, #FCE7F2); color: var(--pink-ink, #A0175F); } .ds-todo { background: var(--gold-soft, #FFF2D4); color: var(--gold-ink, #8A5B00); } .ds-info { background: var(--brand-soft, #F1E7FD); color: var(--brand-ink, #5A1B91); } .ds-done { background: var(--teal-soft, #DCF3EF); color: var(--teal-ink, #05625C); }"
+    },
+    {
+      "name": "Ruled Notebook Entry",
+      "kind": "card",
+      "refersTo": "notebook-sheet",
+      "description": "The Persuade signature: Seyès paper with the pink margin, a handwritten margin date, a Fredoka headline on the ruling, and a rubber stamp.",
+      "html": "<article class=\"ds-sheet\"><p class=\"ds-date\">Lundi 12<br>octobre</p><div><h3>La vidéo d'abord, le quiz ensuite.</h3><p>Le quiz ne s'ouvre que lorsque la moitié de la vidéo a vraiment été regardée.</p><p class=\"ds-note\">le quiz attend la moitié de la vidéo</p></div><span class=\"ds-stamp\">Rentrée<br>2026-2027</span></article>",
+      "css": ".ds-sheet { --mx: 120px; position: relative; display: grid; grid-template-columns: var(--mx) minmax(0, 1fr); column-gap: 32px; max-width: 640px; padding: 48px 40px 40px 0; border-radius: 8px; font-family: var(--font-text, \"Quicksand\", system-ui, sans-serif); color: var(--ink, #1F1A2B); background-color: var(--paper, #FFFFFF); background-image: linear-gradient(90deg, transparent calc(var(--mx) - 1px), var(--seyes-margin, #E9A3CF) calc(var(--mx) - 1px), var(--seyes-margin, #E9A3CF) calc(var(--mx) + 1px), transparent calc(var(--mx) + 1px)), linear-gradient(var(--seyes-strong, #D9CDF1) 1px, transparent 1px), linear-gradient(var(--seyes-fine, #EEE8F8) 1px, transparent 1px), linear-gradient(90deg, var(--seyes-fine, #EEE8F8) 1px, transparent 1px); background-size: 100% 100%, 100% 32px, 100% 8px, 32px 100%; background-position: 0 0, 0 31px, 0 7px, calc(var(--mx) + 1px) 0; box-shadow: 0 1px 0 #E6DEF2, 0 3px 0 #D6CBE8, 0 24px 48px -24px rgba(40, 20, 70, 0.35); } .ds-date { margin: 0; padding: 4px 16px 0 0; text-align: right; font: 600 1.625rem/1.05 var(--font-hand, \"Caveat\", \"Segoe Print\", cursive); color: var(--brand-deep, #6B21A8); } .ds-sheet h3 { margin: 0 0 16px; font: 500 2rem/1.08 var(--font-display, \"Fredoka\", \"Quicksand\", system-ui, sans-serif); letter-spacing: -0.015em; max-width: 18ch; } .ds-sheet p { margin: 0 0 16px; font-size: 1.0625rem; font-weight: 500; line-height: 32px; color: var(--ink-2, #554D66); max-width: 52ch; } .ds-sheet .ds-note { font: 600 1.5rem/1.3 var(--font-hand, \"Caveat\", \"Segoe Print\", cursive); color: var(--pink-ink, #A0175F); transform: rotate(-2deg); } .ds-stamp { position: absolute; top: 20px; right: 24px; padding: 8px 12px; border: 3px solid #B8277A; border-radius: 10px; color: #B8277A; font: 700 0.8125rem/1.15 var(--font-text, \"Quicksand\", system-ui, sans-serif); letter-spacing: 0.08em; text-transform: uppercase; text-align: center; transform: rotate(8deg); opacity: 0.88; }"
+    },
+    {
+      "name": "Alert Row",
+      "kind": "custom",
+      "refersTo": "panel",
+      "description": "The Operate signature: level chip, title, context line and exactly one action; resolving it ticks teal and settles.",
+      "html": "<div class=\"ds-alert\"><span class=\"ds-lvl2\">Urgent</span><div><b>5 élèves de 3e B n'ont pas vu la moitié de « Fonctions affines »</b><small>Contrôle de maths à 14:00 : leur quiz de révision est encore verrouillé.</small></div><button class=\"ds-act\" type=\"button\">Relancer</button></div>",
+      "css": ".ds-alert { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; max-width: 620px; padding: 10px; border-radius: 12px; background: var(--paper, #FFFFFF); font-family: var(--font-text, \"Quicksand\", system-ui, sans-serif); font-size: 14px; color: var(--ink, #1F1A2B); transition: background-color 0.15s; } .ds-alert:hover { background: #FAF8FC; } .ds-lvl2 { justify-self: start; align-self: start; margin-top: 2px; display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; font-size: 0.6875rem; font-weight: 700; background: var(--pink-soft, #FCE7F2); color: var(--pink-ink, #A0175F); } .ds-alert b { display: block; font-size: 0.9375rem; font-weight: 700; line-height: 1.35; } .ds-alert small { display: block; margin-top: 4px; font-size: 0.8125rem; font-weight: 600; line-height: 1.4; color: var(--ink-3, #6C657D); } .ds-act { height: 32px; padding: 0 12px; border: 0; border-radius: 10px; background: var(--pill, #241C33); color: #fff; font: 700 0.8125rem var(--font-text, \"Quicksand\", system-ui, sans-serif); cursor: pointer; transition: background-color 0.15s; } .ds-act:hover { background: var(--pill-hover, #3A2E52); } .ds-act:focus-visible { outline: 3px solid var(--brand, #9333EA); outline-offset: 3px; }"
+    },
+    {
+      "name": "Undo Toast",
+      "kind": "custom",
+      "refersTo": "toast",
+      "description": "The result of an inbox action: a plum-ink toast with a teal check and « Annuler », about five seconds.",
+      "html": "<div class=\"ds-toast\" role=\"status\"><svg viewBox=\"0 0 24 24\" width=\"17\" height=\"17\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg><span>5 élèves relancés</span><button type=\"button\">Annuler</button></div>",
+      "css": ".ds-toast { display: inline-flex; align-items: center; gap: 12px; padding: 12px 14px 12px 16px; border-radius: 12px; background: var(--pill, #241C33); color: #fff; font: 600 14px var(--font-text, \"Quicksand\", system-ui, sans-serif); box-shadow: 0 16px 32px -12px rgba(36, 28, 51, 0.6); } .ds-toast svg { width: 18px; height: 18px; color: #7EE0D6; } .ds-toast button { height: 30px; padding: 0 10px; border: 0; border-radius: 8px; background: rgba(255, 255, 255, 0.14); color: #fff; font: 700 14px var(--font-text, \"Quicksand\", system-ui, sans-serif); cursor: pointer; } .ds-toast button:hover { background: rgba(255, 255, 255, 0.24); } .ds-toast button:focus-visible { outline: 3px solid var(--brand, #9333EA); outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Liaison Notebook",
+    "overview": "One world, two registers. The world is the student app's: a pearl-lavender ground, a dark plum-ink pill for every action, brand purple for focus and the centre's ink, Kids pink, teal and gold as status, Fredoka for printed titles and Quicksand for everything read or operated. Both web surfaces load the same tokens from `prototype/web/assets/base.css` and the same self-hosted fonts, so a parent who clicks « Espace équipe » lands in the same material, only quieter.\n\nThe Persuade register (the families' landing page) is the carnet de liaison itself: white Seyès-ruled sheets lying on a saturated purple desk, a pink margin line, the centre's notes and the parents' signature written in Caveat, rubber stamps, and a steel paperclip holding a phone that shows a real app screen. Paper objects tilt a little, carry their own small shadows, and the running text sits on the ruling. The page reads as dated entries in the margin, each proving one feature, and closes on a signature line that becomes the appointment request.\n\nThe Operate register (the staff dashboard) is the same paper with the handwriting taken out: a lavender ground, flat white panels ringed by a hairline, a cooler lavender-grey sidebar, plum-ink only for the active navigation item and primary buttons. Colour carries data and nothing else: subject colours on timetable blocks and progress bars, pink for urgent, gold for to-do, teal for done. Density is high (14px base), nothing tilts, nothing is ruled.",
+    "keyCharacteristics": [
+      "Lavender ground, white working surface, plum-ink pill for action; brand purple is never a button fill.",
+      "Every status colour comes as a pair: a soft tint ground with its own dark ink for text.",
+      "Fredoka prints titles, Quicksand speaks, Caveat writes, and Caveat lives on the Persuade surface only.",
+      "Notebook materials (Seyès ruling, margin line, stamps, paperclip, tilt) belong to the Persuade register; the Operate register is flat and square to the grid.",
+      "The real app screens, framed in a dark phone, are the only imagery."
+    ],
+    "rules": [
+      {
+        "name": "The Plum-Ink Pill Rule",
+        "body": "Every primary action, active nav item and pressed control is the plum-ink pill (#241C33). Brand Violet marks focus, links and icons; it never fills a button.",
+        "section": "colors"
+      },
+      {
+        "name": "The Wash-and-Ink Rule",
+        "body": "A status or category colour reaches text only as its dark ink on its own wash (pink-ink on pink-soft, gold-ink on gold-soft, teal-ink on teal-soft, brand-ink on brand-soft). The saturated mid-tone draws dots, bars, ticks and rings.",
+        "section": "colors"
+      },
+      {
+        "name": "The Colour Is Data Rule",
+        "body": "On the Operate surface, subject colours appear only on timetable blocks, dots, progress fills and notification icons. Chrome (sidebar, panels, buttons, headers) stays lavender, white and plum-ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Purple Desk Rule",
+        "body": "The saturated Desk Purple belongs to the Persuade surface, under the opening spread and the signature sheet. The Operate surface has no saturated ground.",
+        "section": "colors"
+      },
+      {
+        "name": "The Three Hands Rule",
+        "body": "Fredoka prints, Quicksand speaks, Caveat writes. Caveat carries only the centre's voice and the parents' signature, on the Persuade surface; the dashboard never uses it.",
+        "section": "typography"
+      },
+      {
+        "name": "The Ruled Line Rule",
+        "body": "On Seyès paper, running text uses a 32px line height so each line sits on a strong rule.",
+        "section": "typography"
+      },
+      {
+        "name": "The Stamp-Only Capitals Rule",
+        "body": "Uppercase with wide tracking appears only inside a bordered, rotated rubber stamp. Section labels, kickers and table heads stay in sentence case.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paper Has Weight Rule",
+        "body": "On the Persuade surface, a sheet shows its stacked page edge (one and two pixels of lavender paper below it) and every object laid on paper casts its own small shadow. The page edge belongs to notebook sheets; it is never a card or button shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Hairline Ring Rule",
+        "body": "On the Operate surface, surfaces at rest are flat white with a 1px hairline ring. A drop shadow means the layer floats above the page.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Tilt Belongs to Paper Rule",
+        "body": "Rotation is a Persuade device and stays small: the spread -0.6deg, phones 1.6 to 2.4deg, handwritten notes 2 to 6deg, the signature -2deg, stamps 8 to 9deg. Below 760px the spread straightens. Nothing on the dashboard rotates.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** load `assets/base.css` first on every web surface and use its custom properties; add surface rules in a surface stylesheet.",
+      "**Do** make every primary action and active state the plum-ink pill (#241C33), hovering to #3A2E52.",
+      "**Do** set status and category text as ink on wash (pink-ink on pink-soft, gold-ink on gold-soft, teal-ink on teal-soft, brand-ink on brand-soft).",
+      "**Do** keep notebook text on the 32px Seyès line and lay new Persuade content out on the margin grid (date in the margin, text, proof).",
+      "**Do** show the student app through its real screen exports in a Device Black phone; they are the only imagery.",
+      "**Do** draw the 50 % threshold as a gold tick wherever video progress appears.",
+      "**Do** give dashboard actions an immediate in-place result and an undo, as the alert row does.",
+      "**Do** keep keyboard focus visible: a 3px Brand Violet outline offset 3px, or the violet focus glow on fields.",
+      "**Do** honour reduced motion: the base stylesheet collapses every animation and transition."
+    ],
+    "donts": [
+      "**Don't** fill a button with Brand Violet (#9333EA) or put a saturated desk ground on the dashboard.",
+      "**Don't** use Caveat on the dashboard, for UI labels, or for running body text.",
+      "**Don't** put white text on Kids Pink (#D9368F) or Done Teal (#088D84) at body or label sizes; both measure about 4.1 to 4.3:1 against white. Use the ink-on-wash pair.",
+      "**Don't** use uppercase tracked text outside a rubber stamp.",
+      "**Don't** put subject colours on chrome; they mark data only.",
+      "**Don't** use the stacked page-edge shadow on cards or buttons, or tilt anything on the dashboard.",
+      "**Don't** add Seyès ruling, stamps or paperclips to the Operate surface."
+    ]
+  }
+}

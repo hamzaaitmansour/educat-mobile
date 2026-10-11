@@ -1,0 +1,71 @@
+{
+  "title": "Manager dashboard",
+  "question": "Now the manager dashboard for the direction and teachers (lessons & quizzes, students & notifications, emploi du temps). Every option also has a full timetable view. Pick one structure, steer it, or re-roll.",
+  "options": [
+    {
+      "id": "fiche-eleve",
+      "label": "Student files first",
+      "kicker": "THE ROLL",
+      "lineage": "the file the centre keeps for each student: PAP, follow-up, progress",
+      "thesis": "The dashboard opens on the students: each file shows video, résumé and quiz progress, and every action starts from a child.",
+      "palette": ["#F3EFF8", "#241C33", "#9333EA", "#D9368F", "#088D84", "#F2AB19"],
+      "materials": ["class roster with progress strips", "student file with PAP", "actions from the file"],
+      "viewport": "Sidebar (Élèves, Leçons, Emploi du temps, Notifications); a class roster with progress strips; the selected student's file on the right.",
+      "risk": "Lesson authoring sits one level deeper, so publishing takes an extra click.",
+      "wireframe": {
+        "cols": 12, "rows": 10,
+        "regions": [
+          { "label": "sidebar", "x": 0, "y": 0, "w": 2, "h": 10 },
+          { "label": "class + search", "x": 2, "y": 0, "w": 10, "h": 1 },
+          { "label": "roster: progress strips", "x": 2, "y": 1, "w": 5, "h": 9 },
+          { "label": "student file: PAP, video, quiz", "x": 7, "y": 1, "w": 5, "h": 6, "accent": true },
+          { "label": "actions: notify, assign lesson", "x": 7, "y": 7, "w": 5, "h": 3 }
+        ]
+      }
+    },
+    {
+      "id": "pipeline",
+      "label": "Lesson pipeline",
+      "lineage": "the teachers' preparation board, from draft to published",
+      "thesis": "Lessons move across a board from draft to published; each card shows whether its video, résumé and quiz are ready.",
+      "palette": ["#F3EFF8", "#241C33", "#9333EA", "#D9368F", "#088D84", "#F2AB19"],
+      "materials": ["board columns", "lesson cards with readiness checks", "editor drawer with phone preview"],
+      "viewport": "Columns Brouillon, À relire, Publiée, Programmée; opening a card slides in the editor with the student-app preview.",
+      "risk": "Student follow-up becomes a separate view instead of the home.",
+      "wireframe": {
+        "cols": 12, "rows": 10,
+        "regions": [
+          { "label": "sidebar", "x": 0, "y": 0, "w": 2, "h": 10 },
+          { "label": "filters: matière, classe", "x": 2, "y": 0, "w": 10, "h": 1 },
+          { "label": "Brouillon", "x": 2, "y": 1, "w": 2, "h": 9 },
+          { "label": "À relire", "x": 4, "y": 1, "w": 2, "h": 9 },
+          { "label": "Publiée", "x": 6, "y": 1, "w": 2, "h": 9 },
+          { "label": "Programmée", "x": 8, "y": 1, "w": 2, "h": 9 },
+          { "label": "editor + phone preview", "x": 10, "y": 1, "w": 2, "h": 9, "accent": true }
+        ]
+      }
+    },
+    {
+      "id": "suivi",
+      "label": "Follow-up inbox",
+      "lineage": "the morning list a coordinator works through",
+      "thesis": "The home is a triage list of what needs attention today: students falling behind, lessons missing a quiz, timetable changes to announce.",
+      "palette": ["#F3EFF8", "#241C33", "#9333EA", "#D9368F", "#088D84", "#F2AB19"],
+      "materials": ["prioritised alert rows", "one-click actions", "today's timetable strip"],
+      "viewport": "Today's timetable strip on top; alert rows with actions below (relancer, compléter le quiz, prévenir la classe); a detail pane on the right.",
+      "risk": "On a quiet day the home looks empty, so it needs a good calm state.",
+      "wireframe": {
+        "cols": 12, "rows": 10,
+        "regions": [
+          { "label": "sidebar", "x": 0, "y": 0, "w": 2, "h": 10 },
+          { "label": "today's timetable strip", "x": 2, "y": 0, "w": 10, "h": 2 },
+          { "label": "alerts with actions", "x": 2, "y": 2, "w": 6, "h": 8, "accent": true },
+          { "label": "detail pane", "x": 8, "y": 2, "w": 4, "h": 8 }
+        ]
+      }
+    }
+  ],
+  "reroll": true,
+  "steer": true,
+  "buildPath": { "value": "code", "toggle": false }
+}
