@@ -18,7 +18,7 @@ const ctx = {
   document: { querySelector: s => (s === '#app' ? app : null), querySelectorAll: () => [], addEventListener() {}, createElement: () => el() },
 };
 vm.createContext(ctx);
-vm.runInContext(code + '\n;globalThis.__t = { S: () => S, setS: v => { S = v; }, V, P: () => P, phoneInner, GALLERY, S0, LMAP, LESSONS, quizUnlocked, watchedPct, progressOf, ACTIONS, ensureVideo, finishQuiz, startQuiz, eventsOn, upcomingExams, average };', ctx);
+vm.runInContext(code + '\n;globalThis.__t = { S: () => S, setS: v => { S = v; }, V, P: () => P, phoneInner, GALLERY, S0, LMAP, LESSONS, quizUnlocked, watchedPct, progressOf, ACTIONS, ensureVideo, finishQuiz, startQuiz, eventsOn, upcomingExams, average, loginSubmit, cleanCode, shortOk, startExo, XMAP, EXERCISES, LMAP, lessonTabs, FIGURES, CODES };', ctx);
 const t = ctx.__t;
 let fails = 0;
 const ok = (cond, msg) => { if (!cond) { fails++; console.log('FAIL', msg); } else console.log('ok  ', msg); };
@@ -52,7 +52,7 @@ q.picks = [0, 2, 1, 0, 1]; q.i = 4;
 t.finishQuiz();
 const saved = JSON.parse(Object.values(store).pop());
 ok(saved.lessons.affine.quizPassed === true && saved.lessons.affine.quizBest === 4, 'quiz result 4/5 is saved as passed');
-ok(t.progressOf(L) === 67, `lesson progress after video 50 % + quiz = ${t.progressOf(L)} % (résumé still unread)`);
+ok(t.progressOf(L) === 50, `lesson progress after video 50 % + quiz = ${t.progressOf(L)} % (résumé and exercice still to do)`);
 // 4. résumé-only lesson completes on read
 t.ACTIONS.resumeRead({ id: 'argumentation' });
 ok(t.progressOf(t.LMAP.argumentation) === 100, 'résumé-only lesson is 100 % once read');
@@ -66,5 +66,36 @@ for (const d of ['2026-10-12', '2026-10-13', '2026-10-14', '2026-10-15', '2026-1
   for (let i = 1; i < ev.length; i++) if (ev[i].start < ev[i - 1].end) clash = true;
   ok(!clash, `no overlapping classes on ${d}`);
 }
+// 7. exercises: data sanity, answer checking, the 4th lesson step
+for (const X of t.EXERCISES) {
+  const good = t.LMAP[X.lesson] && X.qs.length && X.qs.every(q => q.q && q.c && (q.t === 'open' || (q.t === 'short' && q.a && q.a.length))) && (X.kind !== 'image' || (t.FIGURES[X.figure] && X.alt));
+  ok(good, `exercise data complete: ${X.id}`);
+}
+ok(t.lessonTabs(t.LMAP.affine).join(',') === 'video,resume,quiz,exo' && t.lessonTabs(t.LMAP.argumentation).join(',') === 'resume', 'lessons with an exercise get the Exercice tab, the others do not');
+const XA = t.XMAP['ex-affine'].qs, XT = t.XMAP['ex-thales'].qs;
+ok(['−1', '-1', 'b = -1', 'b=−1', ' -1 '].every(v => t.shortOk(XA[0], v)) && !t.shortOk(XA[0], '1') && !t.shortOk(XA[0], ''), 'short answers accept −1 written several ways, refuse 1');
+ok(['0,4', '0.4', '2/5', '2 / 5'].every(v => t.shortOk(XT[0], v)) && ['3', '3 cm', '3cm', 'MN = 3 cm'].every(v => t.shortOk(XT[1], v)) && !t.shortOk(XT[1], '30'), 'decimal comma, fractions and units are accepted');
+ok(t.shortOk(t.XMAP['ex-conversions'].qs[1], '1 500') && t.shortOk(t.XMAP['ex-conversions'].qs[1], '1500 Ω') && t.shortOk(t.XMAP['ex-ww2'].qs[0], 'C') && t.shortOk(t.XMAP['ex-present-perfect'].qs[0], 'Has lived.') && !t.shortOk(t.XMAP['ex-present-perfect'].qs[0], 'lived'), 'spaced thousands, letters and words are checked');
+t.startExo('ex-affine');
+const ex = t.S().exo;
+ex.ans[0].v = '-1'; t.ACTIONS.xcheck({ i: '0' });
+ex.ans[1].v = '4'; t.ACTIONS.xcheck({ i: '1' });
+const firstTry = ex.ans[1].st;
+t.ACTIONS.xcheck({ i: '1' });
+t.ACTIONS.xreveal({ i: '2' });
+const shown = ex.ans[2].st;
+t.ACTIONS.xself({ i: '2', v: 'ok' });
+ok(ex.ans[0].st === 'ok' && firstTry === 'retry' && ex.ans[1].st === 'review' && shown === 'shown' && ex.ans[2].st === 'ok', 'right answer passes, a wrong one gets a second try then the correction, the corrigé is self-marked');
+t.ACTIONS.exoFinish();
+const saved2 = JSON.parse(Object.values(store).pop());
+ok(saved2.exos['ex-affine'].done === true && saved2.exos['ex-affine'].ok === 2 && saved2.exos['ex-affine'].n === 3, 'finished exercise is saved (2 of 3 right)');
+ok(t.progressOf(L) === 75, `lesson progress with the exercise done = ${t.progressOf(L)} % (résumé still unread)`);
+ok(t.progressOf(t.LMAP.thales) === 100, 'Thalès stays 100 % (its exercise is done in the sample data)');
+// 8. connexion with the student code
+const tryCode = v => { t.S().screen = 'splash'; t.S().login = { v, err: '', ok: false }; t.loginSubmit(); return t.S().login; };
+ok(tryCode('3B48').err === 'short' && tryCode('ABCDEF').err === 'format' && tryCode('3B4812').err === 'unknown', 'short, malformed and unknown codes are refused with their own message');
+ok(t.cleanCode('ezk-3b-4821') === '3B4821' && t.cleanCode('3b 48 21') === '3B4821', 'a pasted code is tidied (prefix, case, spaces)');
+const signed = tryCode('3B4821');
+ok(signed.ok === true && !signed.err && JSON.parse(Object.values(store).pop()).signedIn === true, 'the demo code signs Yanis in and the phone remembers it');
 console.log(fails ? `${fails} FAILED` : 'ALL PASSED');
 process.exit(fails ? 1 : 0);

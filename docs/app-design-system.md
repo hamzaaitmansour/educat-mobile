@@ -82,7 +82,7 @@ All of these come from the logo and website palette. Use the color for bars, dot
 | Lesson row | `.lesson-row` | Tinted row: icon square, title, type, progress ring |
 | Video player | `.player` | Canvas, seek bar with watched segments and a 50 % mark, controls |
 | Progress dock | `.progress-dock` + `.progbtn` | The button that fills toward 50 %, then becomes « Passer le quiz » |
-| Steps | `.step` | Vidéo vue à 50 % / Résumé lu / Quiz réussi |
+| Steps | `.step` | Vidéo vue à 50 % / Résumé lu / Quiz réussi / Exercice fait (when the lesson has an exercise); `.done` is teal |
 | Résumé card | `.rcard` | Plus `.formula`, `.retenir` (dark), `.warn` (coral) |
 | Quiz option | `.opt` | States `.sel`, `.right`, `.wrong` |
 | Timetable card | `.ev` | `.exam` and `.perso` variants, a live progress bar, KPIs for a contrôle |
@@ -93,16 +93,25 @@ All of these come from the logo and website palette. Use the color for bars, dot
 | Grade bars | `.gradechart` | Bar in the subject color plus a class-average tick |
 | Stacked chart | `svg.chart` | Minutes per day stacked by subject |
 | Toast | `.toast` | Top of the phone, dark |
+| Login wall | `.login`, `.wall`, `.wrow`, `.w` | « Le mur des cours »: 10 rows of the year's formulas and dates in Fredoka (20 to 40 px), each in its subject color mixed 22 % into `--app`, drifting in alternating directions (130 to 170 s a loop). `.w.lit` takes the full subject color; `.wall.ok` lights every entry. The drift stops in calm mode, with reduced motion and while the code field has focus |
+| Login card | `.login-card` | White, 32 px radius, soft offset shadow, no hairline; placed between two rows of the wall (top 21.1 %). The line under « Se connecter » (`.login-slot`) holds the help text at rest and the error in its place, at a fixed height, so the card never grows; `.done` keeps the same height for the greeting |
+| Code field | `.codebox`, `.cell` | A fixed plum-ink « EZK » chip, then 2 + 4 cells (32×46, Fredoka 24) over one transparent input; focus draws the violet ring and a caret in the next cell; `.bad` is the coral ring |
+| Demo hint | `.login-demo` | Frosted pill at the bottom of the login (prototype only) |
+| Exercise figure | `.fig`, `.fig-thumb`, `.xthumb` | The teacher's image, drawn as SVG by `prototype/web/assets/figures.js` (shared with the dashboard): ink `#1F1A2B`, labels `#5B536B`, grid `#ECE6F3`, the subject color for the line or marks. `.fig` is a white panel ringed in the subject tint with « Image postée par … » and « Agrandir »; `.fig-thumb` is borderless inside the Exercice tab; `.xthumb` is the 58 px square in lists |
+| Exercise question | `.xq` | White card: numbered square (`.xn`, subject tint; teal when right, gold when à revoir), the question, the answer field `.xin` (46 px, or a textarea that grows with its text), « Vérifier » |
+| Answer feedback | `.xmsg`, `.xcorr`, `.xself` | `.xmsg` coral wash for a second try; `.xcorr` lavender corrigé, `.ok` teal wash, `.review` gold wash with the expected answer; `.xself` two equal ghost buttons « J'ai réussi » / « À revoir », colored only after the tap |
+| Exercise result | `.xtally` | One 48 px tile per question (teal check or gold replay), then the « À revoir » corrections and the lesson's step chips |
+| Exercise row | `.exo-row` | List row with a thumbnail or the list-checks icon, format, questions, time, « Étape de la leçon » or « Entraînement », a teal « Fait · n/n réussies » line once done, and a chevron |
 
 **Icons:** Lucide style, 24 grid, stroke 2, drawn inline in `app.js` (`ICONS`). The 15 earlier icons are also in `resources/icons/`.
 
 ## Screens
 
-21 states are exported in `resources/screens/v3-college/`:
+29 states are exported in `resources/screens/v3-college/`:
 
 | # | Screen |
 |---|---|
-| 01 | Connexion |
+| 01 | Connexion (« le mur des cours », empty code) |
 | 02 | Accueil |
 | 03–04 | Vidéo, quiz locked and unlocked |
 | 05 | Résumé |
@@ -120,6 +129,12 @@ All of these come from the logo and website palette. Use the color for bars, dot
 | 19 | Minuteur |
 | 20 | Paramètres |
 | 21 | Contact |
+| 22–24 | Connexion: code being typed, unknown code, code recognised |
+| 25 | Lesson, Exercice tab |
+| 26 | Exercise with an image |
+| 27 | Exercise, corrigé to compare |
+| 28 | Exercise finished |
+| 29 | Exercices (Outils) |
 
 Behavior is specified in `docs/product-spec-college.md`.
 

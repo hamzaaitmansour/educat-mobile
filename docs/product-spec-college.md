@@ -2,6 +2,15 @@
 
 The student app for collège (14 to 16, 3e, CNED programme at EducazenKids Agadir). Decided by the owner on 11/10/2026: the app targets collège students, a little more mature than the first kids demo. Reference build: `prototype/` (online at https://hamzaaitmansour.github.io/educat-mobile/educazenkids-college.html).
 
+## Connexion (student code)
+
+Decided 12/10/2026: students sign in with a **personal code** the centre hands out, nothing else. The phone remembers them; « Se déconnecter » in Paramètres signs out.
+
+- **Code:** `EZK-` + class + 4 digits, e.g. EZK-3B-4821. The prefix is printed; the student types the 6 characters into cells. A pasted code (with or without « EZK- », any case, spaces) is tidied.
+- **Errors**, each with its own message: too short (« Ton code a 6 caractères après EZK… »), wrong shape (« Il ressemble à EZK-3B-4821 »), unknown code (« Vérifie-le, ou demande ton code à l'accueil »). On an error the lit formulas go back to their tint.
+- **Screen: « le mur des cours ».** The backdrop is the year's real content (f(x) = ax + b, U = R × I, 46 chromosomes, 1939-1945, have + past participle…) in pale subject tints, drifting slowly. Each typed character lights one formula in its subject colour; a valid code lights the whole wall and the card greets the student (« Bonjour Yanis ! », class, « Code reconnu »), then Home opens. The drift stops in calm mode, with reduced motion, and while the student types.
+- **Help:** « Pas de code ? Demande-le à l'accueil du centre. » The prototype adds a button that types the demo code.
+
 ## Navigation
 
 A floating bottom bar with three entries, as in the reference `resources/references/inspiration-syllabus-app.png`:
@@ -16,13 +25,13 @@ Lessons and quizzes open full screen, without the bar. The Outils icon carries t
 
 ## Lessons
 
-**Three lesson types:**
+**Three lesson types**, each with an optional **Exercice** (added 12/10/2026):
 
 | Type | Code | Tabs |
 |---|---|---|
-| Vidéo + Résumé + Quiz | `vqr` | Vidéo · Résumé · Quiz |
-| Résumé + Quiz | `rq` | Résumé · Quiz |
-| Résumé seul | `r` | Résumé |
+| Vidéo + Résumé + Quiz | `vqr` | Vidéo · Résumé · Quiz (· Exercice) |
+| Résumé + Quiz | `rq` | Résumé · Quiz (· Exercice) |
+| Résumé seul | `r` | Résumé (· Exercice) |
 
 **Video:**
 - The player has play/pause, a seek bar, a time readout, a speed control (1×, 1,5×, 2×; the prototype adds « Démo ×10 ») and subtitles.
@@ -42,10 +51,20 @@ Lessons and quizzes open full screen, without the bar. The Outils icon carries t
 - **60 % or more validates the quiz.**
 - The result screen shows the score ring and « Progression enregistrée ».
 
+**Exercice** (decided 12/10/2026):
+- Posted by the teacher. Either **an image** (a figure, a graph, a timeline, a photo of a worksheet) with questions about it, or **questions only**.
+- The Exercice tab shows the format, the number of questions, the time, a thumbnail of the image and « Commencer l'exercice ». The exercise opens full screen: the statement, the image (« Agrandir » opens it in a sheet), then every question on one page, like a worksheet.
+- **Short answers** (a number, a word) are checked at once. The check ignores case, spaces, the decimal comma, a leading « b = » and a trailing unit (« 3 cm », « 100 Ω »). A wrong answer gets a second try (« Pas encore. Vérifie ton calcul, puis réessaie. ») or « Voir la correction »; after two misses the correction shows, marked « À revoir ».
+- **Written answers:** the student writes (or works on paper), opens « Voir le corrigé », then marks « J'ai réussi » or « À revoir ».
+- « Terminer l'exercice » unlocks once every question is corrected. The result shows one tile per question, the correction of every question « À revoir », the lesson's steps with « Exercice fait », « Revoir la leçon » and « Refaire l'exercice ».
+- The teacher's image and the student's are the same drawing: `prototype/web/assets/figures.js` serves both prototypes.
+- **It is the lesson's 4th step**, « Exercice fait », done when the exercise is finished, whatever the score (the quiz validates knowledge; the exercise counts practice).
+
 **Saving progress:**
 - Watched seconds are saved every 2 seconds and on pause.
 - The résumé-read flag, best quiz score and passed flag are saved at once.
-- Lesson progress = average of its steps: video at 50 % (partial credit before that), résumé read, quiz passed.
+- Lesson progress = average of its steps: video at 50 % (partial credit before that), résumé read, quiz passed, exercice done (when the lesson has one).
+- A finished exercise saves its score (réussies / questions) and adds a « Cours » notification.
 
 ## Contrôle continu (Outils → Contrôle continu)
 
@@ -105,17 +124,18 @@ Lessons and quizzes open full screen, without the bar. The Outils icon carries t
 | Tool | Notes |
 |---|---|
 | Emploi du temps | Wide tile showing the next class |
+| Exercices | Wide tile: how many to do. The list is grouped by subject, with subject chips, a thumbnail for image exercises, « Étape de la leçon » or « Entraînement », and the score once done. Some exercises are extra practice outside the lesson steps (moyenne et médiane, conversions, argumentation) |
 | Contrôle continu | Upcoming count and general average |
 | Notifications | Unread count |
 | Ma progression | Study time per day (stacked by subject), completion per subject, lessons finished, quizzes passed |
 | Fiches résumés | Every résumé, with search |
 | Minuteur | Pomodoro: 25 min work, 5 min break, 4 sessions |
-| Paramètres | Notification types; a reading-friendly font (Lexend, extra spacing, for DYS students); calm mode; reset demo |
+| Paramètres | The student, « Se déconnecter »; notification types; a reading-friendly font (Lexend, extra spacing, for DYS students); calm mode; reset demo |
 | Contacter le centre | Logo, the Arabic and French phone lines with copy buttons, address, psychosocial support, website and Instagram |
 
 ## Branding in the app
 
-- **Logo:** the full logo on the login screen, at the bottom of Outils and on Contact. The head mark with the « EducazenKids » wordmark (purple « Educazen », pink « Kids ») at the top of Home.
+- **Logo:** the head mark and wordmark on the login card; the full logo at the bottom of Outils and on Contact. The head mark with the « EducazenKids » wordmark (purple « Educazen », pink « Kids ») at the top of Home.
 - **Colors, charts included:**
   - one brand color per subject (see `docs/app-design-system.md`)
   - gold for highlights, teal for success, pink for contrôles and alerts
@@ -123,7 +143,8 @@ Lessons and quizzes open full screen, without the bar. The Outils icon carries t
 
 ## Not in the prototype yet
 
-- Real login and accounts, and a real backend for lessons, grades and the timetable.
+- Real accounts and code distribution (the prototype knows one code), and a real backend for lessons, exercises, grades and the timetable.
+- Teachers see students' exercise answers (the prototype keeps them on the phone).
 - Real video files (the prototype draws an animated lesson on a canvas).
 - Push notifications.
 - The parent space from the kids plan.

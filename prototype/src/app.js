@@ -62,6 +62,10 @@ const ICONS = {
   type: '<path d="M4 7V4h16v3M9 20h6M12 4v16"/>',
   trash: '<path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>',
   coffee: '<path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/>',
+  exo: '<path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8M13 12h8M13 18h8"/>',
+  image: '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/>',
+  zoom: '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>',
+  logout: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/>',
 };
 const ic = (name, size = 20) => `<svg class="ic" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name] || ''}</svg>`;
 const STATUS_ICONS = '<span class="row" style="gap:6px"><svg width="18" height="11" viewBox="0 0 18 11" fill="currentColor" aria-hidden="true"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="10" y="2.5" width="3" height="8.5" rx="1"/><rect x="15" y="0" width="3" height="11" rx="1"/></svg><svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M1.5 4a9.5 9.5 0 0 1 13 0"/><path d="M4 6.8a6 6 0 0 1 8 0"/><circle cx="8" cy="9.4" r="1" fill="currentColor" stroke="none"/></svg><svg width="26" height="12" viewBox="0 0 26 12" fill="none" aria-hidden="true"><rect x="0.75" y="0.75" width="21.5" height="10.5" rx="3.2" stroke="currentColor" stroke-opacity=".45" stroke-width="1.5"/><rect x="2.5" y="2.5" width="16" height="7" rx="1.8" fill="currentColor"/><rect x="23.5" y="4" width="1.8" height="4" rx=".9" fill="currentColor" fill-opacity=".45"/></svg></span>';
@@ -87,12 +91,14 @@ function seed() {
     exams: [],
     reminders: { m4: true },
     settings: { dys: false, calm: false, notif: { cours: true, controles: true, edt: true, rappels: true } },
+    exos: { 'ex-thales': { done: true, ok: 3, n: 3 } },
+    signedIn: false,
   };
 }
 function load() {
   try {
     const raw = localStorage.getItem(STORE_KEY);
-    if (raw) { const p = JSON.parse(raw); if (p && p.v === 1 && p.lessons) return p; }
+    if (raw) { const p = JSON.parse(raw); if (p && p.v === 1 && p.lessons) { if (!p.exos) p.exos = seed().exos; return p; } }
   } catch (e) { /* storage unavailable: start from the sample data */ }
   return seed();
 }
@@ -109,7 +115,7 @@ function lp(id) {
 function countOnes(s) { let n = 0; for (let i = 0; i < s.length; i++) if (s.charCodeAt(i) === 49) n++; return n; }
 
 /* ---------- app state ---------- */
-const S0 = () => ({ screen: 'splash', stack: [], subject: 'all', lessonId: 'affine', tab: 'video', quiz: null, day: TODAY, schedView: 'day', sheet: null, notifFilter: 'all', ficheQ: '', formError: '' });
+const S0 = () => ({ screen: 'splash', stack: [], subject: 'all', lessonId: 'affine', tab: 'video', quiz: null, exo: null, exoSubject: 'all', login: { v: '', err: '', ok: false }, focus: null, day: TODAY, schedView: 'day', sheet: null, notifFilter: 'all', ficheQ: '', formError: '' });
 let S = S0();
 const V = { id: null, t: 0, rate: 1, playing: false, cc: true, w: null, count: 0, raf: 0, last: 0, lastSave: 0, unlocked: false, segAt: 0 };
 const T = { mode: 'focus', total: 1500, left: 1500, running: false, cycle: 1, iv: 0 };
@@ -128,8 +134,12 @@ function progressOf(L) {
   if (L.video) parts.push(Math.min(watchedSec(L) / (L.video.duration / 2), 1));
   parts.push(p.resumeRead ? 1 : 0);
   if (L.quiz) parts.push(p.quizPassed ? 1 : 0);
+  if (L.exo) parts.push(exoDone(L.exo) ? 1 : 0);
   return Math.round(parts.reduce((a, b) => a + b, 0) / parts.length * 100);
 }
+const exoDone = id => !!(P.exos[id] && P.exos[id].done);
+const lessonTabs = L => (L.type === 'vqr' ? ['video', 'resume', 'quiz'] : L.type === 'rq' ? ['resume', 'quiz'] : ['resume']).concat(L.exo ? ['exo'] : []);
+const typeLabel = L => TYPE_LABEL[L.type] + (L.exo ? ' · Exercice' : '');
 const allEvents = () => EVENTS.concat(P.events);
 const eventById = id => allEvents().concat(UPCOMING_EXTRA).find(e => e.id === id);
 const eventsOn = day => allEvents().filter(e => e.day === day).sort((a, b) => toMin(a.start) - toMin(b.start));
@@ -149,7 +159,7 @@ function subHeader(eyebrow, title, right = '') {
 }
 function lessonRow(L) {
   const sj = SUBJ[L.subject];
-  const meta = [TYPE_LABEL[L.type]];
+  const meta = [typeLabel(L)];
   if (L.video) meta.push(`${Math.round(L.video.duration / 60)} min`);
   return `<div class="lesson-row" role="button" tabindex="0" style="${sv(L.subject)}" data-act="openLesson" data-id="${L.id}">
     <span class="sq">${ic(sj.icon, 22)}</span>
@@ -171,14 +181,81 @@ function weekMini() {
 
 /* ---------- screens ---------- */
 const SCREENS = {};
+const CHIP_NAMES = { all: 'Toutes', maths: 'Maths', pc: 'Physique-Chimie', svt: 'SVT', fr: 'Français', ang: 'Anglais', hg: 'Histoire-Géo' };
 
-SCREENS.splash = () => `<div class="splash">
-  <div class="logo"><img src="${LOGO_FULL}" alt="EducazenKids, l'enseignement sur mesure">
-    <div class="stack" style="gap:8px;justify-items:center"><span class="eyebrow">Espace élève · Collège</span><h1 class="h-lg">Tes cours, à ton rythme</h1>
-    <p>Vidéos, résumés, quiz, contrôles et emploi du temps, au même endroit.</p></div></div>
-  <div class="cta"><button class="btn btn-dark block" data-act="nav" data-to="home">Se connecter</button>
-    <p class="small faint" style="text-align:center;margin:0">Prototype · données d'exemple</p></div>
-</div>`;
+/* ----- connexion: « le mur des cours » ----- */
+// The backdrop is the year's real content, taken from the lessons. Each typed character lights the entry marked k, a valid code lights them all.
+const WALL = [
+  { s: 21, off: 30, items: [['cependant', 'fr'], ['1er septembre 1939', 'hg', 2], ['have + past participle', 'ang'], ['0,05 A', 'pc'], ['la médiane', 'maths'], ['un gène', 'svt']] },
+  { s: 38, off: 90, items: [['ADN', 'svt'], ['f(x) = ax + b', 'maths', 0], ['6 juin 1944', 'hg'], ['since 2020', 'ang']] },
+  { s: 25, off: 10, items: [['la thèse', 'fr'], ['46 chromosomes', 'svt'], ['loi d\'Ohm', 'pc'], ['ever · never', 'ang'], ['guerre totale', 'hg']] },
+  { s: 31, off: 140, items: [['x = −1/2', 'maths'], ['100 Ω', 'pc'], ['en somme', 'fr'], ['I have visited', 'ang'], ['le noyau', 'svt']] },
+  { s: 20, off: 60, items: [['yesterday', 'ang'], ['de plus', 'fr'], ['5 V', 'pc'], ['1939-1945', 'hg'], ['A × B = 0', 'maths']] },
+  { s: 34, off: 20, items: [['a = (yB − yA) / (xB − xA)', 'maths'], ['she has lived', 'ang'], ['la Pologne', 'hg']] },
+  { s: 22, off: 110, items: [['l\'argument', 'fr'], ['U = f(I)', 'pc'], ['23 paires', 'svt'], ['for · since', 'ang'], ['(0 ; b)', 'maths']] },
+  { s: 33, off: 0, items: [['past simple', 'ang', 5], ['U = R × I', 'pc', 1], ['propagande', 'hg'], ['ainsi', 'fr']] },
+  { s: 24, off: 0, items: [['ampèremètre', 'pc'], ['cependant', 'fr', 4], ['AM / AB = AN / AC', 'maths'], ['chromosomes', 'svt'], ['8 mai 1945', 'hg']] },
+  { s: 40, off: 120, items: [['1944', 'hg'], ['Thalès', 'maths'], ['noyau', 'svt', 3], ['pourtant', 'fr']] },
+];
+function wallHTML(lit, all) {
+  let n = 0;
+  const rows = WALL.map((r, ri) => {
+    const one = () => r.items.map(([t, k, key]) => `<span class="w ${key != null && key < lit ? 'lit' : ''}" style="--c:${SUBJ[k].c};--i:${n++}" ${key != null ? `data-k="${key}"` : ''}>${esc(nb(t))}</span>`).join('');
+    return `<div class="wrow ${ri % 2 ? 'rev' : ''}" style="--fs:${r.s}px;--dur:${90 + r.s * 2}s"><div class="wtrack" style="margin-left:-${r.off}px">${one()}${one()}</div></div>`;
+  }).join('');
+  return `<div class="wall ${all ? 'ok' : ''}" aria-hidden="true">${rows}</div>`;
+}
+const LOGIN_HELP = '<p class="login-help">Pas de code ? Demande-le à l\'accueil du centre.</p>';
+const LOGIN_ERR = {
+  short: 'Ton code a 6 caractères après EZK : ta classe, puis 4 chiffres.',
+  format: "Ce code n'a pas le bon format. Il ressemble à EZK-3B-4821.",
+  unknown: "Ce code ne correspond à aucun élève. Vérifie-le, ou demande ton code à l'accueil.",
+};
+const cleanCode = s => { let v = String(s).toUpperCase().replace(/[^A-Z0-9]/g, ''); if (v.startsWith(CODE_PREFIX) && v.length > 6) v = v.slice(CODE_PREFIX.length); return v.slice(0, 6); };
+function codeCells(v, focusable) {
+  const cell = i => `<span class="cell ${v[i] ? 'full' : ''} ${focusable && i === Math.min(v.length, 5) ? 'next' : ''}">${esc(v[i] || '')}</span>`;
+  return `<span class="pre">${CODE_PREFIX}</span><span class="dash"></span><span class="cells">${cell(0)}${cell(1)}</span><span class="dash"></span><span class="cells">${cell(2)}${cell(3)}${cell(4)}${cell(5)}</span>`;
+}
+SCREENS.splash = c => {
+  const lg = c.login, who = lg.ok ? CODES[lg.v] : null;
+  const card = who
+    ? `<div class="login-card done" role="status"><span class="avatar">${who.initials}</span>
+        <h1 class="h-lg">Bonjour ${esc(who.first)} !</h1><p>${esc(who.klass)}</p>
+        <span class="saved">${ic('check', 18)} Code reconnu, on ouvre tes cours</span></div>`
+    : `<form class="login-card" id="loginForm" novalidate autocomplete="off">
+        <div class="brandmark"><img src="${LOGO_MARK}" alt=""><span class="wordmark"><span class="e">Educazen</span><span class="k">Kids</span></span></div>
+        <div class="login-copy"><h1 class="h-lg">Bonjour !</h1><p>Entre le code que le centre t'a donné pour retrouver tes cours.</p></div>
+        <div class="codefield"><label for="login-code">Ton code élève</label>
+          <div class="codebox ${lg.err ? 'bad' : ''}" id="codebox">${codeCells(lg.v, true)}
+            <input id="login-code" name="code" value="${esc(lg.v)}" maxlength="11" autocapitalize="characters" autocomplete="off" spellcheck="false" enterkeyhint="go" aria-describedby="login-slot" ${lg.err ? 'aria-invalid="true"' : ''}></div></div>
+        <button class="btn btn-dark block" type="submit">Se connecter ${ic('arrow', 18)}</button>
+        <div class="login-slot" id="login-slot">${lg.err ? `<p class="login-msg" role="alert">${esc(LOGIN_ERR[lg.err])}</p>` : LOGIN_HELP}</div>
+      </form>`;
+  return `<div class="login">${wallHTML(lg.err ? 0 : lg.v.length, !!who)}${card}
+    ${who ? '' : `<button class="login-demo" data-act="loginDemo">Prototype : code de démo <b>EZK-3B-4821</b></button>`}</div>`;
+};
+function paintLogin() {
+  const v = S.login.v;
+  document.querySelectorAll('#app .codebox .cell').forEach((el, i) => { el.textContent = v[i] || ''; el.classList.toggle('full', !!v[i]); el.classList.toggle('next', i === Math.min(v.length, 5)); });
+  document.querySelectorAll('#app .wall .w[data-k]').forEach(el => el.classList.toggle('lit', +el.dataset.k < v.length));
+  if (S.login.err) {
+    S.login.err = '';
+    const m = $('#login-slot'); if (m) m.innerHTML = LOGIN_HELP;
+    const b = $('#codebox'); if (b) b.classList.remove('bad');
+    const inp = $('#login-code'); if (inp) inp.removeAttribute('aria-invalid');
+  }
+}
+let loginTimer = 0;
+function loginSubmit() {
+  const v = S.login.v;
+  clearInterval(loginTimer);
+  S.login.err = v.length < 6 ? 'short' : !/^[0-9][A-Z][0-9]{4}$/.test(v) ? 'format' : !CODES[v] ? 'unknown' : '';
+  if (S.login.err) { S.focus = 'login-code'; render(); return; }
+  S.login.ok = true;
+  P.signedIn = true; save();
+  render();
+  setTimeout(() => { if (S.screen === 'splash' && S.login.ok) { S = Object.assign(S0(), { screen: 'home' }); render(true); } }, P.settings.calm ? 600 : 1700);
+}
 
 SCREENS.home = c => {
   const unread = unreadCount();
@@ -187,8 +264,7 @@ SCREENS.home = c => {
   const stats = R.video
     ? [['Vidéo', Math.round(R.video.duration / 60), ' min'], ['Quiz', R.quiz ? R.quiz.length : 0, ' q.'], ['Vu', watchedPct(R), ' %']]
     : [['Résumé', parseInt(R.resume.read, 10), ' min'], ['Quiz', R.quiz ? R.quiz.length : 0, ' q.'], ['Fait', progressOf(R), ' %']];
-  const NAMES = { all: 'Toutes', maths: 'Maths', pc: 'Physique-Chimie', svt: 'SVT', fr: 'Français', ang: 'Anglais', hg: 'Histoire-Géo' };
-  const chips = Object.keys(NAMES).map(k => `<button class="chip ${c.subject === k ? 'on' : ''}" data-act="subject" data-s="${k}" ${k !== 'all' ? `style="--c:${SUBJ[k].c}"` : ''}>${k !== 'all' ? '<span class="dot"></span>' : ''}${NAMES[k]}</button>`).join('');
+  const chips = Object.keys(CHIP_NAMES).map(k => `<button class="chip ${c.subject === k ? 'on' : ''}" data-act="subject" data-s="${k}" ${k !== 'all' ? `style="--c:${SUBJ[k].c}"` : ''}>${k !== 'all' ? '<span class="dot"></span>' : ''}${CHIP_NAMES[k]}</button>`).join('');
   const list = LESSONS.filter(L => c.subject === 'all' || L.subject === c.subject).map(lessonRow).join('');
   const today = eventsOn(TODAY).filter(e => toMin(e.end) > NOW_MIN).slice(0, 3).map(e => {
     const live = toMin(e.start) <= NOW_MIN;
@@ -236,6 +312,7 @@ function stepsHTML(L) {
   if (L.video) st.push(`<span class="step ${quizUnlocked(L) ? 'done' : ''}" id="step-video">${quizUnlocked(L) ? ic('check', 14) : ic('video', 14)} Vidéo vue à 50 %</span>`);
   st.push(`<span class="step ${p.resumeRead ? 'done' : ''}">${p.resumeRead ? ic('check', 14) : ic('file', 14)} Résumé lu</span>`);
   if (L.quiz) st.push(`<span class="step ${p.quizPassed ? 'done' : ''}">${p.quizPassed ? ic('check', 14) : ic('trophy', 14)} Quiz réussi</span>`);
+  if (L.exo) st.push(`<span class="step ${exoDone(L.exo) ? 'done' : ''}">${exoDone(L.exo) ? ic('check', 14) : ic('exo', 14)} Exercice fait</span>`);
   return `<div class="steps">${st.join('')}</div>`;
 }
 function seenHTML(w, dur) {
@@ -325,17 +402,27 @@ function quizTab(L) {
     ${best}
     <button class="btn btn-dark block" data-act="startQuiz" data-id="${L.id}">${p.quizBest != null ? 'Refaire le quiz' : 'Commencer le quiz'} ${ic('arrow', 18)}</button></div>`;
 }
+function exoTab(L) {
+  const X = XMAP[L.exo], r = P.exos[X.id];
+  return `<div class="rcard exo-intro" style="margin-top:18px;${sv(X.subject)}">
+    <div class="between"><span class="tag c">${ic(X.kind === 'image' ? 'image' : 'exo', 13)} ${X.kind === 'image' ? 'Avec une image' : 'Questions'} · ${X.qs.length} questions</span>${r && r.done ? `<span class="tag teal">${ic('check', 13)} Fait · ${r.ok}/${r.n}</span>` : `<span class="faint small num">${X.min} min</span>`}</div>
+    <h3>${esc(X.title)}</h3>
+    <p>${esc(nb(X.intro))}</p>
+    ${X.kind === 'image' ? `<button class="fig fig-thumb" data-act="exoZoom" data-id="${X.id}" aria-label="Agrandir l'image de l'exercice">${figureSVG(X)}</button>` : ''}
+    <p class="small muted">Les réponses courtes sont corrigées tout de suite. Pour les autres, tu compares avec le corrigé.</p>
+    <button class="btn btn-dark block" data-act="exoStart" data-id="${X.id}">${r && r.done ? 'Refaire l\'exercice' : 'Commencer l\'exercice'} ${ic('arrow', 18)}</button></div>`;
+}
 SCREENS.lesson = c => {
   const L = LMAP[c.lessonId] || LMAP.affine;
   const sj = SUBJ[L.subject];
-  const tabs = L.type === 'vqr' ? ['video', 'resume', 'quiz'] : L.type === 'rq' ? ['resume', 'quiz'] : ['resume'];
+  const tabs = lessonTabs(L);
   const tab = tabs.includes(c.tab) ? c.tab : tabs[0];
-  const NAMES = { video: 'Vidéo', resume: 'Résumé', quiz: 'Quiz' };
+  const NAMES = { video: 'Vidéo', resume: 'Résumé', quiz: 'Quiz', exo: 'Exercice' };
   const seg = tabs.length > 1 ? `<div class="seg" role="tablist">${tabs.map(k => {
     const locked = k === 'quiz' && !quizUnlocked(L);
     return `<button role="tab" aria-selected="${k === tab}" class="${k === tab ? 'on' : ''} ${locked ? 'locked' : ''}" ${k === 'quiz' ? 'id="tab-quiz"' : ''} data-act="tab" data-tab="${k}">${locked ? ic('lock', 14) : ''}${NAMES[k]}</button>`;
   }).join('')}</div>` : '';
-  const body = tab === 'video' ? videoTab(L, c) : tab === 'resume' ? resumeTab(L) : quizTab(L);
+  const body = tab === 'video' ? videoTab(L, c) : tab === 'resume' ? resumeTab(L) : tab === 'exo' ? exoTab(L) : quizTab(L);
   return `<div class="screen no-nav ${tab === 'video' ? 'dock-pad' : ''}">
     <div class="lesson-hero" style="${sv(L.subject)}">
       <div class="art" style="--c:${sj.c}"><i></i><i></i><i></i></div>
@@ -398,6 +485,129 @@ SCREENS.quiz = c => {
     ${q.checked ? `<div class="explain"><b>${ok ? 'Bonne réponse !' : 'Pas tout à fait.'}</b>${esc(nb(cur.e))}</div>` : ''}
   </div><div class="quiz-foot">${foot}</div>`;
 };
+
+/* ----- exercise figures: FIGURES and drawFigure come from web/assets/figures.js (shared with the dashboard) ----- */
+const figureSVG = (X, thumb) => drawFigure(X.figure, thumb ? {} : { alt: X.alt });
+
+
+/* ----- exercises ----- */
+// Short answers are compared after tidying: case, spaces, decimal comma, a leading « b = » and a trailing unit (« 3 cm », « 100 Ω »).
+const normAns = s => String(s).toLowerCase().replace(/[−–]/g, '-').replace(/[’`]/g, "'").replace(/(\d)\s+(?=\d)/g, '$1').replace(/,/g, '.').replace(/\s*\/\s*/g, '/').replace(/\s+/g, ' ').trim().replace(/[.!]$/, '');
+function shortOk(q, v) {
+  const got = normAns(v);
+  if (!got) return false;
+  return q.a.some(a => {
+    const want = normAns(a);
+    if (got === want) return true;
+    if (!/^-?\d+(\.\d+)?$/.test(want)) return false;
+    const m = got.replace(/^[a-z]{1,3} ?= ?/, '').match(/^(-?\d+(?:\.\d+)?) ?[a-zω]{0,3}$/);
+    return !!m && Math.abs(Number(m[1]) - Number(want)) < 1e-9;
+  });
+}
+const showAns = a => (/^[a-z]$/.test(a) ? a.toUpperCase() : a.replace(/^-/, '−').replace('.', ','));
+const corrected = a => a.st === 'ok' || a.st === 'review';
+function xqHTML(q, a, i) {
+  const n = i + 1, st = a.st;
+  let body;
+  if (q.t === 'short') {
+    const locked = corrected(a);
+    body = `<div class="xin-row"><input class="xin" id="xin-${i}" data-exq="${i}" value="${esc(a.v)}" placeholder="${esc(q.ph || 'Ta réponse')}" autocomplete="off" spellcheck="false" enterkeyhint="done" aria-label="Ta réponse à la question ${n}" ${locked ? 'readonly' : ''}>${locked ? '' : `<button class="btn btn-dark btn-sm" data-act="xcheck" data-i="${i}">Vérifier</button>`}</div>`;
+    if (st === 'retry') body += `<div class="xmsg" role="status"><span>Pas encore. Vérifie ton calcul, puis réessaie.</span><button class="link" data-act="xshow" data-i="${i}">Voir la correction</button></div>`;
+    if (st === 'ok') body += `<div class="xcorr ok" role="status"><b>${ic('check', 16)} Bien vu !</b><span>${esc(nb(q.c))}</span></div>`;
+    if (st === 'review') body += `<div class="xcorr review" role="status"><b>À revoir · réponse attendue : ${esc(nb(showAns(q.a[0])))}</b><span>${esc(nb(q.c))}</span></div>`;
+  } else {
+    body = `<textarea class="xin" id="xin-${i}" data-exq="${i}" rows="3" placeholder="Écris ta réponse ici, ou sur ton cahier" aria-label="Ta réponse à la question ${n}" ${st ? 'readonly' : ''}>${esc(a.v)}</textarea>`;
+    if (!st) body += `<button class="btn btn-ghost btn-sm" data-act="xreveal" data-i="${i}" style="justify-self:start">${ic('file', 16)} Voir le corrigé</button>`;
+    else {
+      body += `<div class="xcorr"><b>Corrigé</b><span>${esc(nb(q.c))}</span></div>`;
+      body += st === 'shown'
+        ? `<div class="xself"><span>Compare avec ta réponse :</span><div class="row"><button class="btn btn-sm btn-ghost" data-act="xself" data-i="${i}" data-v="ok">J'ai réussi</button><button class="btn btn-sm btn-ghost" data-act="xself" data-i="${i}" data-v="review">À revoir</button></div></div>`
+        : `<span class="tag ${st === 'ok' ? 'teal' : 'gold'}" style="justify-self:start">${st === 'ok' ? `${ic('check', 13)} Tu as réussi` : 'À revoir'}</span>`;
+    }
+  }
+  return `<li class="xq ${st}" id="xq-${i}"><div class="xq-head"><span class="xn num">${n}</span><p>${esc(nb(q.q))}</p></div>${body}</li>`;
+}
+// The result only shows once finishExo has saved the exercise; the gallery renders it without saving, so count it as done here.
+function lessonAfterExo(X, L, ok, n) {
+  const was = P.exos[X.id];
+  P.exos[X.id] = { done: true, ok, n };
+  const html = `<div class="section"><div class="between"><h2 class="h-md">Ta leçon</h2><span class="faint small">${esc(L.title)} · ${progressOf(L)} %</span></div><div class="steps result-steps">${stepsHTML(L).replace(/^<div class="steps">|<\/div>$/g, '')}</div></div>`;
+  if (was) P.exos[X.id] = was; else delete P.exos[X.id];
+  return html;
+}
+SCREENS.exo = c => {
+  const x = c.exo, X = XMAP[x.id], sj = SUBJ[X.subject], L = LMAP[X.lesson], n = X.qs.length;
+  const done = x.ans.filter(corrected).length;
+  if (x.done) {
+    const ok = x.ans.filter(a => a.st === 'ok').length, rev = n - ok;
+    return `<div class="screen no-nav" style="${sv(X.subject)}">
+      <div class="quiz-top"><button class="iconbtn" data-act="exoClose" aria-label="Fermer">${ic('x', 20)}</button><span class="faint small" style="font-weight:700">${esc(X.title)}</span></div>
+      <div class="result">
+        <div class="xtally" role="img" aria-label="${ok} réussie${ok > 1 ? 's' : ''}, ${rev} à revoir">${x.ans.map(a => `<span class="${a.st}">${a.st === 'ok' ? ic('check', 20) : ic('replay', 18)}</span>`).join('')}</div>
+        <h1 class="h-lg">${rev ? 'Exercice terminé' : 'Tout est juste !'}</h1>
+        <p class="muted" style="margin:0;max-width:290px;line-height:1.5;text-wrap:balance">${rev ? `${ok} sur ${n} réussie${ok > 1 ? 's' : ''}. Relis la correction plus bas, puis refais l'exercice quand tu veux.` : 'Bravo, tu as réussi toutes les questions.'}</p>
+        <span class="saved">${ic('check', 18)} ${X.step ? 'Étape « Exercice fait » enregistrée' : 'Exercice enregistré'}</span>
+      </div>
+      ${rev ? `<div class="section"><h2 class="h-md">À revoir</h2><div class="stack" style="gap:10px">${X.qs.map((q, k) => x.ans[k].st !== 'review' ? '' : `<div class="xq review"><div class="xq-head"><span class="xn num">${k + 1}</span><p>${esc(nb(q.q))}</p></div><div class="xcorr review">${q.t === 'short' ? `<b>Réponse attendue : ${esc(nb(showAns(q.a[0])))}</b>` : '<b>Corrigé</b>'}<span>${esc(nb(q.c))}</span></div></div>`).join('')}</div></div>` : ''}
+      ${X.step ? lessonAfterExo(X, L, ok, n) : ''}
+      <div class="stack" style="margin-top:26px">
+        <button class="btn ${rev ? 'btn-dark' : 'btn-ghost'} block" data-act="exoToLesson">${ic('file', 18)} Revoir la leçon</button>
+        <button class="btn btn-ghost block" data-act="exoRetry">${ic('replay', 18)} Refaire l'exercice</button>
+        <button class="btn ${rev ? 'btn-ghost' : 'btn-dark'} block" data-act="exoClose">Terminé</button>
+      </div>
+    </div>`;
+  }
+  const left = n - done;
+  return `<div class="screen no-nav exo-screen" style="padding-bottom:120px;${sv(X.subject)}">
+    <div class="quiz-top"><button class="iconbtn" data-act="exoClose" aria-label="Quitter l'exercice">${ic('x', 20)}</button>
+      <div class="qbar" aria-hidden="true"><span style="width:${done / n * 100}%"></span></div><span class="faint num" style="font-weight:700">${done}/${n}</span></div>
+    <div class="exo-head"><span class="tag c">${ic(sj.icon, 13)} ${esc(sj.name)} · ${esc(L.title)}</span><h1 class="h-lg">${esc(X.title)}</h1><p>${esc(nb(X.intro))}</p></div>
+    ${X.kind === 'image' ? `<figure class="fig">${figureSVG(X)}<figcaption><span>${ic('image', 15)} Image postée par ${esc(X.teacher)}</span><button class="link" data-act="exoZoom" data-id="${X.id}">${ic('zoom', 15)} Agrandir</button></figcaption></figure>` : ''}
+    <ol class="xqs">${X.qs.map((q, i) => xqHTML(q, x.ans[i], i)).join('')}</ol>
+  </div><div class="quiz-foot exo-foot">${left ? `<button class="btn btn-dark block" disabled>Encore ${left} question${left > 1 ? 's' : ''} à corriger</button>` : `<button class="btn btn-dark block" data-act="exoFinish">Terminer l'exercice ${ic('arrow', 18)}</button>`}</div>`;
+};
+function exoRow(X) {
+  const r = P.exos[X.id], L = LMAP[X.lesson];
+  return `<div class="li exo-row" role="button" tabindex="0" style="${sv(X.subject)}" data-act="exoStart" data-id="${X.id}">
+    ${X.kind === 'image' ? `<span class="xthumb">${figureSVG(X, true)}</span>` : `<span class="lic">${ic('exo', 22)}</span>`}
+    <span class="t"><b>${esc(nb(X.title))}</b><span>${X.kind === 'image' ? 'Avec une image' : 'Questions'} · ${X.qs.length} questions · ${X.min} min</span><span class="faint" style="font-size:11.5px">${X.step ? 'Étape de la leçon' : 'Entraînement'} · ${esc(L.title)}</span>${r && r.done ? `<span class="xdone">${ic('check', 13)} Fait · ${r.ok}/${r.n} réussies</span>` : ''}</span>
+    <span class="faint">${ic('right', 18)}</span></div>`;
+}
+SCREENS.exos = c => {
+  const subs = SUBJECT_ORDER.filter(k => EXERCISES.some(x => x.subject === k));
+  const f = subs.includes(c.exoSubject) ? c.exoSubject : 'all';
+  const doneN = EXERCISES.filter(x => exoDone(x.id)).length;
+  const chips = ['all'].concat(subs).map(k => `<button class="chip ${f === k ? 'on' : ''}" data-act="exoSubject" data-s="${k}" ${k !== 'all' ? `style="--c:${SUBJ[k].c}"` : ''} aria-pressed="${f === k}">${k !== 'all' ? '<span class="dot"></span>' : ''}${CHIP_NAMES[k]}</button>`).join('');
+  const groups = (f === 'all' ? subs : [f]).map(k => {
+    const xs = EXERCISES.filter(x => x.subject === k);
+    return `<div class="group-label">${esc(SUBJ[k].name)} · ${xs.length}</div><div class="list">${xs.map(exoRow).join('')}</div>`;
+  }).join('');
+  return `<div class="screen">
+    ${subHeader('Outils', 'Exercices')}
+    <p class="muted" style="margin:8px 0 0">${EXERCISES.length} exercices de tes professeurs · ${doneN} fait${doneN > 1 ? 's' : ''}. Les réponses courtes sont corrigées tout de suite.</p>
+    <div class="chips" style="margin-top:16px">${chips}</div>
+    <div class="stack" style="gap:10px;margin-top:6px">${groups}</div>
+  </div>`;
+};
+function startExo(id, replace) {
+  const X = XMAP[id]; if (!X) return;
+  pauseVideo();
+  if (!replace) S.stack.push(snap());
+  S.screen = 'exo'; S.sheet = null;
+  S.exo = { id, ans: X.qs.map(() => ({ v: '', st: '', tries: 0 })), done: false };
+  render(true);
+}
+function finishExo() {
+  const x = S.exo, X = XMAP[x.id];
+  const ok = x.ans.filter(a => a.st === 'ok').length, n = X.qs.length;
+  P.exos[X.id] = { done: true, ok, n };
+  x.done = true;
+  P.extraNotifs.unshift({ id: 'x' + Date.now(), kind: 'cours', when: "À l'instant", group: "À l'instant", title: `Exercice terminé · ${X.title}`, body: `${ok} sur ${n} réussie${ok > 1 ? 's' : ''}. Ta progression est enregistrée.`, to: { screen: 'lesson', lessonId: X.lesson, tab: X.step ? 'exo' : 'resume' } });
+  P.read[P.extraNotifs[0].id] = true;
+  save();
+  render(true);
+  toast(X.step ? 'Exercice fait : étape enregistrée.' : 'Exercice terminé et enregistré.');
+}
 
 /* ----- schedule ----- */
 function evCard(e, c) {
@@ -478,6 +688,7 @@ SCREENS.tools = () => {
     <div class="hero-title" style="margin-top:6px"><span class="eyebrow">Organisation</span><h1 class="h-xl">Outils</h1><span class="muted">Tout ce qu'il faut pour t'organiser.</span></div>
     <div class="tiles">
       <div class="tile wide" role="button" tabindex="0" style="${sv('maths')}" data-act="nav" data-to="schedule"><span class="ti">${ic('calendar', 22)}</span><span><b>Emploi du temps</b><span class="s">${next ? `Prochain : ${esc(next.title || SUBJ[next.subject].name)} · ${next.start} · ${esc(next.room)}` : 'Plus de cours aujourd\'hui'}</span></span><span class="faint">${ic('right', 20)}</span></div>
+      <div class="tile wide" role="button" tabindex="0" style="${sv('maths')}" data-act="go" data-to="exos"><span class="ti">${ic('exo', 22)}</span><span><b>Exercices</b><span class="s">${EXERCISES.filter(x => !exoDone(x.id)).length} à faire · ${EXERCISES.length} exercices, par matière</span></span><span class="faint">${ic('right', 20)}</span></div>
       ${tile('controle', 'clipboard', 'fr', 'Contrôle continu', `${upcoming.length} à venir · moyenne ${fr1(average().me)}`, upcoming.some(u => u.day === TODAY) ? '<span class="badge">1</span>' : '')}
       ${tile('notifs', 'bell', 'ang', 'Notifications', unread ? `${unread} non lue${unread > 1 ? 's' : ''}` : 'Tout est lu', unread ? `<span class="badge num">${unread}</span>` : '')}
       ${tile('progress', 'chart', 'pc', 'Ma progression', `${fmtDur(STUDY.reduce((a, d) => a + Object.values(d.m).reduce((x, y) => x + y, 0), 0))} cette semaine`)}
@@ -510,7 +721,7 @@ SCREENS.controle = () => {
       <div class="row" style="align-items:flex-start;gap:12px"><div class="datebox"><span class="dw">${wk.dw}</span><span class="dn num">${wk.d}</span></div>
         <div style="display:grid;gap:4px;flex:1;min-width:0"><div class="between"><b style="font-weight:700">${esc(SUBJ[e.subject].name)}</b><span class="tag ${e.day === TODAY ? 'pink' : ''}">${inDays(e.day)}</span></div>
         <span class="small muted">${esc(L ? L.title : e.title)} · ${e.start} · ${esc(e.room)} · coef ${e.coef}</span></div></div>
-      <div style="display:grid;gap:6px"><div class="between small"><span class="muted">Préparation (vidéo, résumé, quiz)</span><b class="num">${prep} %</b></div><div class="meter"><span style="width:${prep}%"></span></div></div>
+      <div style="display:grid;gap:6px"><div class="between small"><span class="muted">Préparation (vidéo, résumé, quiz, exercice)</span><b class="num">${prep} %</b></div><div class="meter"><span style="width:${prep}%"></span></div></div>
       <div class="row"><button class="btn btn-ghost btn-sm" style="flex:1" data-act="openLesson" data-id="${e.lesson}">${ic('book', 16)} Réviser</button>
         ${L && L.quiz ? `<button class="btn btn-dark btn-sm" style="flex:1" data-act="examStart" data-id="${e.lesson}">${ic('clock', 16)} Contrôle blanc</button>` : ''}</div>
     </div>`;
@@ -590,12 +801,12 @@ SCREENS.progress = () => {
   return `<div class="screen">
     ${subHeader('Outils', 'Ma progression')}
     <div class="kpi3"><div class="kpi"><span class="k">Temps d'étude</span><span class="v num">${fmtDur(total)}</span><span class="small faint">7 jours</span></div>
-      <div class="kpi"><span class="k">Leçons finies</span><span class="v num">${doneN}<small style="font-size:14px">/${LESSONS.length}</small></span><span class="small faint">vidéo, résumé, quiz</span></div>
+      <div class="kpi"><span class="k">Leçons finies</span><span class="v num">${doneN}<small style="font-size:14px">/${LESSONS.length}</small></span><span class="small faint">toutes les étapes</span></div>
       <div class="kpi"><span class="k">Quiz validés</span><span class="v num">${quizN}</span><span class="small faint">60 % ou plus</span></div></div>
     <div class="section"><div class="chartcard"><div class="between"><h2 class="h-md">Temps d'étude par jour</h2><span class="tag">${ic('flame', 13)} 7 jours de suite</span></div>
       ${studyChart()}
       <div class="legend">${present.map(k => `<span style="--c:${SUBJ[k].c}"><i></i>${SUBJ[k].name}</span>`).join('')}</div></div></div>
-    <div class="section"><div class="chartcard"><h2 class="h-md">Avancement par matière</h2>${bySubj}<p class="small faint" style="margin:0">Une leçon compte 100 % quand la vidéo est vue à 50 %, le résumé lu et le quiz validé.</p></div></div>
+    <div class="section"><div class="chartcard"><h2 class="h-md">Avancement par matière</h2>${bySubj}<p class="small faint" style="margin:0">Une leçon compte 100 % quand la vidéo est vue à 50 %, le résumé lu, le quiz validé et l'exercice fait.</p></div></div>
   </div>`;
 };
 
@@ -634,6 +845,7 @@ SCREENS.settings = () => {
   return `<div class="screen">
     ${subHeader('Outils', 'Paramètres')}
     <div class="li" style="margin-top:18px;--cs:var(--brand-soft)"><span class="avatar">${STUDENT.initials}</span><span class="t"><b>${STUDENT.full}</b><span>${STUDENT.klass} · EducazenKids Agadir</span></span><span></span></div>
+    <button class="btn btn-ghost block" style="margin-top:10px" data-act="logout">${ic('logout', 18)} Se déconnecter</button>
     <div class="group-label" style="margin-top:22px">Notifications</div>
     <div class="list">${row('notif.cours', st.notif.cours, 'Cours et vidéos', 'Nouvelles leçons, quiz à terminer')}${row('notif.controles', st.notif.controles, 'Contrôles et notes', 'Rappel la veille et le jour même')}${row('notif.edt', st.notif.edt, 'Emploi du temps', 'Changements de salle ou d\'horaire')}${row('notif.rappels', st.notif.rappels, 'Rappels de révision', 'Les créneaux que tu ajoutes')}</div>
     <div class="group-label" style="margin-top:22px">Lecture et confort</div>
@@ -676,9 +888,15 @@ function sheetHTML(c) {
       ${e.homework ? `<div class="rcard" style="padding:14px"><span class="eyebrow">Devoirs pour ce cours</span><p style="color:var(--ink);font-weight:600">${esc(e.homework)}</p></div>` : ''}
       ${exam && L ? `<div class="rcard" style="padding:14px;${sv(e.subject)}"><div class="between small"><span class="muted">Préparation</span><b class="num">${progressOf(L)} %</b></div><div class="meter"><span style="width:${progressOf(L)}%"></span></div>
         <div class="row"><button class="btn btn-ghost btn-sm" style="flex:1" data-act="openLesson" data-id="${L.id}">Réviser</button>${L.quiz ? `<button class="btn btn-dark btn-sm" style="flex:1" data-act="examStart" data-id="${L.id}">Contrôle blanc</button>` : ''}</div></div>` : ''}
-      ${L && !exam ? `<div class="li" role="button" tabindex="0" style="${sv(L.subject)}" data-act="openLesson" data-id="${L.id}"><span class="lic">${ic('book', 20)}</span><span class="t"><b>${esc(L.title)}</b><span>Leçon liée · ${TYPE_LABEL[L.type]}</span></span><span class="faint">${ic('right', 18)}</span></div>` : ''}
+      ${L && !exam ? `<div class="li" role="button" tabindex="0" style="${sv(L.subject)}" data-act="openLesson" data-id="${L.id}"><span class="lic">${ic('book', 20)}</span><span class="t"><b>${esc(L.title)}</b><span>Leçon liée · ${typeLabel(L)}</span></span><span class="faint">${ic('right', 18)}</span></div>` : ''}
       <button class="setrow" data-act="toggleReminder" data-id="${e.id}" role="switch" aria-checked="${rem}"><span><b>Me rappeler 10 min avant</b><span>Une notification avant le début</span></span><span class="switch ${rem ? 'on' : ''}"></span></button>
       ${e.subject === 'perso' ? `<button class="btn btn-ghost block" data-act="deleteEvent" data-id="${e.id}">${ic('trash', 18)} Supprimer ce créneau</button>` : ''}`;
+  } else if (sh.type === 'figure') {
+    const X = XMAP[sh.id];
+    if (!X) return '';
+    inner = `<div class="between"><h2 class="h-lg">${esc(X.title)}</h2><button class="iconbtn" data-act="closeSheet" aria-label="Fermer">${ic('x', 18)}</button></div>
+      <figure class="fig big" style="${sv(X.subject)}">${figureSVG(X)}<figcaption><span>${ic('image', 15)} Image postée par ${esc(X.teacher)}</span></figcaption></figure>
+      <p class="muted" style="margin:0;line-height:1.5">${esc(nb(X.intro))}</p>`;
   } else if (sh.type === 'add') {
     const days = WEEK.map(d => `<option value="${d.date}" ${d.date === c.day ? 'selected' : ''}>${d.long}</option>`).join('');
     inner = `<div class="between"><h2 class="h-lg">Nouveau créneau</h2><button class="iconbtn" data-act="closeSheet" aria-label="Fermer">${ic('x', 18)}</button></div>
@@ -697,7 +915,7 @@ function sheetHTML(c) {
 }
 
 /* ---------- phone composition ---------- */
-const NAV_OF = { home: 'home', schedule: 'schedule', tools: 'tools', controle: 'tools', notifs: 'tools', progress: 'tools', fiches: 'tools', timer: 'tools', settings: 'tools', contact: 'tools' };
+const NAV_OF = { home: 'home', schedule: 'schedule', tools: 'tools', controle: 'tools', notifs: 'tools', progress: 'tools', fiches: 'tools', timer: 'tools', settings: 'tools', contact: 'tools', exos: 'tools' };
 function navHTML(active) {
   const unread = unreadCount();
   const b = (to, icon, label) => {
@@ -954,7 +1172,7 @@ function toast(msg) {
 /* ---------- render ---------- */
 function render(resetScroll) {
   const app = $('#app');
-  const key = [S.screen, S.lessonId, S.tab, S.schedView, S.quiz ? S.quiz.i : ''].join('|');
+  const key = [S.screen, S.lessonId, S.tab, S.schedView, S.quiz ? S.quiz.i : '', S.exo ? S.exo.id : ''].join('|');
   const old = app.querySelector('.screen');
   const keep = !resetScroll && old && app.dataset.key === key ? old.scrollTop : 0;
   if (V.playing && !(S.screen === 'lesson' && S.tab === 'video' && S.lessonId === V.id)) pauseVideo();
@@ -965,6 +1183,7 @@ function render(resetScroll) {
   app.classList.toggle('calm', !!P.settings.calm);
   const scr = app.querySelector('.screen'); if (scr) scr.scrollTop = keep;
   if (S.screen === 'lesson' && S.tab === 'video') updateVideoUI();
+  if (S.focus) { const f = $('#' + S.focus); S.focus = null; if (f && f.focus) f.focus({ preventScroll: true }); }
 }
 function snap() { return { screen: S.screen, lessonId: S.lessonId, tab: S.tab, day: S.day, schedView: S.schedView, subject: S.subject }; }
 function go(patch) {
@@ -976,14 +1195,14 @@ function go(patch) {
 }
 function back() {
   const prev = S.stack.pop();
-  S.sheet = null; S.quiz = null; stopExamTimer();
+  S.sheet = null; S.quiz = null; S.exo = null; stopExamTimer();
   if (prev) Object.assign(S, prev); else S.screen = 'home';
   render(true);
 }
 function openLesson(id, tab) {
   const L = LMAP[id]; if (!L) return;
   P.last = id; save();
-  const tabs = L.type === 'vqr' ? ['video', 'resume', 'quiz'] : L.type === 'rq' ? ['resume', 'quiz'] : ['resume'];
+  const tabs = lessonTabs(L);
   go({ screen: 'lesson', lessonId: id, tab: tabs.includes(tab) ? tab : tabs[0] });
 }
 
@@ -1053,9 +1272,10 @@ const JUMP = {
   splash: { screen: 'splash' }, home: { screen: 'home' }, video: { screen: 'lesson', lessonId: 'affine', tab: 'video' },
   resume: { screen: 'lesson', lessonId: 'affine', tab: 'resume' }, schedule: { screen: 'schedule', schedView: 'day', day: TODAY },
   controle: { screen: 'controle' }, notifs: { screen: 'notifs' }, tools: { screen: 'tools' }, progress: { screen: 'progress' }, settings: { screen: 'settings' },
+  exo: { screen: 'lesson', lessonId: 'affine', tab: 'exo' }, exos: { screen: 'exos' },
 };
 const ACTIONS = {
-  nav: d => { S.stack = []; S.sheet = null; S.quiz = null; stopExamTimer(); S.screen = d.to; if (d.to === 'schedule') { S.day = S.day || TODAY; } render(true); },
+  nav: d => { S.stack = []; S.sheet = null; S.quiz = null; S.exo = null; stopExamTimer(); S.screen = d.to; if (d.to === 'schedule') { S.day = S.day || TODAY; } render(true); },
   go: d => go({ screen: d.to }),
   back: () => back(),
   jump: d => { showGallery(false); S = Object.assign(S0(), JUMP[d.to] || {}); stopExamTimer(); render(true); },
@@ -1093,9 +1313,53 @@ const ACTIONS = {
   timerReset: () => { timerStop(); T.left = T.total; updateTimerUI(); },
   timerMode: d => { timerStop(); T.mode = d.m; T.total = T.left = d.m === 'focus' ? 1500 : 300; render(); },
   setToggle: d => { const st = P.settings; if (d.k.startsWith('notif.')) { const k = d.k.slice(6); st.notif[k] = !st.notif[k]; } else st[d.k] = !st[d.k]; save(); render(); },
-  resetDemo: () => { pauseVideo(); timerStop(); stopExamTimer(); P = seed(); save(); V.id = null; V.w = null; V.rate = 1; T.mode = 'focus'; T.total = T.left = 1500; T.cycle = 1; const sc = S.screen === 'splash' ? 'home' : S.screen; S = S0(); S.screen = sc === 'quiz' || sc === 'lesson' ? 'home' : sc; render(true); toast('Démo réinitialisée.'); },
+  resetDemo: () => { pauseVideo(); timerStop(); stopExamTimer(); P = seed(); save(); V.id = null; V.w = null; V.rate = 1; T.mode = 'focus'; T.total = T.left = 1500; T.cycle = 1; const sc = S.screen === 'splash' ? 'home' : S.screen; S = S0(); S.screen = sc === 'quiz' || sc === 'lesson' || sc === 'exo' ? 'home' : sc; render(true); toast('Démo réinitialisée.'); },
   copy: d => { const done = () => toast('Numéro copié.'); try { navigator.clipboard.writeText(d.text).then(done, () => toast('Sélectionne le numéro pour le copier.')); } catch (e) { toast('Sélectionne le numéro pour le copier.'); } },
   gallery: d => showGallery(d.on === '1'),
+  loginDemo: () => {
+    clearInterval(loginTimer);
+    const code = Object.keys(CODES)[0];
+    const still = P.settings.calm || (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    if (still || !$('#login-code')) { S.login.v = code; loginSubmit(); return; }
+    let i = 0;
+    loginTimer = setInterval(() => {
+      i++; S.login.v = code.slice(0, i);
+      const inp = $('#login-code'); if (inp) inp.value = S.login.v;
+      paintLogin();
+      if (i >= code.length) { clearInterval(loginTimer); setTimeout(loginSubmit, 380); }
+    }, 170);
+  },
+  logout: () => { pauseVideo(); timerStop(); stopExamTimer(); P.signedIn = false; save(); S = S0(); render(true); toast('Tu es déconnecté. Ton code te permet de revenir.'); },
+  exoStart: d => startExo(d.id),
+  exoRetry: () => startExo(S.exo.id, true),
+  exoClose: () => back(),
+  exoFinish: () => finishExo(),
+  exoSubject: d => { S.exoSubject = d.s; render(); },
+  exoZoom: d => { S.sheet = { type: 'figure', id: d.id }; render(); },
+  exoToLesson: () => {
+    const X = XMAP[S.exo.id];
+    const top = S.stack[S.stack.length - 1];
+    if (top && top.screen === 'lesson' && top.lessonId === X.lesson) S.stack.pop();
+    S.exo = null; S.screen = 'lesson'; S.lessonId = X.lesson; S.tab = 'resume'; P.last = X.lesson; save();
+    render(true);
+  },
+  xcheck: d => {
+    const i = +d.i, a = S.exo.ans[i], q = XMAP[S.exo.id].qs[i];
+    if (!a.v.trim()) { toast('Écris ta réponse avant de vérifier.'); S.focus = 'xin-' + i; render(); return; }
+    if (shortOk(q, a.v)) a.st = 'ok';
+    else { a.tries++; a.st = a.tries >= 2 ? 'review' : 'retry'; }
+    const next = S.exo.ans.findIndex((b, k) => k > i && !corrected(b));
+    S.focus = a.st === 'retry' ? 'xin-' + i : next >= 0 ? 'xin-' + next : null;
+    render();
+  },
+  xshow: d => { S.exo.ans[+d.i].st = 'review'; render(); },
+  xreveal: d => { S.exo.ans[+d.i].st = 'shown'; render(); },
+  xself: d => {
+    const i = +d.i; S.exo.ans[i].st = d.v;
+    const next = S.exo.ans.findIndex((b, k) => k > i && !corrected(b));
+    if (next >= 0) S.focus = 'xin-' + next;
+    render();
+  },
 };
 
 document.addEventListener('click', e => {
@@ -1109,6 +1373,7 @@ document.addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   const el = e.target;
   if ((e.key === 'Enter' || e.key === ' ') && el.matches && el.matches('[role="button"][data-act]')) { e.preventDefault(); el.click(); }
+  if (e.key === 'Enter' && el.tagName === 'INPUT' && el.dataset && el.dataset.exq != null && S.exo && !el.readOnly) { e.preventDefault(); ACTIONS.xcheck({ i: el.dataset.exq }); }
   if (el.id === 'vtrack' && V.id && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
     e.preventDefault();
     V.t = clamp(V.t + (e.key === 'ArrowRight' ? 10 : -10), 0, LMAP[V.id].video.duration); V.last = 0; updateVideoUI();
@@ -1132,6 +1397,7 @@ document.addEventListener('pointerdown', e => {
 document.addEventListener('pointermove', e => { if (seeking) { const tr = $('#vtrack'); if (tr) seekTo(e, tr); } });
 document.addEventListener('pointerup', () => { if (seeking) { seeking = false; persistVideo(); } });
 document.addEventListener('submit', e => {
+  if (e.target.id === 'loginForm') { e.preventDefault(); loginSubmit(); return; }
   if (e.target.id !== 'addForm') return;
   e.preventDefault();
   const f = new FormData(e.target);
@@ -1154,6 +1420,8 @@ document.addEventListener('scroll', e => {
 }, true);
 document.addEventListener('input', e => {
   if (e.target.id === 'fiche-q') { S.ficheQ = e.target.value; const l = $('#fiche-list'); if (l) l.innerHTML = ficheList(S.ficheQ); }
+  if (e.target.id === 'login-code') { clearInterval(loginTimer); const v = cleanCode(e.target.value); if (e.target.value !== v) e.target.value = v; S.login.v = v; paintLogin(); }
+  if (e.target.dataset && e.target.dataset.exq != null && S.exo) S.exo.ans[+e.target.dataset.exq].v = e.target.value;
 });
 
 /* ---------- gallery: every screen side by side ---------- */
@@ -1179,6 +1447,14 @@ const GALLERY = [
   ['Minuteur', { screen: 'timer' }],
   ['Paramètres', { screen: 'settings' }],
   ['Contacter le centre', { screen: 'contact' }],
+  ['Connexion · saisie du code', { screen: 'splash', login: { v: '3B48', err: '', ok: false } }],
+  ['Connexion · code inconnu', { screen: 'splash', login: { v: '3B4812', err: 'unknown', ok: false } }],
+  ['Connexion · code reconnu', { screen: 'splash', login: { v: '3B4821', err: '', ok: true } }],
+  ['Leçon · onglet Exercice', { screen: 'lesson', lessonId: 'affine', tab: 'exo' }],
+  ['Exercice avec image', { screen: 'exo', exo: { id: 'ex-affine', done: false, ans: [{ v: '−1', st: 'ok', tries: 0 }, { v: '4', st: 'retry', tries: 1 }, { v: '', st: '', tries: 0 }] } }],
+  ['Exercice · corrigé à comparer', { screen: 'exo', exo: { id: 'ex-produit-nul', done: false, ans: [{ v: 'x = −2 ou x = 2', st: 'shown', tries: 0 }, { v: '', st: '', tries: 0 }] } }],
+  ['Exercice terminé', { screen: 'exo', exo: { id: 'ex-affine', done: true, ans: [{ v: '−1', st: 'ok', tries: 0 }, { v: '4', st: 'review', tries: 2 }, { v: 'f(x) = 2x − 1', st: 'ok', tries: 0 }] } }],
+  ['Exercices', { screen: 'exos' }],
 ];
 function showGallery(on) {
   $('#stage').hidden = on;
@@ -1202,6 +1478,7 @@ function drawGalleryVideos() {
   const mark = $('#guide-mark'); if (mark) mark.src = LOGO_MARK;
   const token = (location.hash || '').slice(1);
   if (JUMP[token]) S = Object.assign(S0(), JUMP[token]);
+  else if (P.signedIn) S.screen = 'home';
   render(true);
   if (token === 'galerie') showGallery(true);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { updateVideoUI(); if (!$('#gallery-wrap').hidden) drawGalleryVideos(); });

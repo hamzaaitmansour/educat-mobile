@@ -6,7 +6,7 @@
 | `brand/logo-educazenkids.png` | Full logo cropped, transparent, 1123×695 | Cut from the JPEG (light backgrounds only) |
 | `brand/logo-mark.png` | Child head with puzzle heart, transparent, 436×468 | Cut from the JPEG |
 | `references/inspiration-syllabus-app.png` | The owner's UI reference: syllabus, lecture with videos, calendar | From the owner, 11/10/2026 |
-| `screens/v3-college/` | **Current design**: 21 screens of the collège prototype, 780×1688 PNG (2x). Regenerated 11/10: the first export had lost its styles. | Exported from `prototype/` (command in `prototype/README.md`) |
+| `screens/v3-college/` | **Current design**: 29 screens of the collège prototype, 780×1688 PNG (2x). Regenerated 11/10 (the first export had lost its styles), then 12/10 for the student-code login and the exercises. | Exported from `prototype/` (command in `prototype/README.md`) |
 | `screens/v1-english/` | Archived kids Figma demo (English) and its component sheet | Figma |
 | `icons/*.svg` | 15 UI icons, 24×24, `currentColor`, stroke 2.4 (star filled gold) | Drawn for the kids demo (Lucide style). The collège prototype draws its own set inline in `prototype/src/app.js`. |
 | `illustrations/mascot-owl.svg`, `mascot-owl-v1.svg` | Owl mascot (kids version only), brand and v1 palettes | Drawn for the kids demo |
@@ -37,3 +37,11 @@ Collège screens in `screens/v3-college/`:
 | 19 | Minuteur |
 | 20 | Paramètres |
 | 21 | Contacter le centre |
+| 22 | Connexion, saisie du code |
+| 23 | Connexion, code inconnu |
+| 24 | Connexion, code reconnu |
+| 25 | Leçon, onglet Exercice |
+| 26 | Exercice avec image |
+| 27 | Exercice, corrigé à comparer |
+| 28 | Exercice terminé |
+| 29 | Exercices (Outils) |

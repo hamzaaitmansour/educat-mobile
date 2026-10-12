@@ -56,21 +56,23 @@ resources/
   - one brand color per subject, charts included
 - **Fonts:** Fredoka (display) and Quicksand (body), both from the website. Lexend is the reading-friendly option; Caveat handles handwriting on the families site.
 - **Language:** French. Use « tu » for students and « vous » for parents and staff. No emoji in the collège UI.
-- **Student app navigation:** Cours · Emploi du temps · Outils (contrôle continu, notifications, progression, fiches, minuteur, paramètres, contact).
+- **Student app login:** a personal student code only (demo EZK-3B-4821), on « le mur des cours », the year's formulas lighting up as the code is typed (impeccable, 12/10/2026).
+- **Student app navigation:** Cours · Emploi du temps · Outils (exercices, contrôle continu, notifications, progression, fiches, minuteur, paramètres, contact).
+- **Exercises (12/10/2026):** a lesson can carry an Exercice (an image posted by the teacher, or questions); short answers are auto-checked, written ones are self-marked against the corrigé; it is the lesson's 4th step. Teachers add it in the dashboard's lesson editor (« Ajouter un exercice »).
 - **Families site:** « carnet de liaison » world:
   - Seyès-ruled notebook pages on a purple desk
   - a live demo of the 50 % quiz rule
   - the parents' signature that books an appointment
 - **Staff dashboard:** « follow-up inbox »:
   - today's timetable strip and ranked alerts with one-click actions and undo
-  - lessons (editor with type, video, résumé, quiz builder, phone preview)
+  - lessons (editor with type, video, résumé, quiz builder, optional exercise with image or questions, phone preview)
   - students, emploi du temps (clash warnings), notifications
   - a Direction / Mme Benali role switch
 
 ## Status (11/10/2026)
 
 - **Hosting:** GitHub Pages, deployed by `.github/workflows/pages.yml` on every push to `main` (public repo `hamzaaitmansour/educat-mobile`). In the repo settings, Pages → Source must be « GitHub Actions ».
-- **Student app prototype v3:** built and tested (`node test.js`: 37 checks).
+- **Student app prototype v3:** built and tested (`node test.js`: 65 checks since 12/10: login, exercises, 4th lesson step).
 - **Families site + staff dashboard:** built with impeccable (decision page: carnet de liaison, follow-up inbox).
   - The independent finish review gave **ship** on both pages after two fix rounds.
   - Interaction-tested in headless Edge (15 scenario checks).

@@ -260,6 +260,120 @@ const LESSONS = [
 ];
 const LMAP = Object.fromEntries(LESSONS.map(l => [l.id, l]));
 
+/* Exercises posted by the teachers. kind 'image': a figure the teacher posted, with questions about it; kind 'questions': questions only.
+   Question t 'short': checked automatically against a (accepted answers); t 'open': the student reveals the corrigé c and marks themselves.
+   step: true makes the exercise the lesson's 4th step (« Exercice fait »); the others are extra practice linked to a lesson. */
+const EXERCISES = [
+  {
+    id: 'ex-affine', subject: 'maths', lesson: 'affine', step: true, kind: 'image', figure: 'affine', min: 10, teacher: 'Mme Benali',
+    title: 'Lire une droite',
+    intro: 'La droite (d) représente une fonction affine f. Lis le graphique pour répondre.',
+    alt: "Repère quadrillé avec la droite (d), qui monte de gauche à droite et passe par deux points marqués.",
+    qs: [
+      { t: 'short', q: "Lis l'ordonnée à l'origine b.", a: ['-1'], ph: 'b = …', c: "La droite coupe l'axe des ordonnées au point (0 ; −1), donc b = −1." },
+      { t: 'short', q: 'Calcule le coefficient directeur a.', a: ['2'], ph: 'a = …', c: 'La droite passe par (0 ; −1) et (2 ; 3) : a = (3 − (−1)) / (2 − 0) = 4 / 2 = 2.' },
+      { t: 'open', q: "Écris l'expression de f(x).", c: 'f(x) = 2x − 1, avec a = 2 et b = −1.' },
+    ],
+  },
+  {
+    id: 'ex-thales', subject: 'maths', lesson: 'thales', step: true, kind: 'image', figure: 'thales', min: 10, teacher: 'Mme Benali',
+    title: 'Calculer une longueur avec Thalès',
+    intro: 'Sur la figure, M ∈ [AB], N ∈ [AC] et (MN) // (BC). On donne AM = 4 cm, AB = 10 cm et BC = 7,5 cm.',
+    alt: 'Triangle ABC avec le segment [MN] parallèle à [BC]. AM mesure 4 cm et BC 7,5 cm.',
+    qs: [
+      { t: 'short', q: 'Calcule le rapport AM / AB.', a: ['0.4', '2/5', '4/10'], c: 'AM / AB = 4 / 10 = 0,4.' },
+      { t: 'short', q: 'Calcule la longueur MN, en cm.', a: ['3'], ph: 'MN = …', c: 'MN / BC = AM / AB, donc MN = 7,5 × 0,4 = 3 cm.' },
+      { t: 'open', q: 'Justifie que tu peux utiliser le théorème de Thalès.', c: 'M est sur [AB], N est sur [AC] et les droites (MN) et (BC) sont parallèles : on est dans la configuration de Thalès.' },
+    ],
+  },
+  {
+    id: 'ex-produit-nul', subject: 'maths', lesson: 'produit-nul', step: true, kind: 'questions', min: 8, teacher: 'Mme Benali',
+    title: 'Résoudre des équations produit nul',
+    intro: 'Résous ces équations sur ton cahier, puis compare avec la correction.',
+    qs: [
+      { t: 'open', q: 'Résous (x + 2)(3x − 6) = 0.', c: 'x + 2 = 0 ou 3x − 6 = 0, donc x = −2 ou x = 2.' },
+      { t: 'short', q: "Combien de solutions a l'équation (x − 5)(x − 5) = 0 ?", a: ['1', 'une', 'une solution', 'une seule', 'une seule solution'], c: 'Les deux facteurs sont identiques : x − 5 = 0 donne une seule solution, x = 5.' },
+    ],
+  },
+  {
+    id: 'ex-stats', subject: 'maths', lesson: 'stats', kind: 'questions', min: 6, teacher: 'Mme Benali',
+    title: 'Moyenne, médiane, étendue',
+    intro: 'Voici les notes d\'Inès ce trimestre : 12, 15, 9, 14 et 10.',
+    qs: [
+      { t: 'short', q: 'Calcule la moyenne de ces notes.', a: ['12'], c: '(12 + 15 + 9 + 14 + 10) / 5 = 60 / 5 = 12.' },
+      { t: 'short', q: 'Quelle est la médiane ?', a: ['12'], c: 'Rangées dans l\'ordre : 9, 10, 12, 14, 15. La valeur du milieu est 12.' },
+      { t: 'short', q: "Calcule l'étendue.", a: ['6'], c: 'Étendue = 15 − 9 = 6.' },
+    ],
+  },
+  {
+    id: 'ex-ohm', subject: 'pc', lesson: 'ohm', step: true, kind: 'image', figure: 'ohm', min: 10, teacher: 'M. Idrissi',
+    title: 'Exploiter le graphique U = f(I)',
+    intro: "Au TP, on a mesuré la tension U aux bornes d'un conducteur ohmique pour plusieurs intensités I.",
+    alt: "Graphique de la tension U en volts en fonction de l'intensité I en ampères : les mesures sont alignées sur une droite qui passe par l'origine.",
+    qs: [
+      { t: 'short', q: 'Lis la tension U pour I = 0,04 A, en volts.', a: ['4'], ph: 'U = …', c: 'Sur la droite, I = 0,04 A correspond à U = 4 V.' },
+      { t: 'short', q: 'Calcule la résistance R, en ohms.', a: ['100'], ph: 'R = …', c: 'R = U / I = 4 / 0,04 = 100 Ω.' },
+      { t: 'open', q: 'Pourquoi peut-on dire que U et I sont proportionnelles ?', c: "Le graphique est une droite qui passe par l'origine." },
+    ],
+  },
+  {
+    id: 'ex-conversions', subject: 'pc', lesson: 'ohm', kind: 'questions', min: 5, teacher: 'M. Idrissi',
+    title: 'Convertir avant de calculer',
+    intro: "Avant d'utiliser U = R × I, mets toujours les grandeurs dans les bonnes unités.",
+    qs: [
+      { t: 'short', q: 'Convertis 250 mA en ampères.', a: ['0.25'], c: '250 mA = 250 / 1 000 A = 0,25 A.' },
+      { t: 'short', q: 'Convertis 1,5 kΩ en ohms.', a: ['1500'], c: '1,5 kΩ = 1,5 × 1 000 Ω = 1 500 Ω.' },
+      { t: 'short', q: 'R = 200 Ω et I = 0,03 A. Calcule U, en volts.', a: ['6'], c: 'U = R × I = 200 × 0,03 = 6 V.' },
+    ],
+  },
+  {
+    id: 'ex-cellule', subject: 'svt', lesson: 'genetique', step: true, kind: 'image', figure: 'cell', min: 6, teacher: 'M. Ouali',
+    title: 'Légender une cellule',
+    intro: 'Ce schéma représente une cellule animale. Trois parties sont numérotées.',
+    alt: 'Schéma d\'une cellule animale : 1 montre le contour, 2 l\'intérieur, 3 la grosse structure ronde près du centre.',
+    qs: [
+      { t: 'short', q: 'Quel numéro désigne le noyau ?', a: ['3'], c: 'Le noyau (3) est la grosse structure arrondie, près du centre de la cellule.' },
+      { t: 'open', q: "Où se trouve l'ADN dans cette cellule ?", c: 'Dans le noyau (3), sous forme de chromosomes.' },
+    ],
+  },
+  {
+    id: 'ex-argumentation', subject: 'fr', lesson: 'argumentation', kind: 'questions', min: 8, teacher: 'Mme Laurent',
+    title: 'Repérer la thèse et les connecteurs',
+    intro: "Lis ce paragraphe : « Les écrans devraient être limités le soir. En effet, leur lumière retarde l'endormissement. Par exemple, un élève qui joue jusqu'à minuit dort moins de huit heures. Cependant, certaines applications aident à réviser. »",
+    qs: [
+      { t: 'open', q: 'Quelle est la thèse défendue ?', c: 'Les écrans devraient être limités le soir.' },
+      { t: 'short', q: 'Quel connecteur introduit une objection ?', a: ['cependant'], c: '« Cependant » marque l\'opposition : il introduit une idée contraire.' },
+      { t: 'short', q: "Quel connecteur annonce l'exemple ?", a: ['par exemple'], c: '« Par exemple » annonce l\'illustration de l\'argument.' },
+    ],
+  },
+  {
+    id: 'ex-present-perfect', subject: 'ang', lesson: 'present-perfect', step: true, kind: 'questions', min: 6, teacher: 'Mr Smith',
+    title: 'Present perfect or past simple?',
+    intro: 'Complete with the present perfect or the past simple.',
+    qs: [
+      { t: 'short', q: 'She ___ (live) in Agadir since 2019.', a: ['has lived', "she's lived"], c: '« since 2019 » : une action qui dure jusqu\'à maintenant, donc present perfect.' },
+      { t: 'short', q: 'I ___ (see) this film yesterday.', a: ['saw'], c: '« yesterday » est un moment terminé, donc past simple.' },
+      { t: 'open', q: 'Write one sentence with ever or never.', c: 'Par exemple : Have you ever been to Marrakech? / I have never seen snow.' },
+    ],
+  },
+  {
+    id: 'ex-ww2', subject: 'hg', lesson: 'ww2', step: true, kind: 'image', figure: 'frise', min: 6, teacher: 'Mme Haddad',
+    title: 'La frise 1939-1945',
+    intro: 'La frise place quatre événements de la Seconde Guerre mondiale, repérés A, B, C et D.',
+    alt: 'Frise chronologique de 1939 à 1945 avec quatre repères : A fin 1939, B mi-1941, C mi-1944, D au printemps 1945.',
+    qs: [
+      { t: 'short', q: 'Quelle lettre marque le débarquement en Normandie ?', a: ['c'], c: 'Le débarquement a lieu le 6 juin 1944 : c\'est le repère C.' },
+      { t: 'open', q: 'Explique pourquoi on parle de guerre totale.', c: "Toutes les ressources des pays sont mobilisées : l'économie, les populations civiles et la propagande." },
+    ],
+  },
+];
+const XMAP = Object.fromEntries(EXERCISES.map(x => [x.id, x]));
+EXERCISES.forEach(x => { if (x.step) LMAP[x.lesson].exo = x.id; });
+
+/* Student codes the centre hands out: EZK- + class + 4 digits. One sample student in this prototype. */
+const CODE_PREFIX = 'EZK';
+const CODES = { '3B4821': STUDENT };
+
 const WEEK = [
   { date: '2026-10-12', dw: 'Lun', d: 12, long: 'Lundi 12 octobre' },
   { date: '2026-10-13', dw: 'Mar', d: 13, long: 'Mardi 13 octobre' },

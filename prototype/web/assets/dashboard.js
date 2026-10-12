@@ -105,7 +105,7 @@ const RES_TOTAL = 9, QUIZ_TOTAL = 7;
 const stu = id => STUDENTS.find(s => s.id === id);
 const initials = n => n.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
 
-const lessonBase = (o) => Object.assign({ video: null, resume: { sections: [], retenir: '' }, quiz: [], avg: null, updated: '', author: 'benali' }, o);
+const lessonBase = (o) => Object.assign({ video: null, resume: { sections: [], retenir: '' }, quiz: [], exo: null, avg: null, updated: '', author: 'benali' }, o);
 const LESSONS = [
   lessonBase({
     id: 'affine', title: 'Fonctions affines', subj: 'maths', cls: '3e B', chapter: 'Chapitre 4 · Fonctions', type: 'vqr', status: 'published', avg: 62, updated: '8 oct.',
@@ -125,7 +125,58 @@ const LESSONS = [
   lessonBase({ id: 'puissances', title: 'Puissances de 10', subj: 'maths', cls: '4e A', chapter: 'Chapitre 4 · Nombres', type: 'rq', status: 'draft', updated: 'Aujourd\'hui 08:20', resume: { sections: [{ h: 'Écriture', p: '10ⁿ est le produit de n facteurs égaux à 10.' }], retenir: '' } }),
 ];
 const lessonById = id => LESSONS.find(l => l.id === id);
-const STATUS = { draft: ['st-draft', 'Brouillon'], review: ['st-review', 'À relire'], published: ['st-published', 'Publiée'], scheduled: ['st-scheduled', 'Programmée'] };
+
+/* exercises: an image posted by the teacher (or none), then questions with their answers.
+   short = checked by the app (accepted answers separated by ";"), open = corrigé, then the student self-marks. */
+// The images come from assets/figures.js, the same drawings the student app shows.
+const FIGS = { droite: figureDataURI('affine'), thales: figureDataURI('thales'), ohm: figureDataURI('ohm'), cellule: figureDataURI('cell'), frise: figureDataURI('frise') };
+const FIG_NAMES = { droite: 'droite-d.png', thales: 'triangle-thales.png', ohm: 'graphique-u-i.png', cellule: 'cellule.png', frise: 'frise-1939-1945.png' };
+const figImage = k => ({ name: FIG_NAMES[k], url: FIGS[k] });
+const SAMPLE_FIG = { affine: 'droite', thales: 'thales', ohm: 'ohm', genetique: 'cellule', ww2: 'frise', maths: 'droite', pc: 'ohm', svt: 'cellule', hg: 'frise' };
+const sampleImage = d => { const k = SAMPLE_FIG[d.id] || SAMPLE_FIG[d.subj]; return k ? figImage(k) : null; };
+const EXOS = {
+  affine: { title: 'Lire une droite', format: 'image', image: figImage('droite'), intro: 'La droite (d) représente une fonction affine f.', questions: [
+    { q: "Lis l'ordonnée à l'origine b.", kind: 'short', answer: '-1;−1', corr: "La droite coupe l'axe des ordonnées en (0 ; −1), donc b = −1." },
+    { q: 'Calcule le coefficient directeur a.', kind: 'short', answer: '2', corr: 'a = (3 − (−1)) / (2 − 0) = 4 / 2 = 2.' },
+    { q: "Écris l'expression de f(x).", kind: 'open', answer: '', corr: 'f(x) = 2x − 1' }] },
+  thales: { title: 'Calculer une longueur avec Thalès', format: 'image', image: figImage('thales'), intro: 'Sur la figure, M ∈ [AB], N ∈ [AC] et (MN) // (BC). On donne AM = 4 cm, AB = 10 cm et BC = 7,5 cm.', questions: [
+    { q: 'Calcule le rapport AM / AB.', kind: 'short', answer: '0,4;0.4;2/5;4/10', corr: 'AM / AB = 4 / 10 = 0,4.' },
+    { q: 'Calcule la longueur MN, en cm.', kind: 'short', answer: '3', corr: 'MN / BC = AM / AB, donc MN = 7,5 × 0,4 = 3 cm.' },
+    { q: 'Justifie que tu peux utiliser le théorème de Thalès.', kind: 'open', answer: '', corr: 'M est sur [AB], N est sur [AC] et les droites (MN) et (BC) sont parallèles : on est dans la configuration de Thalès.' }] },
+  'produit-nul': { title: 'Résoudre des équations produit nul', format: 'questions', image: null, intro: 'Résous ces équations sur ton cahier, puis compare avec la correction.', questions: [
+    { q: 'Résous (x + 2)(3x − 6) = 0.', kind: 'open', answer: '', corr: 'x + 2 = 0 ou 3x − 6 = 0, donc x = −2 ou x = 2.' },
+    { q: "Combien de solutions a l'équation (x − 5)(x − 5) = 0 ?", kind: 'short', answer: '1;une', corr: 'Les deux facteurs sont identiques : x − 5 = 0 donne une seule solution, x = 5.' }] },
+  ohm: { title: 'Exploiter le graphique U = f(I)', format: 'image', image: figImage('ohm'), intro: "Au TP, on a mesuré la tension U aux bornes d'un conducteur ohmique pour plusieurs intensités I.", questions: [
+    { q: 'Lis la tension U pour I = 0,04 A, en volts.', kind: 'short', answer: '4', corr: 'Sur la droite, I = 0,04 A correspond à U = 4 V.' },
+    { q: 'Calcule la résistance R, en ohms.', kind: 'short', answer: '100', corr: 'R = U / I = 4 / 0,04 = 100 Ω.' },
+    { q: 'Pourquoi peut-on dire que U et I sont proportionnelles ?', kind: 'open', answer: '', corr: "Le graphique est une droite qui passe par l'origine." }] },
+  genetique: { title: 'Légender une cellule', format: 'image', image: figImage('cellule'), intro: 'Ce schéma représente une cellule animale. Trois parties sont numérotées.', questions: [
+    { q: 'Quel numéro désigne le noyau ?', kind: 'short', answer: '3', corr: 'Le noyau (3) est la grosse structure arrondie, près du centre de la cellule.' },
+    { q: "Où se trouve l'ADN dans cette cellule ?", kind: 'open', answer: '', corr: 'Dans le noyau (3), sous forme de chromosomes.' }] },
+  'present-perfect': { title: 'Present perfect or past simple?', format: 'questions', image: null, intro: 'Complete with the present perfect or the past simple.', questions: [
+    { q: 'She ___ (live) in Agadir since 2019.', kind: 'short', answer: 'has lived', corr: "« since 2019 » : une action qui dure jusqu'à maintenant, donc present perfect." },
+    { q: 'I ___ (see) this film yesterday.', kind: 'short', answer: 'saw', corr: '« yesterday » est un moment terminé, donc past simple.' },
+    { q: 'Write one sentence with ever or never.', kind: 'open', answer: '', corr: 'Example: Have you ever been to Marrakech? I have never seen snow.' }] },
+  ww2: { title: 'La frise 1939-1945', format: 'image', image: figImage('frise'), intro: 'La frise place quatre événements de la Seconde Guerre mondiale, repérés A, B, C et D.', questions: [
+    { q: 'Quelle lettre marque le débarquement en Normandie ?', kind: 'short', answer: 'C', corr: "Le débarquement a lieu le 6 juin 1944 : c'est le repère C." },
+    { q: 'Explique pourquoi on parle de guerre totale.', kind: 'open', answer: '', corr: 'Toutes les ressources sont mobilisées : économie, civils, propagande.' }] },
+};
+Object.keys(EXOS).forEach(id => { lessonById(id).exo = EXOS[id]; });
+// students of 3e B who finished each exercise (« Exercice fait » in the app)
+const EXO_DONE = {
+  thales: ['yanis', 'ines', 'nour', 'ayoub', 'rania', 'salim', 'hiba', 'omar', 'kenza', 'yasmine'],
+  affine: ['yanis', 'salim', 'kenza'],
+  'produit-nul': ['yanis', 'rania', 'salim', 'hiba', 'omar', 'kenza', 'yasmine'],
+  ohm: ['yanis', 'salim', 'hiba'],
+  genetique: ['yanis', 'salim', 'kenza'],
+  ww2: ['yanis', 'nour', 'rania', 'salim', 'hiba', 'omar', 'kenza', 'yasmine'],
+};
+const exoLessons = () => LESSONS.filter(L => L.exo && L.status === 'published' && L.cls === '3e B');
+const exoDone = (s, L) => (EXO_DONE[L.id] || []).includes(s.id);
+const newExoQ = () => ({ q: '', kind: 'short', answer: '', corr: '' });
+const newExo = () => ({ title: '', format: 'image', image: null, intro: '', questions: [newExoQ()] });
+
+const STATUS ={ draft: ['st-draft', 'Brouillon'], review: ['st-review', 'À relire'], published: ['st-published', 'Publiée'], scheduled: ['st-scheduled', 'Programmée'] };
 const TYPES = { vqr: 'Vidéo · résumé · quiz', rq: 'Résumé · quiz', r: 'Résumé seul' };
 const hasVideo = t => t === 'vqr';
 const hasQuiz = t => t !== 'r';
@@ -258,7 +309,7 @@ function detail(a) {
   return `<div class="body"><h3>${esc(a.title)}</h3><p class="ctx">${esc(a.ctx)}</p>${content}${compose}${resolved}</div>`;
 }
 function partsChecks(L) {
-  const parts = [['video', 'Vidéo', hasVideo(L.type), !!L.video], ['file', 'Résumé', true, L.resume.sections.length > 0], ['quiz', 'Quiz', hasQuiz(L.type), L.quiz.length > 0]];
+  const parts = [['video', 'Vidéo', hasVideo(L.type), !!L.video], ['file', 'Résumé', true, L.resume.sections.length > 0], ['quiz', 'Quiz', hasQuiz(L.type), L.quiz.length > 0], ['exo', 'Exercice', !!L.exo, true]];
   return `<div class="checks">${parts.filter(p => p[2]).map(([ic, label, , ok]) => `<span class="check ${ok ? '' : 'missing'}">${icon(ok ? 'check' : ic)}${label}${ok ? '' : ' manquant'}</span>`).join('')}</div>`;
 }
 function viewSuivi() {
@@ -344,7 +395,7 @@ function viewLessons() {
     const part = (ok, need, ic, label) => !need ? `<span class="part no" title="${label} : sans objet">${icon(ic)}</span>` : `<span class="part ${ok ? '' : 'miss'}" title="${label} ${ok ? 'prêt' : 'manquant'}">${icon(ok ? ic : ic)}<span class="sr-only">${label} ${ok ? 'prêt' : 'manquant'}</span></span>`;
     return `<tr class="row" tabindex="0" data-act="open-lesson" data-id="${L.id}"><td><div class="title-cell"><span class="dot" style="${sv(L.subj)}"></span><span>${esc(L.title)}<br><small class="muted" style="font-weight:600">${esc(SUBJ[L.subj].name)} · ${esc(L.chapter)}</small></span></div></td>
       <td>${esc(L.cls)}</td><td class="muted" style="font-weight:600">${TYPES[L.type]}</td>
-      <td><div class="parts">${part(!!L.video, hasVideo(L.type), 'video', 'Vidéo')}${part(L.resume.sections.length > 0, true, 'file', 'Résumé')}${part(L.quiz.length > 0, hasQuiz(L.type), 'quiz', 'Quiz')}</div></td>
+      <td><div class="parts">${part(!!L.video, hasVideo(L.type), 'video', 'Vidéo')}${part(L.resume.sections.length > 0, true, 'file', 'Résumé')}${part(L.quiz.length > 0, hasQuiz(L.type), 'quiz', 'Quiz')}${part(!!L.exo, !!L.exo, 'exo', 'Exercice')}</div></td>
       <td><span class="status ${stc}">${stl}</span>${L.status === 'scheduled' && L.schedule ? `<br><small class="muted" style="font-weight:600">${esc(L.schedule)}</small>` : ''}</td>
       <td>${L.avg != null ? `<div class="barcell" style="${sv(L.subj)}"><span class="bar"><i style="width:${L.avg}%"></i></span><span class="num">${L.avg} %</span></div>` : '<span class="muted">Pas encore publiée</span>'}</td>
       <td class="muted" style="font-weight:600">${esc(L.updated)}</td></tr>`;
@@ -354,7 +405,7 @@ function viewLessons() {
     `<section class="panel"><div class="toolbar"><div class="pills" role="group" aria-label="Statut">${pills}</div>${S.role === 'direction' ? `<label class="field" style="margin-left:auto"><span class="sr-only">Matière</span><select data-bind="lessonsubj">${subjOpts}</select></label>` : ''}</div>${body}</section>`;
 }
 function newDraft() {
-  return { id: null, title: '', subj: 'maths', cls: '3e B', chapter: '', type: 'vqr', video: null, resume: { sections: [{ h: '', p: '' }], retenir: '' }, quiz: [{ q: '', o: ['', '', ''], a: 0, e: '' }], publish: 'now', at: '2026-10-19T08:00', notify: true, status: 'draft', author: S.role === 'benali' ? 'benali' : 'benali' };
+  return { id: null, title: '', subj: 'maths', cls: '3e B', chapter: '', type: 'vqr', video: null, resume: { sections: [{ h: '', p: '' }], retenir: '' }, quiz: [{ q: '', o: ['', '', ''], a: 0, e: '' }], exo: null, exoOn: false, publish: 'now', at: '2026-10-19T08:00', notify: true, status: 'draft', author: S.role === 'benali' ? 'benali' : 'benali' };
 }
 function openEditor(id) {
   if (id === 'new') S.draft = newDraft();
@@ -363,6 +414,8 @@ function openEditor(id) {
     if (!L) { location.hash = '#lecons'; return; }
     S.draft = JSON.parse(JSON.stringify(L));
     if (hasQuiz(S.draft.type) && !S.draft.quiz.length) S.draft.quiz = [{ q: '', o: ['', '', ''], a: 0, e: '' }];
+    S.draft.exoOn = !!S.draft.exo;
+    if (S.draft.exo && !S.draft.exo.questions.length) S.draft.exo.questions = [newExoQ()];
     S.draft.publish = L.status === 'scheduled' ? 'schedule' : L.status === 'draft' || L.status === 'review' ? 'now' : 'now';
     S.draft.at = '2026-10-19T08:00';
     S.draft.notify = true;
@@ -371,14 +424,48 @@ function openEditor(id) {
 }
 function preview(d) {
   const sj = SUBJ[d.subj];
-  const tabs = d.type === 'vqr' ? ['Vidéo', 'Résumé', 'Quiz'] : d.type === 'rq' ? ['Résumé', 'Quiz'] : ['Résumé'];
+  const x = d.exoOn ? d.exo : null;
+  const tabs = (d.type === 'vqr' ? ['Vidéo', 'Résumé', 'Quiz'] : d.type === 'rq' ? ['Résumé', 'Quiz'] : ['Résumé']).concat(x ? ['Exercice'] : []);
   const firstSection = d.resume.sections.find(s => s.h || s.p) || { h: 'Résumé', p: 'Le texte du résumé apparaîtra ici.' };
+  const nq = x ? x.questions.length : 0;
+  const exoCard = x ? `<div class="mp-exo"><span class="mp-k">${icon('exo')}Exercice</span><b>${esc(x.title || "Titre de l'exercice")}</b>
+    ${x.format === 'image' ? (x.image ? `<img src="${esc(x.image.url)}" alt="">` : '<span class="mp-ph">Image à ajouter</span>') : ''}<small>${nq} question${nq > 1 ? 's' : ''}</small></div>` : '';
   return `<div class="preview" aria-label="Aperçu dans l'application élève"><span>Aperçu dans l'application élève</span><div class="mini-phone"><div class="mini-screen">
     <div class="mp-hero" style="${sv(d.subj)}"><b>${esc(d.title || 'Titre de la leçon')}</b><small>${esc(sj.name)}${d.chapter ? ' · ' + esc(d.chapter) : ''}</small>
       ${tabs.length > 1 ? `<div class="mp-tabs">${tabs.map((t, i) => `<span class="${i === 0 ? 'on' : ''}">${t === 'Quiz' && d.type === 'vqr' ? icon('lock') : ''}${t}</span>`).join('')}</div>` : ''}</div>
     ${d.type === 'vqr' ? `<div class="mp-video">${d.video ? esc(d.video.name.replace(/\.[a-z0-9]+$/i, '')) : 'Vidéo à ajouter'}</div><div class="mp-track" aria-hidden="true"></div><div class="mp-btn">${icon('lock')}Quiz à 50 % de la vidéo</div>`
       : `<div class="mp-card" style="margin-top:12px"><b style="color:var(--ink);display:block;font:500 13px var(--font-display)">${esc(firstSection.h)}</b>${esc(firstSection.p)}</div>${d.type === 'rq' ? `<div class="mp-btn">${icon('quiz')}${d.quiz.length} question${d.quiz.length > 1 ? 's' : ''}</div>` : ''}`}
+    ${exoCard}
   </div></div></div>`;
+}
+function exoSection(d, E) {
+  const x = d.exo;
+  const sample = sampleImage(d);
+  const fmtCard = (k, t, s) => `<label><input type="radio" name="xfmt" value="${k}" data-bind="x-format" ${x.format === k ? 'checked' : ''}><b>${t}</b><small>${s}</small></label>`;
+  const image = x.format !== 'image' ? '' : x.image
+    ? `<div class="drop has pic"><img class="shot" src="${esc(x.image.url)}" alt="Aperçu de ${esc(x.image.name)}"><span class="meta"><b>${esc(x.image.name)}</b><span>Affichée au-dessus des questions, dans l'application élève.</span></span><button class="btn btn-quiet btn-sm" type="button" data-act="x-remove">${icon('trash')}Retirer</button></div>`
+    : `<div class="drop ${E.ximage ? 'err' : ''}" data-drop="image"><span class="ic">${icon('image')}</span><span><b>Déposer l'image</b><span>PNG ou JPG : une figure, un graphique, une carte ou la photo d'une fiche.</span></span><span class="drop-acts"><input id="xfile" type="file" accept="image/*" class="sr-only" data-bind="x-file" ${E.ximage ? 'aria-invalid="true" aria-describedby="xfile-e"' : ''}><label class="btn btn-ghost btn-sm" for="xfile">Choisir un fichier</label>${sample ? `<button class="btn btn-quiet btn-sm" type="button" data-act="x-sample">Image d'exemple</button>` : ''}</span></div>${E.ximage ? `<span class="field"><span class="err" id="xfile-e">${E.ximage}</span></span>` : ''}`;
+  const qs = x.questions.map((q, i) => {
+    const bad = E['x' + i] ? (!q.q.trim() ? 'q' : q.kind === 'short' ? 'a' : 'c') : '';
+    const inv = (f, help) => `${help || bad === f ? `aria-describedby="${[help, bad === f ? `x${i}-e` : ''].filter(Boolean).join(' ')}"` : ''} ${bad === f ? 'aria-invalid="true"' : ''}`;
+    const kind = (k, t, s) => `<label><input type="radio" name="xk${i}" value="${k}" data-bind="x-kind" data-i="${i}" ${q.kind === k ? 'checked' : ''}><span>${t} <span class="muted">· ${s}</span></span></label>`;
+    return `<div class="q"><div class="q-head">Question ${i + 1}${x.questions.length > 1 ? `<button class="btn btn-quiet btn-sm" type="button" data-act="x-del" data-i="${i}" aria-label="Supprimer la question ${i + 1}">${icon('trash')}Supprimer</button>` : ''}</div>
+      <div class="field"><label for="xq${i}">Question</label><input id="xq${i}" value="${esc(q.q)}" data-bind="x-q" data-i="${i}" placeholder="Ex. Lis l'ordonnée à l'origine b." ${inv('q')}></div>
+      <div class="field"><span class="lbl" id="xk${i}-l">Type de réponse</span><div class="radios" role="radiogroup" aria-labelledby="xk${i}-l">${kind('short', 'Réponse courte', 'corrigée automatiquement')}${kind('open', 'Réponse rédigée', 'avec corrigé')}</div></div>
+      ${q.kind === 'short'
+        ? `<div class="row2 ans"><div class="field"><label for="xa${i}">Réponse attendue</label><input id="xa${i}" value="${esc(q.answer)}" data-bind="x-answer" data-i="${i}" placeholder="Ex. 2" ${inv('a', `xa${i}-h`)}><span class="hint" id="xa${i}-h">Plusieurs réponses acceptées : séparez-les par un point-virgule.</span></div>
+          <div class="field"><label for="xc${i}">Explication <span class="hint">(facultatif)</span></label><input id="xc${i}" value="${esc(q.corr)}" data-bind="x-corr" data-i="${i}" placeholder="Affichée après la réponse"></div></div>`
+        : `<div class="field"><label for="xc${i}">Corrigé</label><textarea id="xc${i}" data-bind="x-corr" data-i="${i}" placeholder="La réponse attendue, rédigée" ${inv('c', `xc${i}-h`)}>${esc(q.corr)}</textarea><span class="hint" id="xc${i}-h">L'élève le découvre après avoir répondu, puis se note : « J'ai réussi » ou « À revoir ».</span></div>`}
+      ${E['x' + i] ? `<span class="field"><span class="err" id="x${i}-e">${E['x' + i]}</span></span>` : ''}</div>`;
+  }).join('');
+  return `<section class="sect" aria-labelledby="sx" id="exo-section"><h2 id="sx">${icon('exo')}Exercice <span class="muted">l'élève répond, puis voit la correction</span></h2>
+    <div class="field"><label for="xt">Titre de l'exercice</label><input id="xt" value="${esc(x.title)}" data-bind="x-title" placeholder="Ex. Lire une droite" ${E.xtitle ? 'aria-invalid="true" aria-describedby="xt-e"' : ''}>${E.xtitle ? `<span class="err" id="xt-e">${E.xtitle}</span>` : ''}</div>
+    <div class="field"><span class="lbl" id="xfmt-l">Format</span><div class="types two" role="radiogroup" aria-labelledby="xfmt-l">${fmtCard('image', 'Avec une image', "Figure, graphique, carte ou photo d'une fiche")}${fmtCard('questions', 'Questions seulement', 'Les questions et leurs réponses, sans image')}</div></div>
+    ${image}
+    <div class="field"><label for="xi">Consigne</label><textarea id="xi" data-bind="x-intro" placeholder="Ex. La droite (d) représente une fonction affine f.">${esc(x.intro)}</textarea></div>
+    ${qs}
+    <button class="btn btn-ghost btn-sm" type="button" data-act="x-add" style="justify-self:start">${icon('plus')}Ajouter une question</button>
+    ${E.xq ? `<span class="field"><span class="err">${E.xq}</span></span>` : ''}</section>`;
 }
 function viewEditor() {
   const d = S.draft;
@@ -425,9 +512,10 @@ function viewEditor() {
       <section class="sect" aria-labelledby="si"><h2 id="si">La leçon</h2>
         <div class="field"><label for="lt">Titre</label><input id="lt" value="${esc(d.title)}" data-bind="title" placeholder="Ex. Fonctions affines" ${E.title ? 'aria-invalid="true"' : ''}>${E.title ? `<span class="err">${E.title}</span>` : ''}</div>
         <div class="row3"><div class="field"><label for="ls">Matière</label><select id="ls" data-bind="subj">${subjOpts}</select></div><div class="field"><label for="lc">Classe</label><select id="lc" data-bind="cls">${clsOpts}</select></div><div class="field"><label for="lch">Chapitre</label><input id="lch" value="${esc(d.chapter)}" data-bind="chapter" placeholder="Ex. Chapitre 4 · Fonctions"></div></div>
-        <div class="field"><span class="lbl" id="ltype-l">Type de leçon</span><div class="types" role="radiogroup" aria-labelledby="ltype-l">${typeCard('vqr', 'Vidéo, résumé et quiz', 'Le quiz s\'ouvre à 50 % de la vidéo')}${typeCard('rq', 'Résumé et quiz', 'Une fiche, puis les questions')}${typeCard('r', 'Résumé seul', 'Une fiche de révision')}</div></div>
+        <div class="field"><span class="lbl" id="ltype-l">Type de leçon</span><div class="types" role="radiogroup" aria-labelledby="ltype-l">${typeCard('vqr', 'Vidéo, résumé et quiz', 'Le quiz s\'ouvre à 50 % de la vidéo')}${typeCard('rq', 'Résumé et quiz', 'Une fiche, puis les questions')}${typeCard('r', 'Résumé seul', 'Une fiche de révision')}</div>
+          <div class="addon-row"><label class="addon"><input type="checkbox" data-bind="exo-on" ${d.exoOn ? 'checked' : ''}><span class="box" aria-hidden="true">${icon('check')}</span><b>Ajouter un exercice</b><small>Une image ou des questions, avec les réponses</small></label>${d.exoOn ? `<button class="btn btn-quiet btn-sm" type="button" data-act="x-goto">Aller à l'exercice</button>` : ''}</div></div>
       </section>
-      ${video}${resume}${quiz}${publish}
+      ${video}${resume}${quiz}${d.exoOn ? exoSection(d, E) : ''}${publish}
       <div class="bottombar"><span class="err" role="alert">${esc(S.edMsg)}</span>${!isNew && d.id ? '' : ''}<a class="btn btn-quiet" href="#lecons">Annuler</a><button class="btn btn-primary" type="submit">${icon(d.publish === 'draft' ? 'check' : 'send')}${saveLabel}</button></div>
     </form>${preview(d)}</div>`;
 }
@@ -441,15 +529,33 @@ function validateDraft(d) {
     if (!full.length) E.quiz = 'Ajoutez au moins une question complète : la question, deux réponses et la bonne cochée.';
     d.quiz.forEach((q, i) => { if (q.q.trim() && !(q.o[q.a] || '').trim()) E['q' + i] = 'La réponse cochée est vide.'; });
   }
+  if (d.exoOn && d.publish !== 'draft') {
+    const x = d.exo;
+    const answered = q => (q.kind === 'short' ? q.answer.split(';').some(a => a.trim()) : !!q.corr.trim());
+    if (!x.title.trim()) E.xtitle = "Donnez un titre à l'exercice.";
+    if (x.format === 'image' && !x.image) E.ximage = "Ajoutez l'image de l'exercice, ou choisissez « Questions seulement ».";
+    x.questions.forEach((q, i) => {
+      if (q.q.trim() && !answered(q)) E['x' + i] = q.kind === 'short' ? 'Indiquez la réponse attendue.' : 'Écrivez le corrigé.';
+      else if (!q.q.trim() && (q.answer.trim() || q.corr.trim())) E['x' + i] = 'Écrivez la question.';
+    });
+    if (!x.questions.some(q => q.q.trim() && answered(q)) && !x.questions.some((q, i) => E['x' + i])) E.xq = 'Ajoutez au moins une question avec sa réponse attendue ou son corrigé.';
+  }
   return E;
 }
+const isExoError = k => k === 'xtitle' || k === 'ximage' || k === 'xq' || /^x\d+$/.test(k);
+const clearExoErrors = (only = isExoError) => Object.keys(S.edErrors).filter(only).forEach(k => delete S.edErrors[k]);
+const cleanExo = x => ({
+  title: x.title.trim(), format: x.format, image: x.format === 'image' ? x.image : null, intro: x.intro.trim(),
+  questions: x.questions.filter(q => q.q.trim()).map(q => ({ q: q.q.trim(), kind: q.kind, answer: q.kind === 'short' ? q.answer.split(';').map(a => a.trim()).filter(Boolean).join(';') : '', corr: q.corr.trim() })),
+});
 function saveDraft() {
   const d = S.draft;
   S.edErrors = validateDraft(d);
   const n = Object.keys(S.edErrors).length;
   if (n) { S.edMsg = n === 1 ? 'Un point à corriger avant d\'enregistrer.' : `${n} points à corriger avant d'enregistrer.`; render(); const first = document.querySelector('[aria-invalid="true"], .err:not(:empty)'); if (first && first.scrollIntoView) first.scrollIntoView({ block: 'center' }); return; }
   const status = d.publish === 'now' ? 'published' : d.publish === 'schedule' ? 'scheduled' : 'draft';
-  const clean = Object.assign({}, d, { quiz: hasQuiz(d.type) ? d.quiz.filter(q => q.q.trim()) : [], video: hasVideo(d.type) ? d.video : null, status, updated: `Aujourd'hui ${clock()}` });
+  const clean = Object.assign({}, d, { quiz: hasQuiz(d.type) ? d.quiz.filter(q => q.q.trim()) : [], video: hasVideo(d.type) ? d.video : null, exo: d.exoOn ? cleanExo(d.exo) : null, status, updated: `Aujourd'hui ${clock()}` });
+  delete clean.exoOn;
   if (status === 'scheduled') clean.schedule = d.at.replace('T', ' ');
   let L = d.id ? lessonById(d.id) : null;
   if (L) Object.assign(L, clean);
@@ -472,11 +578,12 @@ function viewStudents() {
   const rows = STUDENTS.filter(s => (S.stuFilter === 'all' || (S.stuFilter === 'late' && late(s)) || (S.stuFilter === 'pap' && s.profile !== 'Typique')) && (!q || s.name.toLowerCase().includes(q)));
   const sel = stu(S.stuSel) || STUDENTS[0];
   const pills = [['all', 'Tous', STUDENTS.length], ['late', 'En retard', STUDENTS.filter(late).length], ['pap', 'Profils accompagnés', STUDENTS.filter(s => s.profile !== 'Typique').length]].map(([k, l, n]) => `<button type="button" data-act="sfilter" data-k="${k}" aria-pressed="${S.stuFilter === k}">${l} <span class="num">${n}</span></button>`).join('');
-  const table = rows.length ? `<div class="tablewrap"><table class="grid"><thead><tr><th>Élève</th><th>Profil</th><th>Vidéos vues</th><th>Résumés lus</th><th>Quiz réussis</th><th>Dernière activité</th></tr></thead><tbody>${rows.map(s => `<tr class="row ${s.id === sel.id ? 'selected' : ''}" tabindex="0" data-act="stu" data-id="${s.id}" aria-selected="${s.id === sel.id}">
+  const exos = exoLessons();
+  const table = rows.length ? `<div class="tablewrap"><table class="grid"><thead><tr><th>Élève</th><th>Profil</th><th>Vidéos vues</th><th>Résumés lus</th><th>Quiz réussis</th><th>Exercices<span class="sr-only"> faits</span></th><th>Dernière activité</th></tr></thead><tbody>${rows.map(s => `<tr class="row ${s.id === sel.id ? 'selected' : ''}" tabindex="0" data-act="stu" data-id="${s.id}" aria-selected="${s.id === sel.id}">
       <td><div class="person"><span class="avatar">${initials(s.name)}</span><b>${esc(s.name)}</b></div></td>
       <td><span class="tag ${s.profile.toLowerCase()}">${esc(s.profile)}</span></td>
       <td><div class="barcell"><span class="bar half ${s.video < 50 ? 'low' : ''}" title="Le quiz s'ouvre à 50 % de chaque vidéo"><i style="width:${s.video}%"></i></span><span class="num">${s.video} %</span></div></td>
-      <td class="num">${s.res} / ${RES_TOTAL}</td><td class="num">${s.quiz} / ${QUIZ_TOTAL}</td><td class="muted" style="font-weight:600">${esc(s.last)}</td></tr>`).join('')}</tbody></table></div>`
+      <td class="num">${s.res} / ${RES_TOTAL}</td><td class="num">${s.quiz} / ${QUIZ_TOTAL}</td><td class="num">${exos.filter(L => exoDone(s, L)).length} / ${exos.length}</td><td class="muted" style="font-weight:600">${esc(s.last)}</td></tr>`).join('')}</tbody></table></div>`
     : '<div class="calm"><h3>Aucun élève ne correspond.</h3><p>Essayez un autre nom ou un autre filtre.</p></div>';
   const file = `<aside class="panel file" aria-label="Dossier de ${esc(sel.name)}"><div class="body">
     <div class="person"><span class="avatar" style="width:44px;height:44px;font-size:.9375rem">${initials(sel.name)}</span><span><h3>${esc(sel.name)}</h3><span class="muted" style="font-weight:600">3e B · <span class="tag ${sel.profile.toLowerCase()}">${esc(sel.profile)}</span></span></span></div>
@@ -485,6 +592,7 @@ function viewStudents() {
     <div style="display:grid;gap:8px"><b style="font-size:.8125rem">Cette semaine</b><ul class="timeline">
       <li><span>Lun.</span><span>Vidéo « Fonctions affines » vue à ${sel.affine} %${sel.affine >= 50 ? ', quiz débloqué' : ''}.</span></li>
       <li><span>Dim.</span><span>${sel.res >= 6 ? 'Résumé « ADN, gènes et chromosomes » lu.' : 'Aucun résumé lu.'}</span></li>
+      ${lessonById('thales').exo ? `<li><span>Sam.</span><span>Exercice « ${esc(lessonById('thales').exo.title)} » ${exoDone(sel, lessonById('thales')) ? 'fait' : 'pas encore fait'}.</span></li>` : ''}
       <li><span>Ven.</span><span>Quiz « Théorème de Thalès » : ${sel.quiz >= 5 ? '3 / 3' : sel.quiz >= 3 ? '2 / 3' : '1 / 3'}.</span></li></ul></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-primary" type="button" data-act="write-to" data-id="${sel.id}">${icon('send')}Écrire à l'élève</button><button class="btn btn-ghost" type="button" data-act="support-for" data-id="${sel.id}">${icon('calendar')}Planifier un soutien</button></div>
   </div></aside>`;
@@ -641,6 +749,11 @@ const ACT = {
   'q-add': () => { S.draft.quiz.push({ q: '', o: ['', '', ''], a: 0, e: '' }); render(); },
   'q-del': d => { S.draft.quiz.splice(+d.i, 1); render(); },
   'o-add': d => { S.draft.quiz[+d.i].o.push(''); render(); },
+  'x-goto': () => { const s = $('#exo-section'); if (!s) return; s.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); $('#xt').focus({ preventScroll: true }); },
+  'x-sample': () => { const im = sampleImage(S.draft); if (!im) return; S.draft.exo.image = im; delete S.edErrors.ximage; renderFocus('[data-act="x-remove"]'); },
+  'x-remove': () => { S.draft.exo.image = null; renderFocus('#xfile'); },
+  'x-add': () => { const qs = S.draft.exo.questions; qs.push(newExoQ()); renderFocus(`#xq${qs.length - 1}`); },
+  'x-del': d => { S.draft.exo.questions.splice(+d.i, 1); clearExoErrors(k => /^x\d+$/.test(k)); renderFocus('[data-act="x-add"]'); },
   sfilter: d => { S.stuFilter = d.k; render(); },
   stu: d => { S.stuSel = d.id; render(); },
   'write-to': d => { S.compose = Object.assign({}, S.compose, { to: 'student', student: d.id, cat: 'rappel', title: '', body: '' }); location.hash = '#notifs'; },
@@ -686,6 +799,11 @@ document.addEventListener('input', e => {
     case 'q-q': d.quiz[i].q = t.value; return;
     case 'q-o': d.quiz[i].o[+t.dataset.j] = t.value; return;
     case 'q-e': d.quiz[i].e = t.value; return;
+    case 'x-title': d.exo.title = t.value; delete S.edErrors.xtitle; t.removeAttribute('aria-invalid'); break;
+    case 'x-intro': d.exo.intro = t.value; return;
+    case 'x-q': d.exo.questions[i].q = t.value; t.removeAttribute('aria-invalid'); return;
+    case 'x-answer': d.exo.questions[i].answer = t.value; t.removeAttribute('aria-invalid'); return;
+    case 'x-corr': d.exo.questions[i].corr = t.value; t.removeAttribute('aria-invalid'); return;
     case 'n-title': S.compose.title = t.value; updateNotifPreview(); return;
     case 'n-body': S.compose.body = t.value; updateNotifPreview(); return;
     case 'e-title': S.edtDraft.title = t.value; return;
@@ -719,6 +837,15 @@ document.addEventListener('change', e => {
       render();
       break;
     }
+    case 'exo-on':
+      d.exoOn = t.checked;
+      if (d.exoOn && !d.exo) d.exo = newExo(); // unchecking keeps d.exo in memory until save
+      clearExoErrors();
+      renderFocus('[data-bind="exo-on"]');
+      break;
+    case 'x-format': d.exo.format = t.value; delete S.edErrors.ximage; renderFocus('input[name="xfmt"]:checked'); break;
+    case 'x-kind': d.exo.questions[+t.dataset.i].kind = t.value; delete S.edErrors['x' + t.dataset.i]; renderFocus(`input[name="xk${t.dataset.i}"]:checked`); break;
+    case 'x-file': setExoImage(t.files && t.files[0]); break;
     case 'lessonsubj': S.lessonSubj = t.value; render(); break;
     case 'edtclass': S.edtClass = t.value; S.edtSel = null; S.edtDraft = null; render(); break;
     case 'e-subj': case 'e-kind': case 'e-teacher': case 'e-room': case 'e-day': case 'e-start': case 'e-end':
@@ -732,6 +859,23 @@ document.addEventListener('change', e => {
     default: break;
   }
 });
+function renderFocus(sel) {
+  render();
+  const el = document.querySelector(sel);
+  if (el) el.focus({ preventScroll: true });
+}
+function setExoImage(f) {
+  if (!f || !S.draft || !S.draft.exo) return;
+  if (!/^image\//.test(f.type)) { S.edErrors.ximage = "Ce fichier n'est pas une image. Choisissez un PNG ou un JPG."; render(); return; }
+  S.draft.exo.image = { name: f.name, url: URL.createObjectURL(f) };
+  delete S.edErrors.ximage;
+  renderFocus('[data-act="x-remove"]');
+}
+// the exercise image zone also takes a dropped file
+const dropZone = e => (e.target.closest ? e.target.closest('[data-drop]') : null);
+document.addEventListener('dragover', e => { const z = dropZone(e); if (!z) return; e.preventDefault(); z.classList.add('over'); });
+document.addEventListener('dragleave', e => { const z = dropZone(e); if (z && !z.contains(e.relatedTarget)) z.classList.remove('over'); });
+document.addEventListener('drop', e => { const z = dropZone(e); if (!z) return; e.preventDefault(); z.classList.remove('over'); setExoImage(e.dataTransfer.files[0]); });
 function rerenderKeepFocus(input) {
   const bind = input.dataset.bind, pos = input.selectionStart;
   render();

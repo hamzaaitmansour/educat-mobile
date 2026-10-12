@@ -1,0 +1,72 @@
+{
+  "title": "Student app · Connexion",
+  "question": "The new login screen of the student app: the student types the personal code the centre gave them (code only, the phone remembers them). The world stays the app's (lavender, white, plum-ink pill, subject colours, Fredoka + Quicksand). Pick one structure, steer it, or re-roll.",
+  "options": [
+    {
+      "id": "semaine",
+      "label": "Ta semaine en couleurs",
+      "kicker": "THE ROLL",
+      "lineage": "the 3e B week grid, Monday to Saturday, painted in subject colours",
+      "thesis": "The top of the screen is the collège's week as a wall of subject-coloured blocks; the login is a white sheet rising under it.",
+      "palette": ["#F3EFF8", "#FFFFFF", "#241C33", "#9333EA", "#D9368F", "#088D84", "#F2AB19"],
+      "materials": ["six day columns of rounded class blocks, no text", "white bottom sheet", "segmented code cells", "plum-ink pill"],
+      "viewport": "Upper 55 %: Lun to Sam columns of class blocks in Maths violet, PC teal, SVT green, Français pink, Anglais amber, HG coral, with the logo on a white chip; lower 45 %: « Entre ton code élève », code cells, « Se connecter », « Pas de code ? Demande-le à l'accueil ».",
+      "risk": "Without labels the week can read as a pattern until the student knows the app; the blocks must stay recognisable as a timetable.",
+      "wireframe": {
+        "cols": 6, "rows": 12,
+        "regions": [
+          { "label": "week wall: Lun–Sam blocks in subject colours + logo chip", "x": 0, "y": 0, "w": 6, "h": 6, "accent": true },
+          { "label": "sheet: Entre ton code élève", "x": 0, "y": 6, "w": 6, "h": 2 },
+          { "label": "code cells EZK · 3B · 4821", "x": 0, "y": 8, "w": 6, "h": 1 },
+          { "label": "Se connecter (pill)", "x": 0, "y": 9, "w": 6, "h": 1 },
+          { "label": "Pas de code ? accueil", "x": 0, "y": 10, "w": 6, "h": 2 }
+        ]
+      }
+    },
+    {
+      "id": "mur",
+      "label": "Le mur des cours",
+      "lineage": "the year's real lessons: f(x) = ax + b, U = R × I, AM/AB = AN/AC, 1939-1945, have + past participle",
+      "thesis": "Behind the login, the year's real content is written large in soft subject tints; each character typed lights one formula in its colour.",
+      "palette": ["#F3EFF8", "#FFFFFF", "#241C33", "#9333EA", "#D9368F", "#088D84", "#F2AB19"],
+      "materials": ["Fredoka formulas in subject washes, slow drift", "centred white card", "code field", "plum-ink pill"],
+      "viewport": "Rows of formulas and dates fill the screen edge to edge; a white card in the middle holds the logo, « Bonjour ! », the code field and « Se connecter »; a valid code lights the whole wall, then « Bonjour Yanis ».",
+      "risk": "A busy backdrop behind a form can cost focus for TDAH and DYS students; calm mode must freeze it and the tints must stay quiet.",
+      "wireframe": {
+        "cols": 6, "rows": 12,
+        "regions": [
+          { "label": "wall: f(x) = ax + b · U = R × I · 1939-1945", "x": 0, "y": 0, "w": 6, "h": 3, "accent": true },
+          { "label": "card: logo + Bonjour !", "x": 1, "y": 3, "w": 4, "h": 2 },
+          { "label": "code field", "x": 1, "y": 5, "w": 4, "h": 1 },
+          { "label": "Se connecter", "x": 1, "y": 6, "w": 4, "h": 1 },
+          { "label": "help: accueil", "x": 1, "y": 7, "w": 4, "h": 1 },
+          { "label": "wall continues, formulas light as you type", "x": 0, "y": 8, "w": 6, "h": 4, "accent": true }
+        ]
+      }
+    },
+    {
+      "id": "grand-code",
+      "label": "Le grand code",
+      "lineage": "the code card the centre hands out, its characters at poster scale",
+      "thesis": "Almost nothing on screen but the code itself, in monumental cells over a slow violet-to-pink light field.",
+      "palette": ["#F3EFF8", "#FFFFFF", "#241C33", "#9333EA", "#E540B5", "#088D84"],
+      "materials": ["monumental Fredoka code cells", "soft moving light field at the bottom", "logo", "plum-ink pill"],
+      "viewport": "Logo at the top, « Ton code élève » and three groups of large cells across the width, a help line, then the light field rising behind the « Se connecter » pill; a valid code sweeps the light up into the home screen.",
+      "risk": "A soft gradient field is a common login look; it only holds if the cells are truly monumental and the field stays in the brand's own colours.",
+      "wireframe": {
+        "cols": 6, "rows": 12,
+        "regions": [
+          { "label": "logo", "x": 1, "y": 1, "w": 4, "h": 1 },
+          { "label": "Ton code élève", "x": 0, "y": 3, "w": 6, "h": 1 },
+          { "label": "monumental code cells", "x": 0, "y": 4, "w": 6, "h": 2, "accent": true },
+          { "label": "help: accueil", "x": 0, "y": 6, "w": 6, "h": 1 },
+          { "label": "light field (violet → pink)", "x": 0, "y": 7, "w": 6, "h": 3, "accent": true },
+          { "label": "Se connecter", "x": 0, "y": 10, "w": 6, "h": 1 }
+        ]
+      }
+    }
+  ],
+  "reroll": true,
+  "steer": true,
+  "buildPath": { "value": "code", "toggle": false }
+}

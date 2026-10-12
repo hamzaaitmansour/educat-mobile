@@ -17,7 +17,7 @@ Static HTML/CSS/JS demo files, no framework and no backend (owner, 11/10/2026: "
 - **Families:** parents of collège students (14 to 16) and the students themselves, in Agadir. They discover EducazenKids and its student app, then download the app or book an appointment / enrol for the 2026-2027 school year. Parents are addressed with « vous ».
 - **Direction (management):** the center's directors and pedagogical coordinators. They organise everything: classes, timetable, lessons, students, announcements.
 - **Teachers:**
-  - add their lessons (video, résumé, quiz)
+  - add their lessons (video, résumé, quiz, exercise)
   - schedule their classes
   - follow how their students progress
   - send notifications to their classes
@@ -46,7 +46,7 @@ The app and dashboard make that individual follow-up visible. Progress counts on
 
 - **Programme:** collège (3e, CNED); subjects Maths, Physique-Chimie, SVT, Français, Anglais, Histoire-Géo.
 - **Activities:** workshops (codage & IA, méthodo, art-thérapie), soutien scolaire, holiday camps.
-- **Lesson types:** vidéo + résumé + quiz, résumé + quiz, résumé seul.
+- **Lesson types:** vidéo + résumé + quiz, résumé + quiz, résumé seul; each can carry an optional exercise (an image posted by the teacher, or questions; short answers auto-checked, written ones self-marked against a corrigé), which is the lesson's 4th step (owner, 12/10/2026).
 - **Quizzes:** 60 % validates.
 - **Week structure:** Monday to Saturday, classes from 08:00 to 17:15, lunch break 12:00 to 14:00, rooms (Salle 12, Labo 2, Salle info, Salle Zen…).
 - **Contrôles and teachers:** contrôles are scheduled in the timetable with a coefficient. Teachers are referred to as Mme / M., except the English teacher, written « Mr » (English usage, the same in the student app, the website and the dashboard).
