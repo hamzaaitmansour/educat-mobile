@@ -372,7 +372,7 @@ EXERCISES.forEach(x => { if (x.step) LMAP[x.lesson].exo = x.id; });
 
 /* Student codes the centre hands out: EZK- + class + 4 digits. One sample student in this prototype. */
 const CODE_PREFIX = 'EZK';
-const CODES = { '3B4821': STUDENT };
+const CODES = { '1H2002': STUDENT };
 
 const WEEK = [
   { date: '2026-10-12', dw: 'Lun', d: 12, long: 'Lundi 12 octobre' },

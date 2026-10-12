@@ -42,7 +42,7 @@ All changes live in memory and reset on reload.
 
 ## Student app (`educazenkids-college.html`, source in `src/`)
 
-A single HTML file. It opens on the login (« le mur des cours »); the demo code is **EZK-3B-4821**, and the phone stays signed in until Paramètres → Se déconnecter. Progress (video seconds watched, quiz scores, exercise results, added timetable slots, settings, sign-in) is saved in the browser's `localStorage` under `ezk-college-proto-v1`. **Paramètres → Réinitialiser la démo** clears it.
+A single HTML file. It opens on the login (« le mur des cours »); the demo code is not shown anywhere on screen (owner, 12/10/2026; it is the key of `CODES` in `src/data.js`), and the phone stays signed in until Paramètres → Se déconnecter. Progress (video seconds watched, quiz scores, exercise results, added timetable slots, settings, sign-in) is saved in the browser's `localStorage` under `ezk-college-proto-v1`. **Paramètres → Réinitialiser la démo** clears it.
 
 | File | Role |
 |---|---|

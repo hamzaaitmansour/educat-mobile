@@ -6,10 +6,10 @@ The student app for collège (14 to 16, 3e, CNED programme at EducazenKids Agadi
 
 Decided 12/10/2026: students sign in with a **personal code** the centre hands out, nothing else. The phone remembers them; « Se déconnecter » in Paramètres signs out.
 
-- **Code:** `EZK-` + class + 4 digits, e.g. EZK-3B-4821. The prefix is printed; the student types the 6 characters into cells. A pasted code (with or without « EZK- », any case, spaces) is tidied.
-- **Errors**, each with its own message: too short (« Ton code a 6 caractères après EZK… »), wrong shape (« Il ressemble à EZK-3B-4821 »), unknown code (« Vérifie-le, ou demande ton code à l'accueil »). On an error the lit formulas go back to their tint.
+- **Code:** `EZK-` + class (a digit and a letter) + 4 digits. The prefix is printed; the student types the 6 characters into cells. A pasted code (with or without « EZK- », any case, spaces) is tidied.
+- **Errors**, each with its own message: too short (« Ton code a 6 caractères après EZK… »), wrong shape (« ta classe (un chiffre, une lettre), puis 4 chiffres »), unknown code (« Vérifie-le, ou demande ton code à l'accueil »). On an error the lit formulas go back to their tint.
 - **Screen: « le mur des cours ».** The backdrop is the year's real content (f(x) = ax + b, U = R × I, 46 chromosomes, 1939-1945, have + past participle…) in pale subject tints, drifting slowly. Each typed character lights one formula in its subject colour; a valid code lights the whole wall and the card greets the student (« Bonjour Yanis ! », class, « Code reconnu »), then Home opens. The drift stops in calm mode, with reduced motion, and while the student types.
-- **Help:** « Pas de code ? Demande-le à l'accueil du centre. » The prototype adds a button that types the demo code.
+- **Help:** « Pas de code ? Demande-le à l'accueil du centre. » The demo code is not shown on screen or in the docs (owner, 12/10/2026): the owner hands it out.
 
 ## Navigation
 

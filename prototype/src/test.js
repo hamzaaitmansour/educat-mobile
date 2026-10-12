@@ -93,9 +93,9 @@ ok(t.progressOf(L) === 75, `lesson progress with the exercise done = ${t.progres
 ok(t.progressOf(t.LMAP.thales) === 100, 'Thalès stays 100 % (its exercise is done in the sample data)');
 // 8. connexion with the student code
 const tryCode = v => { t.S().screen = 'splash'; t.S().login = { v, err: '', ok: false }; t.loginSubmit(); return t.S().login; };
-ok(tryCode('3B48').err === 'short' && tryCode('ABCDEF').err === 'format' && tryCode('3B4812').err === 'unknown', 'short, malformed and unknown codes are refused with their own message');
-ok(t.cleanCode('ezk-3b-4821') === '3B4821' && t.cleanCode('3b 48 21') === '3B4821', 'a pasted code is tidied (prefix, case, spaces)');
-const signed = tryCode('3B4821');
+ok(tryCode('1H20').err === 'short' && tryCode('ABCDEF').err === 'format' && tryCode('1H2020').err === 'unknown' && tryCode('3B4821').err === 'unknown', 'short, malformed and unknown codes (the old demo code included) are refused with their own message');
+ok(t.cleanCode('ezk-1h-2002') === '1H2002' && t.cleanCode('1h 20 02') === '1H2002', 'a pasted code is tidied (prefix, case, spaces)');
+const signed = tryCode('1H2002');
 ok(signed.ok === true && !signed.err && JSON.parse(Object.values(store).pop()).signedIn === true, 'the demo code signs Yanis in and the phone remembers it');
 console.log(fails ? `${fails} FAILED` : 'ALL PASSED');
 process.exit(fails ? 1 : 0);

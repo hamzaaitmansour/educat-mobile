@@ -56,7 +56,7 @@ resources/
   - one brand color per subject, charts included
 - **Fonts:** Fredoka (display) and Quicksand (body), both from the website. Lexend is the reading-friendly option; Caveat handles handwriting on the families site.
 - **Language:** French. Use « tu » for students and « vous » for parents and staff. No emoji in the collège UI.
-- **Student app login:** a personal student code only (demo EZK-3B-4821), on « le mur des cours », the year's formulas lighting up as the code is typed (impeccable, 12/10/2026).
+- **Student app login:** a personal student code only (the demo code sits in `CODES` in `prototype/src/data.js`; the owner keeps it off the screen and out of the docs), on « le mur des cours », the year's formulas lighting up as the code is typed (impeccable, 12/10/2026).
 - **Student app navigation:** Cours · Emploi du temps · Outils (exercices, contrôle continu, notifications, progression, fiches, minuteur, paramètres, contact).
 - **Exercises (12/10/2026):** a lesson can carry an Exercice (an image posted by the teacher, or questions); short answers are auto-checked, written ones are self-marked against the corrigé; it is the lesson's 4th step. Teachers add it in the dashboard's lesson editor (« Ajouter un exercice »).
 - **Families site:** « carnet de liaison » world:

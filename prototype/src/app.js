@@ -208,7 +208,7 @@ function wallHTML(lit, all) {
 const LOGIN_HELP = '<p class="login-help">Pas de code ? Demande-le à l\'accueil du centre.</p>';
 const LOGIN_ERR = {
   short: 'Ton code a 6 caractères après EZK : ta classe, puis 4 chiffres.',
-  format: "Ce code n'a pas le bon format. Il ressemble à EZK-3B-4821.",
+  format: "Ce code n'a pas le bon format : ta classe (un chiffre, une lettre), puis 4 chiffres.",
   unknown: "Ce code ne correspond à aucun élève. Vérifie-le, ou demande ton code à l'accueil.",
 };
 const cleanCode = s => { let v = String(s).toUpperCase().replace(/[^A-Z0-9]/g, ''); if (v.startsWith(CODE_PREFIX) && v.length > 6) v = v.slice(CODE_PREFIX.length); return v.slice(0, 6); };
@@ -231,8 +231,7 @@ SCREENS.splash = c => {
         <button class="btn btn-dark block" type="submit">Se connecter ${ic('arrow', 18)}</button>
         <div class="login-slot" id="login-slot">${lg.err ? `<p class="login-msg" role="alert">${esc(LOGIN_ERR[lg.err])}</p>` : LOGIN_HELP}</div>
       </form>`;
-  return `<div class="login">${wallHTML(lg.err ? 0 : lg.v.length, !!who)}${card}
-    ${who ? '' : `<button class="login-demo" data-act="loginDemo">Prototype : code de démo <b>EZK-3B-4821</b></button>`}</div>`;
+  return `<div class="login">${wallHTML(lg.err ? 0 : lg.v.length, !!who)}${card}</div>`;
 };
 function paintLogin() {
   const v = S.login.v;
@@ -245,10 +244,8 @@ function paintLogin() {
     const inp = $('#login-code'); if (inp) inp.removeAttribute('aria-invalid');
   }
 }
-let loginTimer = 0;
 function loginSubmit() {
   const v = S.login.v;
-  clearInterval(loginTimer);
   S.login.err = v.length < 6 ? 'short' : !/^[0-9][A-Z][0-9]{4}$/.test(v) ? 'format' : !CODES[v] ? 'unknown' : '';
   if (S.login.err) { S.focus = 'login-code'; render(); return; }
   S.login.ok = true;
@@ -1316,19 +1313,6 @@ const ACTIONS = {
   resetDemo: () => { pauseVideo(); timerStop(); stopExamTimer(); P = seed(); save(); V.id = null; V.w = null; V.rate = 1; T.mode = 'focus'; T.total = T.left = 1500; T.cycle = 1; const sc = S.screen === 'splash' ? 'home' : S.screen; S = S0(); S.screen = sc === 'quiz' || sc === 'lesson' || sc === 'exo' ? 'home' : sc; render(true); toast('Démo réinitialisée.'); },
   copy: d => { const done = () => toast('Numéro copié.'); try { navigator.clipboard.writeText(d.text).then(done, () => toast('Sélectionne le numéro pour le copier.')); } catch (e) { toast('Sélectionne le numéro pour le copier.'); } },
   gallery: d => showGallery(d.on === '1'),
-  loginDemo: () => {
-    clearInterval(loginTimer);
-    const code = Object.keys(CODES)[0];
-    const still = P.settings.calm || (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches);
-    if (still || !$('#login-code')) { S.login.v = code; loginSubmit(); return; }
-    let i = 0;
-    loginTimer = setInterval(() => {
-      i++; S.login.v = code.slice(0, i);
-      const inp = $('#login-code'); if (inp) inp.value = S.login.v;
-      paintLogin();
-      if (i >= code.length) { clearInterval(loginTimer); setTimeout(loginSubmit, 380); }
-    }, 170);
-  },
   logout: () => { pauseVideo(); timerStop(); stopExamTimer(); P.signedIn = false; save(); S = S0(); render(true); toast('Tu es déconnecté. Ton code te permet de revenir.'); },
   exoStart: d => startExo(d.id),
   exoRetry: () => startExo(S.exo.id, true),
@@ -1420,7 +1404,7 @@ document.addEventListener('scroll', e => {
 }, true);
 document.addEventListener('input', e => {
   if (e.target.id === 'fiche-q') { S.ficheQ = e.target.value; const l = $('#fiche-list'); if (l) l.innerHTML = ficheList(S.ficheQ); }
-  if (e.target.id === 'login-code') { clearInterval(loginTimer); const v = cleanCode(e.target.value); if (e.target.value !== v) e.target.value = v; S.login.v = v; paintLogin(); }
+  if (e.target.id === 'login-code') { const v = cleanCode(e.target.value); if (e.target.value !== v) e.target.value = v; S.login.v = v; paintLogin(); }
   if (e.target.dataset && e.target.dataset.exq != null && S.exo) S.exo.ans[+e.target.dataset.exq].v = e.target.value;
 });
 
@@ -1447,9 +1431,9 @@ const GALLERY = [
   ['Minuteur', { screen: 'timer' }],
   ['Paramètres', { screen: 'settings' }],
   ['Contacter le centre', { screen: 'contact' }],
-  ['Connexion · saisie du code', { screen: 'splash', login: { v: '3B48', err: '', ok: false } }],
-  ['Connexion · code inconnu', { screen: 'splash', login: { v: '3B4812', err: 'unknown', ok: false } }],
-  ['Connexion · code reconnu', { screen: 'splash', login: { v: '3B4821', err: '', ok: true } }],
+  ['Connexion · saisie du code', { screen: 'splash', login: { v: '1H20', err: '', ok: false } }],
+  ['Connexion · code inconnu', { screen: 'splash', login: { v: '1H2020', err: 'unknown', ok: false } }],
+  ['Connexion · code reconnu', { screen: 'splash', login: { v: '1H2002', err: '', ok: true } }],
   ['Leçon · onglet Exercice', { screen: 'lesson', lessonId: 'affine', tab: 'exo' }],
   ['Exercice avec image', { screen: 'exo', exo: { id: 'ex-affine', done: false, ans: [{ v: '−1', st: 'ok', tries: 0 }, { v: '4', st: 'retry', tries: 1 }, { v: '', st: '', tries: 0 }] } }],
   ['Exercice · corrigé à comparer', { screen: 'exo', exo: { id: 'ex-produit-nul', done: false, ans: [{ v: 'x = −2 ou x = 2', st: 'shown', tries: 0 }, { v: '', st: '', tries: 0 }] } }],

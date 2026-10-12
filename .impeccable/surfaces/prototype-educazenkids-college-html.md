@@ -10,7 +10,7 @@ Scope: the collège student app prototype (`prototype/educazenkids-college.html`
 Audience: collège students, 14 to 16, typique, DYS, TDAH, TSA and HPI.
 Job: sign in with the personal code the centre gives each student (code only; the phone remembers them).
 States: empty, typing, invalid format, unknown code, signed in.
-Constraints: no backend (sample code EZK-3B-4821 for Yanis B.), French, « tu », no emoji, calm mode and reduced motion freeze the drift, touch targets of 44 px or more.
+Constraints: no backend (one sample code for Yanis B., in `CODES`; owner 12/10: never shown on screen), French, « tu », no emoji, calm mode and reduced motion freeze the drift, touch targets of 44 px or more.
 
 Also added 12/10 as extensions of the incumbent world (no new identity): an Exercice tab in lessons (an image posted by the teacher or questions, short answers auto-checked, longer ones corrigé + self-check, counted as a 4th lesson step) and an Exercices section in Outils, filtered by subject.
 
@@ -25,7 +25,7 @@ OWN-WORLD: The app's lavender world. Rows of Fredoka formulas and dates (f(x) = 
 
 STORY: The student opens the app, recognises their subjects on the wall, and types the code from the centre. Each character lights one formula in its colour. A valid code lights the whole wall and greets them by name; an unknown code says what to do next.
 
-FIRST VIEWPORT: Formula rows edge to edge above and below. A centred white card at about 40 % height: logo, « Bonjour ! », one line, the code field (EZK · 3B · 4821 shape), « Se connecter », « Pas de code ? Demande-le à l'accueil ». A demo hint under the card.
+FIRST VIEWPORT: Formula rows edge to edge above and below. A centred white card at about 40 % height: logo, « Bonjour ! », one line, the code field (EZK · 3B · 4821 shape), « Se connecter », « Pas de code ? Demande-le à l'accueil ». No demo hint: the owner hands the code out (12/10).
 
 FORM: Le mur des cours, position 1 of 7 on the ranked surface list, seed key df5ed065. Signature interaction: typed characters light formulas; a valid code lights the wall, then « Bonjour Yanis ».
 
